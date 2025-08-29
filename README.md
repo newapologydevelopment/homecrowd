@@ -204,6 +204,36 @@ Access Sanity Studio at `/studio` to manage:
 - Custom animations in `globals.css`
 - Theme configuration in `tailwind.config.js`
 
+## 🚀 Quick Setup для GitHub
+
+### Крок 1: Клонування та встановлення
+```bash
+git clone https://github.com/yourusername/homecrowd.git
+cd homecrowd
+npm install
+```
+
+### Крок 2: Налаштування змінних середовища
+```bash
+cp env.example .env.local
+# Відредагуйте .env.local з вашими Sanity даними
+```
+
+### Крок 3: Запуск
+```bash
+npm run dev          # Next.js сайт (http://localhost:3000)
+npm run studio       # Sanity CMS (http://localhost:3333)
+```
+
+## 🌐 Deployment на Vercel
+
+1. Підключіть GitHub репозиторій до Vercel
+2. Додайте змінні середовища в Vercel dashboard:
+   - `NEXT_PUBLIC_SANITY_PROJECT_ID`
+   - `NEXT_PUBLIC_SANITY_DATASET`
+   - `SANITY_API_TOKEN`
+3. Deploy автоматично при push
+
 ## 📞 Support
 
 For technical support or customization requests, please contact the development team.
