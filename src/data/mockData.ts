@@ -224,29 +224,8 @@ export const mockBlocks: PageBlock[] = [
   {
     _type: 'footer',
     _key: 'footer-1',
-    companyName: 'HomeCrowd',
-    logo: createMockImage('homecrowd-logo-white'),
-    socialLinks: [
-      {
-        _key: 'social-1',
-        platform: 'Instagram',
-        url: 'https://instagram.com/homecrowd',
-        icon: 'instagram',
-      },
-      {
-        _key: 'social-2',
-        platform: 'LinkedIn',
-        url: 'https://linkedin.com/company/homecrowd',
-        icon: 'linkedin',
-      },
-      {
-        _key: 'social-3',
-        platform: 'Twitter',
-        url: 'https://twitter.com/homecrowd',
-        icon: 'twitter',
-      },
-    ],
-    copyrightText: '© 2024 HomeCrowd. All rights reserved.',
+    copyrightText: '©2025 HOMECROWD. ALL RIGHTS RESERVED',
+    contactEmail: 'INFO@HOMECROWD.ONLINE',
   },
 ]
 

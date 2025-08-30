@@ -6,82 +6,31 @@ export const footerBlock = defineType({
   type: 'object',
   fields: [
     {
-      name: 'companyName',
-      title: 'Company Name',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    },
-    {
-      name: 'logo',
-      title: 'Logo',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-    },
-    {
-      name: 'socialLinks',
-      title: 'Social Links',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          name: 'socialLink',
-          title: 'Social Link',
-          fields: [
-            {
-              name: 'platform',
-              title: 'Platform',
-              type: 'string',
-              options: {
-                list: [
-                  { title: 'Instagram', value: 'instagram' },
-                  { title: 'LinkedIn', value: 'linkedin' },
-                  { title: 'Twitter', value: 'twitter' },
-                  { title: 'Facebook', value: 'facebook' },
-                  { title: 'YouTube', value: 'youtube' },
-                ],
-              },
-              validation: (Rule) => Rule.required(),
-            },
-            {
-              name: 'url',
-              title: 'URL',
-              type: 'url',
-              validation: (Rule) => Rule.required(),
-            },
-          ],
-          preview: {
-            select: {
-              platform: 'platform',
-              url: 'url',
-            },
-            prepare(selection) {
-              return {
-                title: selection.platform,
-                subtitle: selection.url,
-              }
-            },
-          },
-        },
-      ],
-    },
-    {
       name: 'copyrightText',
       title: 'Copyright Text',
       type: 'string',
-      description: 'Copyright notice (year will be automatically added)',
+      description: 'Copyright notice displayed in top left corner',
+      placeholder: '©2025 HOMECROWD. ALL RIGHTS RESERVED',
+      validation: (Rule) => Rule.max(100).warning('Keep copyright text concise'),
+    },
+    {
+      name: 'contactEmail',
+      title: 'Contact Email',
+      type: 'string',
+      description: 'Email address displayed in top right corner',
+      placeholder: 'INFO@HOMECROWD.ONLINE',
+      validation: (Rule) => Rule.email().required(),
     },
   ],
   preview: {
     select: {
-      companyName: 'companyName',
-      socialLinksCount: 'socialLinks.length',
+      copyrightText: 'copyrightText',
+      contactEmail: 'contactEmail',
     },
     prepare(selection) {
       return {
         title: 'Footer',
-        subtitle: `${selection.companyName} (${selection.socialLinksCount || 0} social links)`,
+        subtitle: selection.contactEmail || 'No contact email set',
       }
     },
   },

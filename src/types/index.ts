@@ -134,15 +134,8 @@ export interface EmailSignupBlock {
 export interface FooterBlock {
   _type: 'footer'
   _key: string
-  companyName: string
-  logo?: SanityImage
-  socialLinks?: Array<{
-    _key: string
-    platform: string
-    url: string
-    icon?: string
-  }>
   copyrightText?: string
+  contactEmail?: string
 }
 
 // Union type for all blocks
