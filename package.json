@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "studio": "sanity dev"
+    "studio": "sanity dev",
+    "sanity": "sanity",
+    "seed:sanity": "node scripts/seed-sanity.js",
+    "create:homepage": "node scripts/create-homepage.js"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.5",
@@ -33,6 +36,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@sanity/cli": "^4.6.0",
     "@types/node": "^20.0.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",

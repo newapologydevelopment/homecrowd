@@ -22,6 +22,22 @@ export const page = defineType({
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'logo',
+      title: 'Logo',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        {
+          name: 'alt',
+          title: 'Alt Text',
+          type: 'string',
+          validation: (Rule) => Rule.required(),
+        },
+      ],
+    },
+    {
       name: 'seo',
       title: 'SEO Settings',
       type: 'seoSettings',

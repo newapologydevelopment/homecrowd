@@ -164,6 +164,7 @@ export interface PageData {
     keywords?: string[]
     ogImage?: SanityImage
   }
+  logo?: SanityImage
   blocks: PageBlock[]
 }
 

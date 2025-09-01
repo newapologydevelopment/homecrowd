@@ -179,3 +179,23 @@ export const homepageQuery = `
   }
 `
 
+export async function getHomepageData() {
+  try {
+    const data = await client.fetch(homepageQuery)
+    return data
+  } catch (error) {
+    console.error('Error fetching homepage data:', error)
+    return null
+  }
+}
+
+export async function getPageData(slug: string) {
+  try {
+    const data = await client.fetch(pageQuery, { slug })
+    return data
+  } catch (error) {
+    console.error('Error fetching page data:', error)
+    return null
+  }
+}
+

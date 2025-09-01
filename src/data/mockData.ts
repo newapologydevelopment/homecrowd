@@ -34,7 +34,7 @@ export const mockBlocks: PageBlock[] = [
 
   // Hero
   {
-    _type: 'hero',
+    _type: 'heroBlock',
     _key: 'hero-1',
     backgroundMedia: createMockVideo('hero-main'),
     title: 'Transform Your Space with HomeCrowd',

@@ -10,6 +10,7 @@ interface HeroBlockProps {
 }
 
 export function HeroBlock({ block, isVisible }: HeroBlockProps) {
+  debugger;
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {

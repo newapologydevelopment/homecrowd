@@ -21,6 +21,7 @@ export function BlockRenderer({
   isPreloaderComplete = true,
   onPreloaderComplete 
 }: BlockRendererProps) {
+  console.log("block", block);
   switch (block._type) {
     case 'preloader':
       return (
@@ -30,7 +31,7 @@ export function BlockRenderer({
         />
       )
     
-    case 'hero':
+    case 'heroBlock':
       return (
         <HeroBlock 
           block={block} 
@@ -44,7 +45,7 @@ export function BlockRenderer({
     case 'animatedCards':
       return <AnimatedCardsBlock block={block} />
     
-    case 'marquee':
+    case 'marqueeBlock':
       return <MarqueeBlock block={block} />
     
     case 'stackedCards':
