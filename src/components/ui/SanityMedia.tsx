@@ -23,14 +23,14 @@ export function SanityMedia({
 }: SanityMediaProps) {
   if (!media) return null
 
-  if (media.mediaType === 'image' && media.image) {
-    const imageUrl = urlFor(media.image).url()
+  if (media._type === 'image') {
+    const imageUrl = urlFor(media).url()
     
     if (fill) {
       return (
         <Image
           src={imageUrl}
-          alt={alt || media.image.alt || ''}
+          alt={alt || media.alt || ''}
           fill
           className={className}
           sizes={sizes}
@@ -42,7 +42,7 @@ export function SanityMedia({
     return (
       <Image
         src={imageUrl}
-        alt={alt || media.image.alt || ''}
+        alt={alt || media.alt || ''}
         width={800}
         height={600}
         className={className}
@@ -51,7 +51,7 @@ export function SanityMedia({
     )
   }
 
-  if (media.mediaType === 'video' && media.video) {
+  if (media._type === 'file') {
     return (
       <video
         className={className}
@@ -59,9 +59,9 @@ export function SanityMedia({
         muted
         loop
         playsInline
-        poster={media.video.title ? undefined : undefined}
+        poster={media.title ? undefined : undefined}
       >
-        <source src={media.video.asset.url} type="video/mp4" />
+        <source src={media.asset.url} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     )

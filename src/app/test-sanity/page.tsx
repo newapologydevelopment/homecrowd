@@ -37,7 +37,7 @@ export default async function TestSanityPage() {
       <div className="mt-8 p-4 bg-gray-100 border border-gray-300 rounded">
         <h3 className="text-lg font-semibold mb-2">Next Steps:</h3>
         <ol className="list-decimal list-inside space-y-1 text-sm">
-          <li>Create a page document in Sanity Studio with ID "homepage"</li>
+          <li>Create a page document in Sanity Studio with ID &ldquo;homepage&rdquo;</li>
           <li>Add some content blocks to the page</li>
           <li>Check the main page at <code className="bg-gray-200 px-1 rounded">/</code></li>
         </ol>

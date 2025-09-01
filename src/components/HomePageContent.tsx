@@ -45,7 +45,7 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
     logo: pageData.logo || null,
     ctaButton: {
       text: "Get Started",
-      url: "/contact",
+      link: "/contact",
     },
   };
 

@@ -81,7 +81,7 @@ export interface AnimatedCardsBlock {
 }
 
 export interface MarqueeBlock {
-  _type: 'marquee'
+  _type: 'marqueeBlock'
   _key: string
   text: string
   logo?: SanityImage

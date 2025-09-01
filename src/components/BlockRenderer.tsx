@@ -31,7 +31,7 @@ export function BlockRenderer({
         />
       )
     
-    case 'heroBlock':
+    case 'hero':
       return (
         <HeroBlock 
           block={block} 

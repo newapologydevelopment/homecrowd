@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "createdAt": "2025-09-01T09:00:48.886Z",
+  "createdAt": "2025-09-01T11:04:56.524Z",
   "workspaces": [
     {
       "name": "homecrowd",
@@ -12,7 +12,7 @@
       "mediaLibrary": {
         "enabled": false
       },
-      "schema": "de18b000.create-schema.json",
+      "schema": "646e3547.create-schema.json",
       "tools": "7cd9a0d5.create-tools.json"
     }
   ]

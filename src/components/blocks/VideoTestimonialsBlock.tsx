@@ -137,7 +137,7 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
                       <div className="p-6 bg-white">
                         {video.testimonialText && (
                           <blockquote className="text-gray-700 mb-4 text-lg leading-relaxed">
-                            "{video.testimonialText}"
+                            &ldquo;{video.testimonialText}&rdquo;
                           </blockquote>
                         )}
                         {video.authorName && (
