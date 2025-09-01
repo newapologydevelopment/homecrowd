@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 import { SanityImage } from '@/types'
 
 interface StickyNavigationProps {
-  logo: SanityImage
+  logo: SanityImage | null
   ctaButton: {
     text: string
     link: string
@@ -56,14 +56,24 @@ export function StickyNavigation({ logo, ctaButton }: StickyNavigationProps) {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="w-8 h-8 bg-gray-800 rounded-md flex items-center justify-center">
-                <span className={cn(
-                  'text-lg font-bold transition-colors duration-300',
-                  isScrolled ? 'text-white' : 'text-black'
-                )}>
-                  H
-                </span>
-              </div>
+              {logo ? (
+                <div className="w-8 h-8 rounded-md flex items-center justify-center overflow-hidden">
+                  <img 
+                    src={`https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${logo.asset._ref.split('-')[1]}.${logo.asset._ref.split('-')[2]}`}
+                    alt={logo.alt || 'Logo'}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              ) : (
+                <div className="w-8 h-8 bg-gray-800 rounded-md flex items-center justify-center">
+                  <span className={cn(
+                    'text-lg font-bold transition-colors duration-300',
+                    isScrolled ? 'text-white' : 'text-black'
+                  )}>
+                    H
+                  </span>
+                </div>
+              )}
               <span className={cn(
                 'ml-2 text-xl font-semibold transition-colors duration-300',
                 isScrolled ? 'text-gray-900' : 'text-white'

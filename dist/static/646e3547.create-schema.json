@@ -39,6 +39,31 @@
         "type": "slug"
       },
       {
+        "options": {
+          "hotspot": true
+        },
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "name": "logo",
+        "type": "image"
+      },
+      {
         "name": "seo",
         "type": "seoSettings",
         "title": "SEO Settings"
@@ -77,8 +102,7 @@
             "title": "Animated Cards"
           },
           {
-            "type": "marqueeBlock",
-            "title": "Marquee Text"
+            "type": "marqueeBlock"
           },
           {
             "type": "stackedCardsBlock",
@@ -413,7 +437,6 @@
             "level": "error"
           }
         ],
-        "description": "Text that will scroll horizontally",
         "name": "text",
         "type": "string",
         "title": "Marquee Text"
@@ -422,10 +445,30 @@
         "options": {
           "hotspot": true
         },
-        "description": "Optional logo to display between text repetitions",
         "name": "logo",
-        "type": "image",
-        "title": "Logo/Icon"
+        "type": "image"
+      },
+      {
+        "initialValue": "#00C8FF",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "regex",
+                "constraint": {
+                  "pattern": "/^#[0-9A-F]{6}$/i",
+                  "invert": false
+                }
+              }
+            ],
+            "level": "error",
+            "message": "Please enter a valid hex color code"
+          }
+        ],
+        "description": "Hex color code (e.g., #00C8FF)",
+        "name": "color",
+        "type": "string",
+        "title": "Text Color"
       },
       {
         "initialValue": 50,
@@ -434,17 +477,17 @@
             "rules": [
               {
                 "flag": "min",
-                "constraint": 10
+                "constraint": 1
               },
               {
                 "flag": "max",
-                "constraint": 200
+                "constraint": 500
               }
             ],
             "level": "error"
           }
         ],
-        "description": "Speed of the marquee animation (10 = slow, 200 = fast)",
+        "description": "Animation speed (1-100, higher = faster)",
         "name": "speed",
         "type": "number",
         "title": "Animation Speed"
@@ -453,15 +496,14 @@
         "options": {
           "list": [
             {
-              "title": "Left to Right",
+              "title": "Left",
               "value": "left"
             },
             {
-              "title": "Right to Left",
+              "title": "Right",
               "value": "right"
             }
-          ],
-          "layout": "radio"
+          ]
         },
         "initialValue": "left",
         "name": "direction",
@@ -469,8 +511,7 @@
       }
     ],
     "name": "marqueeBlock",
-    "type": "object",
-    "title": "Marquee Text"
+    "type": "object"
   },
   {
     "fields": [
