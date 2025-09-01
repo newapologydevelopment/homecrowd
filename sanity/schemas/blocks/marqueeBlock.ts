@@ -2,7 +2,7 @@ import { defineType } from 'sanity'
 
 export const marqueeBlock = defineType({
   name: 'marqueeBlock',
-  title: 'Marquee Text',
+  title: 'Marquee Block',
   type: 'object',
   fields: [
     {
@@ -10,24 +10,38 @@ export const marqueeBlock = defineType({
       title: 'Marquee Text',
       type: 'string',
       validation: (Rule) => Rule.required(),
-      description: 'Text that will scroll horizontally',
     },
     {
       name: 'logo',
-      title: 'Logo/Icon',
+      title: 'Logo',
       type: 'image',
-      description: 'Optional logo to display between text repetitions',
       options: {
         hotspot: true,
       },
+      fields: [
+        {
+          name: 'alt',
+          title: 'Alt Text',
+          type: 'string',
+          validation: (Rule) => Rule.required(),
+        },
+      ],
+    },
+    {
+      name: 'color',
+      title: 'Text Color',
+      type: 'string',
+      description: 'Hex color code (e.g., #00C8FF)',
+      initialValue: '#00C8FF',
+      validation: (Rule) => Rule.regex(/^#[0-9A-F]{6}$/i).error('Please enter a valid hex color code'),
     },
     {
       name: 'speed',
       title: 'Animation Speed',
       type: 'number',
+      description: 'Animation speed (1-100, higher = faster)',
       initialValue: 50,
-      validation: (Rule) => Rule.min(10).max(200),
-      description: 'Speed of the marquee animation (10 = slow, 200 = fast)',
+      validation: (Rule) => Rule.min(1).max(500),
     },
     {
       name: 'direction',
@@ -35,23 +49,25 @@ export const marqueeBlock = defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Left to Right', value: 'left' },
-          { title: 'Right to Left', value: 'right' },
+          { title: 'Left', value: 'left' },
+          { title: 'Right', value: 'right' },
         ],
-        layout: 'radio',
       },
       initialValue: 'left',
     },
   ],
   preview: {
     select: {
-      text: 'text',
+      title: 'text',
+      logo: 'logo',
+      color: 'color',
       direction: 'direction',
     },
-    prepare(selection) {
+    prepare({ title, logo, color, direction }) {
       return {
-        title: 'Marquee Text',
-        subtitle: `"${selection.text}" (${selection.direction})`,
+        title: title || 'Marquee Block',
+        subtitle: `${direction || 'left'} direction${color ? ` • ${color}` : ''}`,
+        media: logo,
       }
     },
   },

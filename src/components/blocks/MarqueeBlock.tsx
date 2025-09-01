@@ -2,61 +2,60 @@
 
 import { motion } from "framer-motion";
 import { MarqueeBlock as MarqueeBlockType } from "@/types";
+import { SanityLogo } from "../ui/SanityLogo";
 
 interface MarqueeBlockProps {
   block: MarqueeBlockType;
 }
 
 export function MarqueeBlock({ block }: MarqueeBlockProps) {
-  const speed = block.speed || 50;
+  const speed = block.speed || 200;
+  const color = block.color || "#00C8FF";
   const direction = block.direction || "left";
 
   // Calculate animation duration based on speed
   const duration = (100 / speed) * 20;
 
   return (
-    <section className="py-12 bg-gray-900 overflow-hidden">
-      <div className="relative">
-        {/* Marquee Container */}
-        <div className="flex whitespace-nowrap">
-          {/* Repeated text elements for seamless loop */}
-          {[...Array(3)].map((_, index) => (
-            <motion.div
-              key={index}
-              className="flex items-center shrink-0"
-              animate={{
-                x: direction === "left" ? ["0%", "-100%"] : ["-100%", "0%"],
-              }}
-              transition={{
-                duration: duration,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            >
-              {/* Text with separators */}
-              <div className="flex items-center text-white text-2xl md:text-4xl font-bold tracking-wider">
-                <span className="px-8">{block.text}</span>
+    <section className=" text-accent  overflow-hidden h-[152px] relative my-[24px]">
+      {/* Marquee Container */}
+      <div className="flex whitespace-nowrap">
+        {/* Repeated text elements for seamless loop */}
+        {[...Array(3)].map((_, index) => (
+          <motion.div
+            key={index}
+            className="flex items-center shrink-0"
+            animate={{
+              x: direction === "left" ? ["0%", "-100%"] : ["-100%", "0%"],
+            }}
+            transition={{
+              duration: duration,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          >
+            {/* Text with separators */}
+            <div className="flex items-center text-white text-2xl md:text-4xl font-bold tracking-wider">
+              {/* Logo separator */}
+              {block.logo && (
+                <div className="mx-[63px]">
+                  <SanityLogo
+                    logo={block.logo}
+                    // className="w-8 h-8 object-contain"
+                    alt="Logo"
+                  />
+                </div>
+              )}
 
-                {/* Logo separator */}
-                {block.logo && (
-                  <div className="px-8">
-                    <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-                      <span className="text-gray-900 text-lg font-bold">H</span>
-                    </div>
-                  </div>
-                )}
-
-                <span className="px-8 font-baikal-extracondensed-bold text-[143px]">
-                  {block.text}
-                </span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Gradient overlays for smooth edge effect */}
-        <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-gray-900 to-transparent z-10" />
-        <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-gray-900 to-transparent z-10" />
+              <span
+                style={{ color: color }}
+                className="font-baikal-extracondensed-bold text-[143px]"
+              >
+                {block.text}
+              </span>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </section>
   );

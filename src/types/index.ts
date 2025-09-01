@@ -83,6 +83,7 @@ export interface MarqueeBlock {
   _key: string
   text: string
   logo?: SanityImage
+  color?: string
   speed?: number
   direction?: 'left' | 'right'
 }

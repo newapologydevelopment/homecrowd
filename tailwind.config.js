@@ -22,6 +22,7 @@ module.exports = {
         'baikal-extracondensed-bold': ['var(--font-baikal-extracondensed-bold)', 'sans-serif'],
       },
       colors: {
+        accent: '#00C8FF',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -43,7 +44,7 @@ module.exports = {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
         },
-        accent: {
+        "accent-ui": {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
