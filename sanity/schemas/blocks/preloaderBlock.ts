@@ -15,6 +15,18 @@ export const preloaderBlock = defineType({
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'preloader_title',
+      title: 'Preloader Title',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'preloader_subtitle',
+      title: 'Preloader Subtitle',
+      type: 'text',
+      rows: 2,
+    },
+    {
       name: 'backgroundMedia',
       title: 'Background Media',
       type: 'mediaUnion',

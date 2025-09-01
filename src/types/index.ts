@@ -37,6 +37,8 @@ export interface PreloaderBlock {
   _type: 'preloader'
   _key: string
   logo: SanityImage
+  preloader_title: string
+  preloader_subtitle?: string
   backgroundMedia: MediaUnion
   duration?: number
 }
