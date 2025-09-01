@@ -7,7 +7,6 @@ module.exports = {
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
   ],
-  prefix: "",
   theme: {
     container: {
       center: true,
@@ -18,8 +17,9 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ["var(--font-baikal)", "system-ui", "sans-serif"],
-        baikal: ["var(--font-baikal)", "sans-serif"],
+        'baikal-book': ['var(--font-baikal-book)', 'sans-serif'],
+        'baikal-condensed': ['var(--font-baikal-condensed)', 'sans-serif'],
+        'baikal-extracondensed-bold': ['var(--font-baikal-extracondensed-bold)', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -63,28 +63,17 @@ module.exports = {
       },
       keyframes: {
         "accordion-down": {
-          from: { height: "0" },
+          from: { height: 0 },
           to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-        "slot-machine": {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-100%)" },
-        },
-        "wave": {
-          "0%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-10px)" },
-          "100%": { transform: "translateY(0px)" },
+          to: { height: 0 },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "slot-machine": "slot-machine 2s ease-in-out infinite",
-        "wave": "wave 0.6s ease-in-out",
       },
     },
   },

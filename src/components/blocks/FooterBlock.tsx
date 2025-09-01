@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimationControls, useAnimation } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { useRef, useEffect } from "react";
 import { FooterBlock as FooterBlockType } from "@/types";
 
@@ -9,94 +8,94 @@ interface FooterBlockProps {
   block: FooterBlockType;
 }
 
+interface LetterProps {
+  letter: string;
+  index: number;
+  registerControls: (index: number, controls: any) => void;
+  scheduleGlobalReset: () => void;
+}
+
 export function FooterBlock({ block }: FooterBlockProps) {
-  // Brand word to render letter-by-letter
-  const brand = "HOMECROWD";
+  const controlsMap = useRef<Map<number, any>>(new Map());
+  const globalResetTimer = useRef<NodeJS.Timeout | null>(null);
 
-  // Keep controls for all letters to reset them together
-  const letterControlsRef = useRef<AnimationControls[]>(Array(brand.length));
-  const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const registerControls = (index: number, controls: AnimationControls) => {
-    letterControlsRef.current[index] = controls;
+  const registerControls = (index: number, controls: any) => {
+    controlsMap.current.set(index, controls);
   };
 
   const scheduleGlobalReset = () => {
-    if (resetTimerRef.current) return; // Only start once (first hover)
-    resetTimerRef.current = setTimeout(() => {
-      letterControlsRef.current.forEach((controls) => {
-        controls?.start({ y: 0, transition: { duration: 0.3, ease: "easeInOut" } });
+    // Clear existing timer
+    if (globalResetTimer.current) {
+      clearTimeout(globalResetTimer.current);
+    }
+
+    // Set new timer for 2 seconds
+    globalResetTimer.current = setTimeout(() => {
+      controlsMap.current.forEach((controls) => {
+        controls.start({ y: 0, transition: { duration: 0.3, ease: "easeOut" } });
       });
-      resetTimerRef.current = null;
     }, 2000);
   };
 
+  // Cleanup timer on unmount
+  useEffect(() => {
+    return () => {
+      if (globalResetTimer.current) {
+        clearTimeout(globalResetTimer.current);
+      }
+    };
+  }, []);
+
   return (
-    <footer className="relative overflow-hidden bg-[#00C8FF] text-[#222222] py-16 min-h-[400px] flex items-center">
-      {/* Top Left - Copyright */}
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-        className="absolute top-6 left-6"
-      >
+    <footer className="relative bg-[#00C8FF] min-h-screen flex items-end justify-center overflow-hidden">
+      {/* Background particles */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 left-10 w-2 h-2 bg-white rounded-full opacity-30 animate-pulse"></div>
+        <div className="absolute top-40 right-20 w-1 h-1 bg-white rounded-full opacity-40 animate-pulse delay-1000"></div>
+        <div className="absolute bottom-40 left-20 w-3 h-3 bg-white rounded-full opacity-25 animate-pulse delay-2000"></div>
+        <div className="absolute bottom-20 right-10 w-1.5 h-1.5 bg-white rounded-full opacity-35 animate-pulse delay-1500"></div>
+      </div>
+
+      {/* Top text */}
+      <div className="absolute top-8 right-8 text-right">
         <p 
-          className="text-[14px] leading-[100%] tracking-[0%] uppercase text-left text-[#222222]"
-          style={{
-            fontFamily: "Baikal VAR, sans-serif",
+          className="text-[#222222] uppercase text-sm leading-none"
+          style={{ 
+            fontFamily: 'var(--font-baikal-condensed)',
             fontWeight: 400,
-            fontStyle: "condensed",
+            fontStyle: 'normal'
           }}
         >
-          {block.copyrightText || `©2025 HOMECROWD. ALL RIGHTS RESERVED`}
+          Premium Home Services
         </p>
-      </motion.div>
+      </div>
 
-      {/* Top Right - Contact Email */}
-      <motion.div
-        initial={{ opacity: 0, x: 20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-        className="absolute top-6 right-6"
-      >
-        <p 
-          className="font-baikal text-[14px] leading-[100%] tracking-[0%] uppercase text-right text-[#222222]"
-     
-        >
-          {block.contactEmail || "INFO@HOMECROWD.ONLINE"}
-        </p>
-      </motion.div>
-
-      {/* Center - HOMECROWD rendered per letter with hover lift */}
-      <div className="w-full flex justify-center items-end px-2">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="absolute bottom-[-55px] w-full text-center font-baikal font-extrabold uppercase leading-none tracking-tight text-[#222222] whitespace-nowrap text-[clamp(96px,12vw,271px)]"
-        >
-          {Array.from(brand).map((letter, index) => (
+      {/* Main HOMECROWD text */}
+      <div className="relative mb-32">
+        <div className="flex items-end justify-center">
+          {'HOMECROWD'.split('').map((letter, index) => (
             <Letter
-              key={`${letter}-${index}`}
+              key={index}
               letter={letter}
               index={index}
               registerControls={registerControls}
               scheduleGlobalReset={scheduleGlobalReset}
             />
           ))}
-        </motion.div>
+        </div>
+      </div>
+
+      {/* Bottom info */}
+      <div className="absolute bottom-8 left-8 right-8 flex justify-between items-end">
+        <div className="text-[#222222] text-sm">
+          {block.copyrightText}
+        </div>
+        <div className="text-[#222222] text-sm">
+          {block.contactEmail}
+        </div>
       </div>
     </footer>
   );
-}
-
-interface LetterProps {
-  letter: string;
-  index: number;
-  registerControls: (index: number, controls: AnimationControls) => void;
-  scheduleGlobalReset: () => void;
 }
 
 function Letter({ letter, index, registerControls, scheduleGlobalReset }: LetterProps) {
@@ -105,6 +104,7 @@ function Letter({ letter, index, registerControls, scheduleGlobalReset }: Letter
 
   useEffect(() => {
     registerControls(index, controls);
+    controls.set({ y: 0 }); // Ensure initial state is set
   }, [controls, index, registerControls]);
 
   const handleHover = async () => {
@@ -113,7 +113,7 @@ function Letter({ letter, index, registerControls, scheduleGlobalReset }: Letter
     isAnimating.current = true;
     
     try {
-      // Move up by 60px
+      // Move up by 60px (immediate response via whileHover, but controls.start ensures the timed sequence)
       await controls.start({ 
         y: -60, 
         transition: { duration: 0.3, ease: "easeOut" } 
@@ -129,6 +129,9 @@ function Letter({ letter, index, registerControls, scheduleGlobalReset }: Letter
   return (
     <motion.span
       className="inline-block align-bottom cursor-pointer transition-colors duration-200"
+      initial={{ y: 0 }} // Explicit initial y
+      whileInView={{ opacity: 1 }}
+      whileHover={{ y: -60 }} // Immediate hover lift
       animate={controls}
       onMouseEnter={handleHover}
       onTouchStart={handleHover}
@@ -137,7 +140,16 @@ function Letter({ letter, index, registerControls, scheduleGlobalReset }: Letter
         transformOrigin: 'bottom center'
       }}
     >
-      {letter}
+      <span 
+        className="text-[clamp(96px,12vw,271px)] text-[#222222] hover:text-[#1a1a1a]"
+        style={{ 
+          fontFamily: 'var(--font-baikal-extracondensed-bold)',
+          fontWeight: 800,
+          fontStyle: 'normal'
+        }}
+      >
+        {letter}
+      </span>
     </motion.span>
   );
 }

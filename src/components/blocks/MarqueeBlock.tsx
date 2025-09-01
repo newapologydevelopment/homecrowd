@@ -1,18 +1,18 @@
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
-import { MarqueeBlock as MarqueeBlockType } from '@/types'
+import { motion } from "framer-motion";
+import { MarqueeBlock as MarqueeBlockType } from "@/types";
 
 interface MarqueeBlockProps {
-  block: MarqueeBlockType
+  block: MarqueeBlockType;
 }
 
 export function MarqueeBlock({ block }: MarqueeBlockProps) {
-  const speed = block.speed || 50
-  const direction = block.direction || 'left'
-  
+  const speed = block.speed || 50;
+  const direction = block.direction || "left";
+
   // Calculate animation duration based on speed
-  const duration = 100 / speed * 20
+  const duration = (100 / speed) * 20;
 
   return (
     <section className="py-12 bg-gray-900 overflow-hidden">
@@ -25,18 +25,18 @@ export function MarqueeBlock({ block }: MarqueeBlockProps) {
               key={index}
               className="flex items-center shrink-0"
               animate={{
-                x: direction === 'left' ? ['0%', '-100%'] : ['-100%', '0%']
+                x: direction === "left" ? ["0%", "-100%"] : ["-100%", "0%"],
               }}
               transition={{
                 duration: duration,
                 repeat: Infinity,
-                ease: 'linear',
+                ease: "linear",
               }}
             >
               {/* Text with separators */}
               <div className="flex items-center text-white text-2xl md:text-4xl font-bold tracking-wider">
                 <span className="px-8">{block.text}</span>
-                
+
                 {/* Logo separator */}
                 {block.logo && (
                   <div className="px-8">
@@ -45,13 +45,10 @@ export function MarqueeBlock({ block }: MarqueeBlockProps) {
                     </div>
                   </div>
                 )}
-                
-                <span className="px-8">{block.text}</span>
-                
-                {/* Dot separator */}
-                <div className="px-8">
-                  <div className="w-2 h-2 bg-blue-400 rounded-full" />
-                </div>
+
+                <span className="px-8 font-baikal-extracondensed-bold text-[143px]">
+                  {block.text}
+                </span>
               </div>
             </motion.div>
           ))}
@@ -62,6 +59,5 @@ export function MarqueeBlock({ block }: MarqueeBlockProps) {
         <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-gray-900 to-transparent z-10" />
       </div>
     </section>
-  )
+  );
 }
-

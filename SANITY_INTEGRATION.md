@@ -12,7 +12,44 @@
 - **`src/components/ui/SanityLogo.tsx`** - Компонент для рендерингу логотипу
 - **`src/components/ui/SanityVideo.tsx`** - Компонент для рендерингу відео
 
-### 2. Налаштування середовища
+### 2. Шрифти Baikal
+
+Проект використовує три основні шрифти Baikal:
+
+#### Доступні шрифти
+- **`font-baikal-book`** - основний текст, описи, параграфи
+- **`font-baikal-condensed`** - заголовки, акценти, верхні написи
+- **`font-baikal-extracondensed-bold`** - логотипи, великі заголовки, футер
+
+#### Використання в Tailwind CSS
+```tsx
+// Основний текст
+<p className="font-baikal-book text-lg">
+  Transform your living spaces with our expert design team
+</p>
+
+// Заголовки
+<h2 className="font-baikal-condensed text-2xl">
+  Premium Home Services
+</h2>
+
+// Логотипи та великі заголовки
+<h1 className="font-baikal-extracondensed-bold text-6xl">
+  HOMECROWD
+</h1>
+```
+
+#### CSS Variables
+```css
+font-family: var(--font-baikal-book);
+font-family: var(--font-baikal-condensed);
+font-family: var(--font-baikal-extracondensed-bold);
+```
+
+#### Демо-сторінка
+Перегляньте всі шрифти на `/fonts-demo`
+
+### 3. Налаштування середовища
 
 Створіть `.env.local` файл:
 ```bash
@@ -21,7 +58,7 @@ NEXT_PUBLIC_SANITY_DATASET=production
 SANITY_API_TOKEN=your_api_token_here
 ```
 
-### 3. Створення головної сторінки з усіма блоками
+### 4. Створення головної сторінки з усіма блоками
 
 #### Варіант 1: Автоматичне створення через скрипт
 ```bash
@@ -47,7 +84,7 @@ npm run create:homepage
 4. Встановіть ID: `homepage`
 5. Додайте блоки в потрібному порядку
 
-### 4. Структура блоків
+### 5. Структура блоків
 
 #### Preloader Block
 ```typescript
@@ -189,7 +226,7 @@ npm run create:homepage
 }
 ```
 
-### 5. Рендеринг медіа
+### 6. Рендеринг медіа
 
 #### Зображення
 ```tsx
@@ -226,20 +263,21 @@ import { SanityVideo } from '@/components/ui/SanityVideo'
 />
 ```
 
-### 6. Перевірка роботи
+### 7. Перевірка роботи
 
 1. **Запустіть dev сервер**: `npm run dev`
 2. **Перевірте тестову сторінку**: `http://localhost:3000/test-sanity`
 3. **Перевірте основну сторінку**: `http://localhost:3000`
+4. **Перевірте шрифти**: `http://localhost:3000/fonts-demo`
 
-### 7. Наступні кроки після створення блоків
+### 8. Наступні кроки після створення блоків
 
 1. **Завантажте медіа файли** в Sanity Studio
 2. **Замініть asset references** в блоках на реальні
 3. **Налаштуйте контент** під ваші потреби
 4. **Протестуйте анімації** та інтерактивність
 
-### 8. Корисні команди
+### 9. Корисні команди
 
 ```bash
 # Запуск Next.js dev сервера
@@ -259,7 +297,7 @@ npm run create:homepage
 npm run seed:sanity
 ```
 
-### 9. Troubleshooting
+### 10. Troubleshooting
 
 #### Блоки не відображаються
 - Перевірте, чи правильно створені блоки в Sanity
@@ -276,7 +314,12 @@ npm run seed:sanity
 - Перезапустіть TypeScript сервер
 - Перевірте, чи правильно налаштований `tsconfig.json`
 
-### 10. Переваги нової архітектури
+#### Шрифти не відображаються
+- Перевірте, чи правильно завантажені файли в `public/fonts/`
+- Перевірте, чи правильно налаштовані CSS variables
+- Перезапустіть dev сервер
+
+### 11. Переваги нової архітектури
 
 - ✅ **Модульність** - блоки можна легко переставляти та редагувати
 - ✅ **Типізація** - повна TypeScript підтримка для всіх блоків
@@ -284,3 +327,4 @@ npm run seed:sanity
 - ✅ **Редагування** - контент можна змінювати через Sanity Studio
 - ✅ **Масштабованість** - легко додавати нові блоки та сторінки
 - ✅ **SEO оптимізація** - Server Components для кращого SEO
+- ✅ **Шрифти** - три різні стилі Baikal для різних потреб

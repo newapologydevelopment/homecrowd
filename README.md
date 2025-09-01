@@ -17,6 +17,16 @@ npm run studio
 
 Studio will be available at `http://localhost:3333/studio`
 
+## 🎨 Typography
+
+The project uses three Baikal font variants:
+
+- **`font-baikal-book`** - Main body text, descriptions, paragraphs
+- **`font-baikal-condensed`** - Headings, accents, top text
+- **`font-baikal-extracondensed-bold`** - Logos, large headings, footer
+
+View all fonts at `/fonts-demo`
+
 ## 🔄 Switching from Mock Data to Sanity
 
 The project is now configured to use real data from Sanity instead of mock data.
@@ -77,6 +87,7 @@ sanity/
 - **CMS**: Sanity v3
 - **Animations**: Framer Motion, GSAP
 - **Smooth Scrolling**: Lenis
+- **Typography**: Baikal fonts (Book, Condensed, Extra Condensed Bold)
 
 ## 📚 Documentation
 
