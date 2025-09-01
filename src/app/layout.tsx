@@ -42,6 +42,18 @@ const baikalExtraCondensedBold = localFont({
   display: 'swap',
 })
 
+const baikalLight = localFont({
+  src: [
+    {
+      path: '../../public/fonts/Baikal-Light.woff2',
+      weight: '300',
+      style: 'normal',
+    }
+  ],
+  variable: '--font-baikal-light',
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
   title: 'HomeCrowd',
   description: '',
@@ -54,7 +66,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${baikalBook.variable} ${baikalCondensed.variable} ${baikalExtraCondensedBold.variable}`}>
+      <body className={`${inter.className} ${baikalBook.variable} ${baikalCondensed.variable} ${baikalExtraCondensedBold.variable} ${baikalLight.variable}`}>
         {children}
       </body>
     </html>
