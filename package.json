@@ -20,6 +20,7 @@
     "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.21.7",
     "@studio-freight/lenis": "^1.0.42",
+    "@sanity/asset-utils": "^2.3.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "embla-carousel-autoplay": "^8.0.0",

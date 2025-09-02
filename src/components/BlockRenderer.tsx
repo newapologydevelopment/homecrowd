@@ -39,7 +39,7 @@ export function BlockRenderer({
         />
       )
     
-    case 'videoTestimonials':
+    case 'videoTestimonialsBlock':
       return <VideoTestimonialsBlock block={block} />
     
     case 'animatedCards':

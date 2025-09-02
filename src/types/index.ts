@@ -78,7 +78,7 @@ export interface HeroBlock {
 }
 
 export interface VideoTestimonialsBlock {
-  _type: 'videoTestimonials'; // переконайся, що це збігається з CMS
+  _type: 'videoTestimonialsBlock'; // переконайся, що це збігається з CMS
   _key: string;
   title?: string;
   videos: Array<{

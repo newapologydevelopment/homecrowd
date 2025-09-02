@@ -36,7 +36,7 @@ export const mockBlocks: PageBlock[] = [
 
   // Video Testimonials
   {
-    _type: 'videoTestimonials',
+    _type: 'videoTestimonialsBlock',
     _key: 'testimonials-1',
     title: 'What Our Clients Say',
     autoplay: true,
