@@ -1,148 +1,174 @@
 // Media types
 export interface SanityImage {
-  _type: 'image'
+  _type: 'image';
   asset: {
-    _ref: string
-    _type: 'reference'
-  }
-  alt?: string
+    _ref: string;
+    _type: 'reference';
+  };
+  alt?: string;
   hotspot?: {
-    x: number
-    y: number
-    height: number
-    width: number
-  }
+    x: number;
+    y: number;
+    height: number;
+    width: number;
+  };
   crop?: {
-    top: number
-    bottom: number
-    left: number
-    right: number
-  }
+    top: number;
+    bottom: number;
+    left: number;
+    right: number;
+  };
 }
 
 export interface SanityVideo {
-  _type: 'file'
+  _type: 'file';
   asset: {
-    _ref: string
-    _type: 'reference'
-    url?: string
-  }
-  title?: string
+    _ref: string;
+    _type: 'reference';
+    url?: string; // витягуй через asset->url у GROQ, тоді буде string
+  };
+  title?: string;
 }
 
-export type MediaUnion = SanityImage | SanityVideo
+export type MediaUnion = SanityImage | SanityVideo;
 
+// --------------------
+// BackgroundMedia (discriminated union)
+// --------------------
+export type BackgroundMediaImage = {
+  mediaType: 'image';
+  image: SanityImage;
+  video: null;
+};
+
+export type BackgroundMediaVideo = {
+  mediaType: 'video';
+  image: null;
+  video: SanityVideo;
+};
+
+export type BackgroundMedia = BackgroundMediaImage | BackgroundMediaVideo;
+
+// Optional: type guards (зручно у JSX)
+export const isBGImage = (bm: BackgroundMedia | null | undefined): bm is BackgroundMediaImage =>
+  !!bm && bm.mediaType === 'image';
+
+export const isBGVideo = (bm: BackgroundMedia | null | undefined): bm is BackgroundMediaVideo =>
+  !!bm && bm.mediaType === 'video';
+
+// --------------------
 // Block types for modular content
+// --------------------
 export interface PreloaderBlock {
-  _type: 'preloaderBlock'
-  _key: string
-  logo: SanityImage
-  preloader_title: string
-  preloader_subtitle?: string
-  backgroundMedia: MediaUnionWrapper
-  duration?: number
+  _type: 'preloaderBlock';
+  _key: string;
+  logo: SanityImage;
+  preloader_title: string;
+  preloader_subtitle?: string;
+  backgroundMedia: BackgroundMedia | null; // дозволяємо null, якщо інколи немає
+  duration?: number;
 }
 
 export interface HeroBlock {
-  _type: 'hero'
-  _key: string
-  backgroundMedia: MediaUnion
-  title?: string
-  subtitle?: string
+  _type: 'hero';
+  _key: string;
+  backgroundMedia: MediaUnion; // герою достатньо будь-якого медіа
+  title?: string;
+  subtitle?: string;
 }
 
 export interface VideoTestimonialsBlock {
-  _type: 'videoTestimonials'
-  _key: string
-  title?: string
+  _type: 'videoTestimonials'; // переконайся, що це збігається з CMS
+  _key: string;
+  title?: string;
   videos: Array<{
-    _key: string
-    video: SanityVideo
-    institution: string
-    testimonialText?: string
-    authorName?: string
-    authorRole?: string
-  }>
-  autoplay?: boolean
-  autoplayInterval?: number
+    _key: string;
+    video: SanityVideo;
+    institution: string;
+    testimonialText?: string;
+    authorName?: string;
+    authorRole?: string;
+  }>;
+  autoplay?: boolean;
+  autoplayInterval?: number;
 }
 
 export interface AnimatedCardsBlock {
-  _type: 'animatedCards'
-  _key: string
-  title?: string
+  _type: 'animatedCards';
+  _key: string;
+  title?: string;
   cards: Array<{
-    _key: string
-    title: string
-    description: string
-    media: MediaUnion
-    eyebrowText?: string
-  }>
+    _key: string;
+    title: string;
+    description: string;
+    media: MediaUnion;
+    eyebrowText?: string;
+  }>;
 }
 
 export interface MarqueeBlock {
-  _type: 'marqueeBlock'
-  _key: string
-  text: string
-  logo?: SanityImage
-  color?: string
-  speed?: number
-  direction?: 'left' | 'right'
+  _type: 'marqueeBlock';
+  _key: string;
+  text: string;
+  logo?: SanityImage;
+  color?: string;
+  speed?: number;
+  direction?: 'left' | 'right';
 }
 
 export interface StackedCardsBlock {
-  _type: 'stackedCards'
-  _key: string
-  title?: string
-  eyebrowText?: string
+  _type: 'stackedCards';
+  _key: string;
+  title?: string;
+  eyebrowText?: string;
   cards: Array<{
-    _key: string
-    title: string
-    description: string
-    media: MediaUnion
-    eyebrowText?: string
-  }>
-  variant?: 'light' | 'dark'
+    _key: string;
+    title: string;
+    description: string;
+    media: MediaUnion;
+    eyebrowText?: string;
+  }>;
+  variant?: 'light' | 'dark';
 }
 
 export interface SlotMachineTextBlock {
-  _type: 'slotMachineText'
-  _key: string
-  prefix?: string
-  suffix?: string
-  rotatingTexts: string[]
-  animationSpeed?: number
+  _type: 'slotMachineText';
+  _key: string;
+  prefix?: string;
+  suffix?: string;
+  rotatingTexts: string[];
+  animationSpeed?: number;
 }
 
 export interface CTABlock {
-  _type: 'cta'
-  _key: string
-  title: string
-  description?: string
-  buttonText: string
-  buttonLink: string
-  backgroundMedia?: MediaUnion
+  _type: 'cta';
+  _key: string;
+  title: string;
+  description?: string;
+  buttonText: string;
+  buttonLink: string;
+  backgroundMedia?: MediaUnion;
 }
 
 export interface EmailSignupBlock {
-  _type: 'emailSignup'
-  _key: string
-  title: string
-  description?: string
-  placeholder?: string
-  buttonText?: string
-  successMessage?: string
+  _type: 'emailSignup';
+  _key: string;
+  title: string;
+  description?: string;
+  placeholder?: string;
+  buttonText?: string;
+  successMessage?: string;
 }
 
 export interface FooterBlock {
-  _type: 'footer'
-  _key: string
-  copyrightText?: string
-  contactEmail?: string
+  _type: 'footer';
+  _key: string;
+  copyrightText?: string;
+  contactEmail?: string;
 }
 
 // Union type for all blocks
-export type PageBlock = 
+export type PageBlock =
   | PreloaderBlock
   | HeroBlock
   | VideoTestimonialsBlock
@@ -152,58 +178,52 @@ export type PageBlock =
   | SlotMachineTextBlock
   | CTABlock
   | EmailSignupBlock
-  | FooterBlock
+  | FooterBlock;
 
 // Page data structure
 export interface PageData {
-  _id: string
-  title: string
-  slug: {
-    current: string
-  }
+  _id: string;
+  title: string;
+  slug: { current: string };
   seo?: {
-    title?: string
-    description?: string
-    keywords?: string[]
-    ogImage?: SanityImage
-  }
-  logo?: SanityImage
-  blocks: PageBlock[]
+    title?: string;
+    description?: string;
+    keywords?: string[];
+    ogImage?: SanityImage;
+  };
+  logo?: SanityImage;
+  blocks: PageBlock[];
 }
 
 // Navigation types
 export interface StickyNavigation {
-  logo: SanityImage
-  ctaButton: {
-    text: string
-    link: string
-  }
-  isVisible: boolean
-  isScrolled: boolean
+  logo: SanityImage;
+  ctaButton: { text: string; link: string };
+  isVisible: boolean;
+  isScrolled: boolean;
 }
 
 // Animation state types
 export interface AnimationState {
-  isVisible: boolean
-  hasAnimated: boolean
-  progress?: number
+  isVisible: boolean;
+  hasAnimated: boolean;
+  progress?: number;
 }
 
 // Carousel types
 export interface CarouselState {
-  currentIndex: number
-  isPlaying: boolean
-  direction: 'next' | 'prev'
+  currentIndex: number;
+  isPlaying: boolean;
+  direction: 'next' | 'prev';
 }
 
 // Form types
 export interface EmailFormData {
-  email: string
+  email: string;
 }
 
 export interface EmailFormState {
-  isSubmitting: boolean
-  isSuccess: boolean
-  error?: string
+  isSubmitting: boolean;
+  isSuccess: boolean;
+  error?: string;
 }
-

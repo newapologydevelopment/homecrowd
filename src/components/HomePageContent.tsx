@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { BlockRenderer } from "@/components/BlockRenderer";
-import { StickyNavigation } from "@/components/navigation/StickyNavigation";
+// import { StickyNavigation } from "@/components/navigation/StickyNavigation";
 import { PageData } from "@/types";
 import { ScheduleButton } from "./ui/ScheduleButton";
 
@@ -36,10 +36,11 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
 
   // Find preloader block
   const preloaderBlock = pageData.blocks.find(
-    (block) => block._type === "preloader"
+    (block) => block._type === "preloaderBlock"
   );
+  
   const otherBlocks = pageData.blocks.filter(
-    (block) => block._type !== "preloader"
+    (block) => block._type !== "preloaderBlock"
   );
 
   // Extract navigation data from page data
@@ -71,10 +72,10 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
       {/* {isPreloaderComplete && ( */}
       <>
         {/* Sticky Navigation */}
-        <StickyNavigation
+        {/* <StickyNavigation
           logo={navigationData.logo}
           ctaButton={navigationData.ctaButton}
-        />
+        /> */}
         <div className="w-full flex justify-center fixed bottom-[115px]">
           <ScheduleButton
             canRender={canRender}

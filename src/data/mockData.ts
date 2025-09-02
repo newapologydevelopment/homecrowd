@@ -23,14 +23,7 @@ const createMockVideo = (filename: string) => ({
 
 // Mock blocks data
 export const mockBlocks: PageBlock[] = [
-  // Preloader
-  {
-    _type: 'preloader',
-    _key: 'preloader-1',
-    logo: createMockImage('homecrowd-logo'),
-    backgroundMedia: createMockVideo('hero-bg'),
-    duration: 3000,
-  },
+
 
   // Hero
   {
