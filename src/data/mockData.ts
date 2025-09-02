@@ -215,7 +215,7 @@ export const mockBlocks: PageBlock[] = [
 
   // Footer
   {
-    _type: 'footer',
+    _type: 'footerBlock',
     _key: 'footer-1',
     copyrightText: '©2025 HOMECROWD. ALL RIGHTS RESERVED',
     contactEmail: 'INFO@HOMECROWD.ONLINE',

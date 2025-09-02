@@ -161,7 +161,7 @@ export interface EmailSignupBlock {
 }
 
 export interface FooterBlock {
-  _type: 'footer';
+  _type: 'footerBlock';
   _key: string;
   copyrightText?: string;
   contactEmail?: string;

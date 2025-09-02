@@ -21,7 +21,7 @@ export function BlockRenderer({
   isPreloaderComplete = true,
   onPreloaderComplete 
 }: BlockRendererProps) {
-  console.log("block", block);
+  console.log("block -->", block);
   switch (block._type) {
     case 'preloaderBlock':
       return (
@@ -60,7 +60,7 @@ export function BlockRenderer({
     case 'emailSignup':
       return <EmailSignupBlock block={block} />
     
-    case 'footer':
+    case 'footerBlock':
       return <FooterBlock block={block} />
     
     default:

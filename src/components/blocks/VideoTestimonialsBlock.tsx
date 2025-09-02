@@ -47,7 +47,7 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
 
   return (
     <section className="py-[80px]">
-      <div className="mx-auto px-16">
+      <div className="mx-auto p">
         {/* Title */}
         {block.title && (
           <div className="text-center font-baikal-book mb-[48px]">
@@ -61,19 +61,21 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
             loop: true,
             startIndex: 1,
             dragFree: false,
+            skipSnaps: false,
+            inViewThreshold: 0.5,
             containScroll: "trimSnaps",
           }}
           orientation="horizontal"
           className="w-full"
           setApi={setApi}
         >
-          <CarouselContent className="max-h-[570px] w-[100vw] gap-[69px]">
+          <CarouselContent className="max-h-[570px] w-[100vw]">
             {[...block.videos, ...block.videos, ...block.videos].map(
               (video, index) => (
                 <CarouselItem
                   key={index}
                   className={clsx(
-                    "bg-slate-300 w-[784px] h-[570px] max-w-[784px] max-h-[570px] flex-shrink-0 overflow-hidden relative transition-opacity duration-300 group",
+                    "mr-[69px] bg-slate-300 w-[784px] h-[570px] max-w-[784px] max-h-[570px] flex-shrink-0 overflow-hidden relative transition-opacity duration-300 group",
                     index === currentSlide
                       ? "opacity-100"
                       : "opacity-50 cursor-pointer"
@@ -131,14 +133,12 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
               )
             )}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
         </Carousel>
       </div>
 
       {/* Full-screen video dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-[90vw] max-h-[90vh] p-0 bg-black">
+        <DialogContent className="max-w-[90vw] max-h-[100vh] p-0 bg-black [&>button]:hidden">
           {selectedVideo && (
             <div className="relative w-full h-full">
               <AdvancedVideo
