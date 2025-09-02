@@ -29,6 +29,7 @@ export default async function HomePage() {
       )
     }
 
+    
     return (
       <Suspense fallback={<LoadingSpinner />}>
         <HomePageContent pageData={pageData} />
