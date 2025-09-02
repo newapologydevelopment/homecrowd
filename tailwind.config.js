@@ -20,9 +20,11 @@ module.exports = {
         'baikal-book': ['var(--font-baikal-book)', 'sans-serif'],
         'baikal-condensed': ['var(--font-baikal-condensed)', 'sans-serif'],
         'baikal-extracondensed-bold': ['var(--font-baikal-extracondensed-bold)', 'sans-serif'],
+        'baikal-light': ['var(--font-baikal-light)', 'sans-serif'],
       },
       colors: {
         accent: '#00C8FF',
+        'text-light': '#FEFEFE',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

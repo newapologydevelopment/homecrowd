@@ -34,10 +34,12 @@ export type MediaUnion = SanityImage | SanityVideo
 
 // Block types for modular content
 export interface PreloaderBlock {
-  _type: 'preloader'
+  _type: 'preloaderBlock'
   _key: string
   logo: SanityImage
-  backgroundMedia: MediaUnion
+  preloader_title: string
+  preloader_subtitle?: string
+  backgroundMedia: MediaUnionWrapper
   duration?: number
 }
 

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { BlockRenderer } from "@/components/BlockRenderer";
 import { StickyNavigation } from "@/components/navigation/StickyNavigation";
 import { PageData } from "@/types";
+import { ScheduleButton } from "./ui/ScheduleButton";
 
 interface HomePageContentProps {
   pageData: PageData;
@@ -12,6 +13,7 @@ interface HomePageContentProps {
 export function HomePageContent({ pageData }: HomePageContentProps) {
   const [isPreloaderComplete, setIsPreloaderComplete] = useState(false);
   const [smoothScrollEnabled, setSmoothScrollEnabled] = useState(false);
+  const [canRender, setCanRender] = useState(false);
 
   // Enable smooth scroll after preloader
   useEffect(() => {
@@ -49,6 +51,10 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
     },
   };
 
+  useEffect(() => {
+    setTimeout(() => { setCanRender(true) }, 2000)
+  }, [])
+
   console.log("isPreloaderComplete", isPreloaderComplete);
 
   return (
@@ -63,24 +69,31 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
 
       {/* Main Content */}
       {/* {isPreloaderComplete && ( */}
-        <>
-          {/* Sticky Navigation */}
-          <StickyNavigation
-            logo={navigationData.logo}
-            ctaButton={navigationData.ctaButton}
+      <>
+        {/* Sticky Navigation */}
+        <StickyNavigation
+          logo={navigationData.logo}
+          ctaButton={navigationData.ctaButton}
+        />
+        <div className="w-full flex justify-center fixed bottom-[115px]">
+          <ScheduleButton
+            canRender={canRender}
+            title="Schedule a demo"
           />
+        </div>
 
-          {/* Page Blocks */}
-          <div className={smoothScrollEnabled ? "smooth-scroll-enabled" : ""}>
-            {otherBlocks.map((block) => (
-              <BlockRenderer
-                key={block._key}
-                block={block}
-                isPreloaderComplete={isPreloaderComplete}
-              />
-            ))}
-          </div>
-        </>
+
+        {/* Page Blocks */}
+        <div className={smoothScrollEnabled ? "smooth-scroll-enabled" : ""}>
+          {otherBlocks.map((block) => (
+            <BlockRenderer
+              key={block._key}
+              block={block}
+              isPreloaderComplete={isPreloaderComplete}
+            />
+          ))}
+        </div>
+      </>
       {/* )} */}
     </main>
   );

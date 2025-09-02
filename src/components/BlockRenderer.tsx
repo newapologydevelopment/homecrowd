@@ -23,7 +23,7 @@ export function BlockRenderer({
 }: BlockRendererProps) {
   console.log("block", block);
   switch (block._type) {
-    case 'preloader':
+    case 'preloaderBlock':
       return (
         <PreloaderBlock 
           block={block} 

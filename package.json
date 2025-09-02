@@ -13,6 +13,7 @@
     "create:homepage": "node scripts/create-homepage.js"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-slot": "^1.0.2",
     "@sanity/client": "^6.8.6",
