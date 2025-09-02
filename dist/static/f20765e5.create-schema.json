@@ -69,6 +69,10 @@
         "title": "SEO Settings"
       },
       {
+        "name": "scheduleButton",
+        "type": "scheduleButton"
+      },
+      {
         "validation": [
           {
             "rules": [
@@ -152,6 +156,26 @@
         ],
         "name": "logo",
         "type": "image"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "preloader_title",
+        "type": "string"
+      },
+      {
+        "rows": 2,
+        "name": "preloader_subtitle",
+        "type": "text"
       },
       {
         "validation": [
@@ -984,5 +1008,63 @@
     "name": "seoSettings",
     "type": "object",
     "title": "SEO Settings"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 1
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/",
+                      "/^mailto$/",
+                      "/^tel$/",
+                      "/^\\/$/",
+                      "/^$/"
+                    ],
+                    "allowRelative": true,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "link",
+        "type": "url"
+      }
+    ],
+    "name": "scheduleButton",
+    "type": "object"
   }
 ]

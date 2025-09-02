@@ -5,6 +5,7 @@ import { BlockRenderer } from "@/components/BlockRenderer";
 // import { StickyNavigation } from "@/components/navigation/StickyNavigation";
 import { PageData } from "@/types";
 import { ScheduleButton } from "./ui/ScheduleButton";
+import { HomecrowdLogo } from "./ui/HomecrowdLogo";
 
 interface HomePageContentProps {
   pageData: PageData;
@@ -38,7 +39,7 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
   const preloaderBlock = pageData.blocks.find(
     (block) => block._type === "preloaderBlock"
   );
-  
+
   const otherBlocks = pageData.blocks.filter(
     (block) => block._type !== "preloaderBlock"
   );
@@ -53,7 +54,7 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
   };
 
   useEffect(() => {
-    setTimeout(() => { setCanRender(true) }, 2000)
+    setTimeout(() => { setCanRender(true) }, 4000)
   }, [])
 
   console.log("isPreloaderComplete", isPreloaderComplete);
@@ -76,10 +77,16 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
           logo={navigationData.logo}
           ctaButton={navigationData.ctaButton}
         /> */}
-        <div className="w-full flex justify-center fixed bottom-[115px]">
+        <div className="w-full flex justify-center fixed top-[28px] z-[9999]">
+          <HomecrowdLogo canRender={canRender} />
+        </div>
+
+[]
+        <div className="w-full flex justify-center fixed bottom-[115px] z-[9999]">
           <ScheduleButton
             canRender={canRender}
-            title="Schedule a demo"
+            title={pageData.scheduleButton?.title || ""}
+            link={pageData.scheduleButton?.link || ""}
           />
         </div>
 

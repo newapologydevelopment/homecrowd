@@ -11,6 +11,7 @@ import { emailSignupBlock } from './blocks/emailSignupBlock'
 import { footerBlock } from './blocks/footerBlock'
 import { mediaUnion } from './objects/mediaUnion'
 import { seoSettings } from './objects/seoSettings'
+import { scheduleButton } from './objects/scheduleButton'
 
 export const schemaTypes = [
   // Documents
@@ -31,5 +32,6 @@ export const schemaTypes = [
   // Objects
   mediaUnion,
   seoSettings,
+  scheduleButton,
 ]
 

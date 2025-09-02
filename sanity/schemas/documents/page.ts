@@ -43,6 +43,11 @@ export const page = defineType({
       type: 'seoSettings',
     },
     {
+      name: 'scheduleButton',
+      title: 'Schedule Button',
+      type: 'scheduleButton',
+    },
+    {
       name: 'blocks',
       title: 'Page Blocks',
       type: 'array',

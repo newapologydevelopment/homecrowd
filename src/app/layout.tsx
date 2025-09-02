@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import localFont from 'next/font/local'
 import './globals.css'
+import { LenisProvider } from '@/components/providers/LenisProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -67,6 +68,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} ${baikalBook.variable} ${baikalCondensed.variable} ${baikalExtraCondensedBold.variable} ${baikalLight.variable}`}>
+        <LenisProvider />
         {children}
       </body>
     </html>
