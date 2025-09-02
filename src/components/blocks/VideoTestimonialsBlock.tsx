@@ -17,6 +17,7 @@ import {
   DialogClose,
   DialogContent,
   DialogFooter,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 
@@ -97,14 +98,14 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
                       {/* Play button overlay - only visible on active slide hover */}
                       {index === currentSlide && (
                         <div
-                          className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer"
+                          className="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer"
                           onClick={(e) => {
                             e.stopPropagation();
                             handleVideoClick(video);
                           }}
                         >
-                          <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200">
-                            <div className="w-0 h-0 border-l-[18px] border-l-black border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent ml-1"></div>
+                          <div className="flex rounded-[13px]  items-center justify-center hover:scale-110 transition-transform duration-200">
+                            <div className="w-0 h-0 opacity-75 hover:opacity-85 border-l-[50px] border-l-white border-t-[30px] border-t-transparent border-b-[30px] border-b-transparent ml-1"></div>
                           </div>
                         </div>
                       )}
@@ -138,9 +139,10 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
 
       {/* Full-screen video dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-[90vw] max-h-[100vh] p-0 bg-black [&>button]:hidden">
+        <DialogContent className="max-w-[90vw] max-h-[100vh] p-0 bg-black [&>button]:hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-105 data-[state=closed]:slide-out-to-center-4 data-[state=open]:slide-in-from-center-4 duration-500 ease-out">
+          <DialogTitle className="sr-only">Video Player</DialogTitle>
           {selectedVideo && (
-            <div className="relative w-full h-full">
+            <div className="relative w-full h-full animate-in fade-in-0 zoom-in-105 duration-500 ease-out">
               <AdvancedVideo
                 video={selectedVideo.video}
                 autoPlay
@@ -155,7 +157,7 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
             <DialogClose asChild>
               <button
                 onClick={() => setIsDialogOpen(false)}
-                className="absolute top-4 right-4 w-8 h-8 bg-white bg-opacity-20 hover:bg-opacity-40 rounded-full flex items-center justify-center text-white transition-colors duration-200"
+                className="absolute top-4 right-4 w-8 h-8 bg-white bg-opacity-20 hover:bg-opacity-40 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 animate-in fade-in-0 slide-in-from-top-2 duration-500 delay-200"
               >
                 ✕
               </button>

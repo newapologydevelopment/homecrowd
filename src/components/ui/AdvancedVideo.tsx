@@ -7,8 +7,11 @@ type AdvancedVideoProps = {
   controls?: boolean;
   muted?: boolean;
   className?: string;
+  preload?: "none" | "metadata" | "auto";
   onPlay?: () => void;
   onEnded?: () => void;
+  onLoadStart?: () => void;
+  onCanPlay?: () => void;
 };
 
 export default function AdvancedVideo({
@@ -16,8 +19,11 @@ export default function AdvancedVideo({
   autoPlay = false,
   controls = true,
   muted = false,
+  preload = "metadata",
   onPlay,
   onEnded,
+  onLoadStart,
+  onCanPlay,
   className,
 }: AdvancedVideoProps) {
   if (video.asset?._ref) {
@@ -33,8 +39,11 @@ export default function AdvancedVideo({
         muted={autoPlay ? true : muted}
         playsInline
         loop
+        preload={preload}
         onPlay={onPlay}
         onEnded={onEnded}
+        onLoadStart={onLoadStart}
+        onCanPlay={onCanPlay}
       >
         <source src={videoUrl} type="video/mp4" />
       </video>
