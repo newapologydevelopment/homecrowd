@@ -110,6 +110,10 @@ export const homepageQuery = `
         alt
       }
     },
+    scheduleButton {
+      title,
+      link
+    },
     blocks[] {
       _type,
       _key,

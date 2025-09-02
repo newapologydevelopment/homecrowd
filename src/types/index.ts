@@ -180,6 +180,12 @@ export type PageBlock =
   | EmailSignupBlock
   | FooterBlock;
 
+// Schedule Button type
+export interface ScheduleButton {
+  title: string;
+  link: string;
+}
+
 // Page data structure
 export interface PageData {
   _id: string;
@@ -192,6 +198,7 @@ export interface PageData {
     ogImage?: SanityImage;
   };
   logo?: SanityImage;
+  scheduleButton?: ScheduleButton;
   blocks: PageBlock[];
 }
 
