@@ -7,6 +7,7 @@ import { PageData } from "@/types";
 import { ScheduleButton } from "./ui/ScheduleButton";
 import { HomecrowdLogo } from "./ui/HomecrowdLogo";
 import { LenisProvider } from "./providers/LenisProvider";
+import { StackedCards } from "./ui/StackedCard";
 
 interface HomePageContentProps {
   pageData: PageData;
@@ -83,8 +84,7 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
         <div className="w-full flex justify-center fixed top-[28px] z-[9999]">
           <HomecrowdLogo canRender={canRender} />
         </div>
-
-        []
+        
         <div className="w-full flex justify-center fixed bottom-[115px] z-[9999]">
           <ScheduleButton
             canRender={canRender}

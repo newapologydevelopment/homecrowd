@@ -117,7 +117,7 @@ export interface MarqueeBlock {
 }
 
 export interface StackedCardsBlock {
-  _type: 'stackedCards';
+  _type: 'stackedCardsBlock';
   _key: string;
   title?: string;
   eyebrowText?: string;
@@ -125,19 +125,20 @@ export interface StackedCardsBlock {
     _key: string;
     title: string;
     description: string;
-    media: MediaUnion;
+    image: SanityImage;
+    variant?: 'light' | 'dark';
     eyebrowText?: string;
   }>;
-  variant?: 'light' | 'dark';
 }
 
 export interface SlotMachineTextBlock {
-  _type: 'slotMachineText';
+  _type: 'slotMachineTextBlock';
   _key: string;
-  prefix?: string;
-  suffix?: string;
-  rotatingTexts: string[];
-  animationSpeed?: number;
+  items: Array<{
+    _key?: string;
+    number: string;
+    text: string;
+  }>;
 }
 
 export interface CTABlock {

@@ -26,6 +26,7 @@ module.exports = {
         accent: '#00C8FF',
         textDark: '#838383',
         HC_grey: '#F6F5F3',
+        'dark-card':'#323232',
         'text-light': '#FEFEFE',
   			'gray-main': '#F2F1EF',
   			'white-main': '#F2F1EF',

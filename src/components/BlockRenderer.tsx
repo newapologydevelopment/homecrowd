@@ -49,10 +49,10 @@ export function BlockRenderer({
     case 'marqueeBlock':
       return <MarqueeBlock block={block} />
     
-    case 'stackedCards':
+    case 'stackedCardsBlock':
       return <StackedCardsBlock block={block} />
     
-    case 'slotMachineText':
+    case 'slotMachineTextBlock':
       return <SlotMachineTextBlock block={block} />
     
     case 'cta':

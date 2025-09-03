@@ -119,73 +119,79 @@ export const mockBlocks: PageBlock[] = [
 
   // Stacked Cards (How it works)
   {
-    _type: 'stackedCards',
+    _type: 'stackedCardsBlock',
     _key: 'stacked-1',
     title: 'How It Works',
     eyebrowText: 'Our Process',
-    variant: 'light',
     cards: [
       {
         _key: 'stack-1',
         title: 'Consultation & Planning',
         description: 'We start with a detailed consultation to understand your vision, needs, and budget. Our team creates a comprehensive plan tailored to your space.',
-        media: createMockImage('consultation'),
+        image: createMockImage('consultation'),
+        variant: 'light',
         eyebrowText: 'Step 01',
       },
       {
         _key: 'stack-2',
         title: 'Design & Development',
         description: 'Our designers create detailed plans and 3D visualizations so you can see exactly how your space will look before we begin construction.',
-        media: createMockVideo('design-3d'),
+        image: createMockImage('design-3d'),
+        variant: 'light',
         eyebrowText: 'Step 02',
       },
       {
         _key: 'stack-3',
         title: 'Construction & Completion',
         description: 'Our skilled craftsmen bring the design to life with meticulous attention to detail, ensuring every element is perfect.',
-        media: createMockImage('construction'),
+        image: createMockImage('construction'),
+        variant: 'light',
         eyebrowText: 'Step 03',
       },
     ],
   },
 
-  // Slot Machine Text
+  // Slot Machine
   {
-    _type: 'slotMachineText',
+    _type: 'slotMachineTextBlock',
     _key: 'slot-1',
-    prefix: 'Create',
-    suffix: 'spaces that inspire',
-    rotatingTexts: ['Beautiful', 'Functional', 'Innovative', 'Sustainable', 'Premium'],
-    animationSpeed: 2000,
+    items: [
+      { number: '1,200,000', text: 'in savings' },
+      { number: '250', text: 'projects delivered' },
+      { number: '98%', text: 'satisfaction' },
+      { number: '24', text: 'months warranty' },
+    ],
   },
 
   // Stacked Cards (Dark version)
   {
-    _type: 'stackedCards',
+    _type: 'stackedCardsBlock',
     _key: 'stacked-2',
     title: 'Our Services',
     eyebrowText: 'What We Offer',
-    variant: 'dark',
     cards: [
       {
         _key: 'dark-1',
         title: 'Residential Renovation',
         description: 'Complete home makeovers from kitchen and bathroom renovations to whole-house transformations.',
-        media: createMockVideo('residential'),
+        image: createMockImage('residential'),
+        variant: 'dark',
         eyebrowText: 'Homes',
       },
       {
         _key: 'dark-2',
         title: 'Commercial Spaces',
         description: 'Office buildings, retail spaces, and hospitality venues designed for maximum impact and functionality.',
-        media: createMockVideo('commercial'),
+        image: createMockImage('commercial'),
+        variant: 'dark',
         eyebrowText: 'Business',
       },
       {
         _key: 'dark-3',
         title: 'Educational Facilities',
         description: 'Universities, schools, and learning centers designed to inspire and facilitate education.',
-        media: createMockVideo('educational'),
+        image: createMockImage('educational'),
+        variant: 'dark',
         eyebrowText: 'Education',
       },
     ],

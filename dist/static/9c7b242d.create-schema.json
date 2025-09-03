@@ -114,7 +114,7 @@
           },
           {
             "type": "slotMachineTextBlock",
-            "title": "Slot Machine Text"
+            "title": "Slot Machine"
           },
           {
             "type": "ctaBlock",
@@ -529,35 +529,6 @@
   {
     "fields": [
       {
-        "name": "title",
-        "type": "string",
-        "title": "Section Title"
-      },
-      {
-        "description": "Small text above the title",
-        "name": "eyebrowText",
-        "type": "string"
-      },
-      {
-        "options": {
-          "list": [
-            {
-              "title": "Light Theme",
-              "value": "light"
-            },
-            {
-              "title": "Dark Theme",
-              "value": "dark"
-            }
-          ],
-          "layout": "radio"
-        },
-        "initialValue": "light",
-        "name": "variant",
-        "type": "string",
-        "title": "Visual Variant"
-      },
-      {
         "validation": [
           {
             "rules": [
@@ -580,6 +551,25 @@
         "of": [
           {
             "fields": [
+              {
+                "options": {
+                  "list": [
+                    {
+                      "title": "Light Theme",
+                      "value": "light"
+                    },
+                    {
+                      "title": "Dark Theme",
+                      "value": "dark"
+                    }
+                  ],
+                  "layout": "radio"
+                },
+                "initialValue": "light",
+                "name": "variant",
+                "type": "string",
+                "title": "Visual Variant"
+              },
               {
                 "description": "Small text above the title (e.g., \"Step 01\")",
                 "name": "eyebrowText",
@@ -618,6 +608,9 @@
                 "type": "text"
               },
               {
+                "options": {
+                  "hotspot": true
+                },
                 "validation": [
                   {
                     "rules": [
@@ -629,8 +622,15 @@
                     "level": "error"
                   }
                 ],
-                "name": "media",
-                "type": "mediaUnion"
+                "fields": [
+                  {
+                    "name": "alt",
+                    "type": "string",
+                    "title": "Alt Text"
+                  }
+                ],
+                "name": "image",
+                "type": "image"
               }
             ],
             "type": "object",
@@ -648,12 +648,6 @@
   {
     "fields": [
       {
-        "description": "Text before the rotating words",
-        "name": "prefix",
-        "type": "string",
-        "title": "Prefix Text"
-      },
-      {
         "validation": [
           {
             "rules": [
@@ -663,7 +657,7 @@
               },
               {
                 "flag": "min",
-                "constraint": 2
+                "constraint": 1
               },
               {
                 "flag": "max",
@@ -673,47 +667,53 @@
             "level": "error"
           }
         ],
-        "description": "Words that will rotate in the slot machine effect",
+        "description": "Each item has a number and text",
         "of": [
           {
-            "type": "string"
-          }
-        ],
-        "name": "rotatingTexts",
-        "type": "array"
-      },
-      {
-        "description": "Text after the rotating words",
-        "name": "suffix",
-        "type": "string",
-        "title": "Suffix Text"
-      },
-      {
-        "initialValue": 2000,
-        "validation": [
-          {
-            "rules": [
+            "fields": [
               {
-                "flag": "min",
-                "constraint": 1000
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "number",
+                "type": "string"
               },
               {
-                "flag": "max",
-                "constraint": 5000
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "text",
+                "type": "string"
               }
             ],
-            "level": "error"
+            "type": "object",
+            "name": "slotItem",
+            "title": "Item"
           }
         ],
-        "description": "How fast the text rotates (1000 = fast, 5000 = slow)",
-        "name": "animationSpeed",
-        "type": "number",
-        "title": "Animation Speed (milliseconds)"
+        "name": "items",
+        "type": "array"
       }
     ],
     "name": "slotMachineTextBlock",
     "type": "object",
-    "title": "Slot Machine Text"
+    "title": "Slot Machine"
   },
   {
     "fields": [

@@ -6,30 +6,6 @@ export const stackedCardsBlock = defineType({
   type: 'object',
   fields: [
     {
-      name: 'title',
-      title: 'Section Title',
-      type: 'string',
-    },
-    {
-      name: 'eyebrowText',
-      title: 'Eyebrow Text',
-      type: 'string',
-      description: 'Small text above the title',
-    },
-    {
-      name: 'variant',
-      title: 'Visual Variant',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Light Theme', value: 'light' },
-          { title: 'Dark Theme', value: 'dark' },
-        ],
-        layout: 'radio',
-      },
-      initialValue: 'light',
-    },
-    {
       name: 'cards',
       title: 'Cards',
       type: 'array',
@@ -39,6 +15,19 @@ export const stackedCardsBlock = defineType({
           name: 'stackedCard',
           title: 'Stacked Card',
           fields: [
+            {
+              name: 'variant',
+              title: 'Visual Variant',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Light Theme', value: 'light' },
+                  { title: 'Dark Theme', value: 'dark' },
+                ],
+                layout: 'radio',
+              },
+              initialValue: 'light',
+            },
             {
               name: 'eyebrowText',
               title: 'Eyebrow Text',
@@ -59,9 +48,17 @@ export const stackedCardsBlock = defineType({
               validation: (Rule) => Rule.required(),
             },
             {
-              name: 'media',
-              title: 'Media',
-              type: 'mediaUnion',
+              name: 'image',
+              title: 'Image',
+              type: 'image',
+              options: { hotspot: true },
+              fields: [
+                {
+                  name: 'alt',
+                  title: 'Alt Text',
+                  type: 'string',
+                },
+              ],
               validation: (Rule) => Rule.required(),
             },
           ],
@@ -69,7 +66,7 @@ export const stackedCardsBlock = defineType({
             select: {
               title: 'title',
               eyebrowText: 'eyebrowText',
-              media: 'media.image',
+              media: 'image',
             },
             prepare(selection) {
               return {
@@ -87,13 +84,12 @@ export const stackedCardsBlock = defineType({
   preview: {
     select: {
       title: 'title',
-      variant: 'variant',
       cardsCount: 'cards.length',
     },
     prepare(selection) {
       return {
         title: 'Stacked Cards',
-        subtitle: `${selection.title || ''} (${selection.variant}, ${selection.cardsCount || 0} cards)`,
+        subtitle: `${selection.title || ''} (${selection.cardsCount || 0} cards)`,
       }
     },
   },

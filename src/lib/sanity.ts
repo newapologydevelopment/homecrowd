@@ -73,17 +73,12 @@ export const pageQuery = `
         title,
         description,
         eyebrowText,
-        media {
-          mediaType,
-          image {
-            asset,
-            alt,
-            hotspot,
-            crop
-          },
-          video {
-            asset
-          }
+        variant,
+        image {
+          asset,
+          alt,
+          hotspot,
+          crop
         }
       },
       // Handle social links
@@ -157,17 +152,12 @@ export const homepageQuery = `
         title,
         description,
         eyebrowText,
-        media {
-          mediaType,
-          image {
-            asset,
-            alt,
-            hotspot,
-            crop
-          },
-          video {
-            asset
-          }
+        variant,
+        image {
+          asset,
+          alt,
+          hotspot,
+          crop
         }
       },
       socialLinks[] {
