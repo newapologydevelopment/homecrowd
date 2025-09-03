@@ -94,7 +94,7 @@ export interface VideoTestimonialsBlock {
 }
 
 export interface AnimatedCardsBlock {
-  _type: 'animatedCards';
+  _type: 'animatedCardsBlock';
   _key: string;
   title?: string;
   cards: Array<{
@@ -167,6 +167,15 @@ export interface FooterBlock {
   contactEmail?: string;
 }
 
+export interface ValuePropositionBlock {
+  _type: 'valuePropositionBlock';
+  _key: string;
+  title_before_accent?: string;
+  title_accent_part?: string;
+  title_after_accent?: string;
+  description?: string;
+}
+
 // Union type for all blocks
 export type PageBlock =
   | PreloaderBlock
@@ -178,7 +187,8 @@ export type PageBlock =
   | SlotMachineTextBlock
   | CTABlock
   | EmailSignupBlock
-  | FooterBlock;
+  | FooterBlock
+  | ValuePropositionBlock;
 
 // Schedule Button type
 export interface ScheduleButton {

@@ -39,12 +39,6 @@ export const animatedCardsBlock = defineType({
               rows: 3,
               validation: (Rule) => Rule.required(),
             },
-            {
-              name: 'media',
-              title: 'Media',
-              type: 'mediaUnion',
-              validation: (Rule) => Rule.required(),
-            },
           ],
           preview: {
             select: {

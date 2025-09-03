@@ -24,6 +24,8 @@ module.exports = {
       },
       colors: {
         accent: '#00C8FF',
+        textDark: '#838383',
+        HC_grey: '#F6F5F3',
         'text-light': '#FEFEFE',
   			'gray-main': '#F2F1EF',
   			'white-main': '#F2F1EF',

@@ -79,7 +79,7 @@ export const mockBlocks: PageBlock[] = [
 
   // Animated Cards
   {
-    _type: 'animatedCards',
+    _type: 'animatedCardsBlock',
     _key: 'cards-1',
     title: 'Why Choose HomeCrowd',
     cards: [

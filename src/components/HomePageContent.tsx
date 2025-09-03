@@ -6,6 +6,7 @@ import { BlockRenderer } from "@/components/BlockRenderer";
 import { PageData } from "@/types";
 import { ScheduleButton } from "./ui/ScheduleButton";
 import { HomecrowdLogo } from "./ui/HomecrowdLogo";
+import { LenisProvider } from "./providers/LenisProvider";
 
 interface HomePageContentProps {
   pageData: PageData;
@@ -62,12 +63,14 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
   return (
     <main className="min-h-screen">
       {/* Preloader */}
-      {!isPreloaderComplete && preloaderBlock && (
+      {preloaderBlock && (
         <BlockRenderer
           block={preloaderBlock}
           onPreloaderComplete={handlePreloaderComplete}
         />
       )}
+
+      {/* {isPreloaderComplete && <LenisProvider />} */}
 
       {/* Main Content */}
       {/* {isPreloaderComplete && ( */}
@@ -81,7 +84,7 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
           <HomecrowdLogo canRender={canRender} />
         </div>
 
-[]
+        []
         <div className="w-full flex justify-center fixed bottom-[115px] z-[9999]">
           <ScheduleButton
             canRender={canRender}

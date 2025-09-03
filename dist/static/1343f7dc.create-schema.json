@@ -127,6 +127,10 @@
           {
             "type": "footerBlock",
             "title": "Footer"
+          },
+          {
+            "type": "valuePropositionBlock",
+            "title": "Value Proposition"
           }
         ],
         "name": "blocks",
@@ -417,21 +421,6 @@
                 ],
                 "name": "description",
                 "type": "text"
-              },
-              {
-                "validation": [
-                  {
-                    "rules": [
-                      {
-                        "flag": "presence",
-                        "constraint": "required"
-                      }
-                    ],
-                    "level": "error"
-                  }
-                ],
-                "name": "media",
-                "type": "mediaUnion"
               }
             ],
             "type": "object",
@@ -888,6 +877,33 @@
     "name": "footerBlock",
     "type": "object",
     "title": "Footer"
+  },
+  {
+    "fields": [
+      {
+        "name": "title_before_accent",
+        "type": "string",
+        "title": "Title (before accent)"
+      },
+      {
+        "name": "title_accent_part",
+        "type": "string",
+        "title": "Title (accent part)"
+      },
+      {
+        "name": "title_after_accent",
+        "type": "string",
+        "title": "Title (after accent)"
+      },
+      {
+        "rows": 3,
+        "name": "description",
+        "type": "text"
+      }
+    ],
+    "name": "valuePropositionBlock",
+    "type": "object",
+    "title": "Value Proposition"
   },
   {
     "fields": [

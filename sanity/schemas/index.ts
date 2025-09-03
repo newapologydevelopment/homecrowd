@@ -12,6 +12,7 @@ import { footerBlock } from './blocks/footerBlock'
 import { mediaUnion } from './objects/mediaUnion'
 import { seoSettings } from './objects/seoSettings'
 import { scheduleButton } from './objects/scheduleButton'
+import { valuePropositionBlock } from './blocks/valuePropositionBlock'
 
 export const schemaTypes = [
   // Documents
@@ -28,6 +29,7 @@ export const schemaTypes = [
   ctaBlock,
   emailSignupBlock,
   footerBlock,
+  valuePropositionBlock,
   
   // Objects
   mediaUnion,

@@ -62,6 +62,7 @@ export const page = defineType({
         { type: 'ctaBlock' },
         { type: 'emailSignupBlock' },
         { type: 'footerBlock' },
+        { type: 'valuePropositionBlock' },
       ],
       validation: (Rule) => Rule.required().min(1),
     },

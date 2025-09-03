@@ -9,6 +9,7 @@ import { SlotMachineTextBlock } from './blocks/SlotMachineTextBlock'
 import { CTABlock } from './blocks/CTABlock'
 import { EmailSignupBlock } from './blocks/EmailSignupBlock'
 import { FooterBlock } from './blocks/FooterBlock'
+import { ValuePropositionBlock } from './blocks/ValuePropositionBlock'
 
 interface BlockRendererProps {
   block: PageBlock
@@ -42,7 +43,7 @@ export function BlockRenderer({
     case 'videoTestimonialsBlock':
       return <VideoTestimonialsBlock block={block} />
     
-    case 'animatedCards':
+    case 'animatedCardsBlock':
       return <AnimatedCardsBlock block={block} />
     
     case 'marqueeBlock':
@@ -62,6 +63,9 @@ export function BlockRenderer({
     
     case 'footerBlock':
       return <FooterBlock block={block} />
+
+    case 'valuePropositionBlock':
+      return <ValuePropositionBlock block={block} />
     
     default:
       console.warn(`Unknown block type: ${(block as any)._type}`)
