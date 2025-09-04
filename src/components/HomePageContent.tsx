@@ -18,20 +18,26 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
   const [smoothScrollEnabled, setSmoothScrollEnabled] = useState(false);
   const [canRender, setCanRender] = useState(false);
 
-  // Enable smooth scroll after preloader
   useEffect(() => {
-    if (isPreloaderComplete) {
-      const timer = setTimeout(() => {
-        setSmoothScrollEnabled(true);
-        // Initialize Lenis smooth scroll (when available)
-        if (typeof window !== "undefined") {
-          document.documentElement.style.scrollBehavior = "smooth";
-        }
-      }, 500);
-
-      return () => clearTimeout(timer);
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     }
-  }, [isPreloaderComplete]);
+  }, []);
+
+  // // Enable smooth scroll after preloader
+  // useEffect(() => {
+  //   if (isPreloaderComplete) {
+  //     const timer = setTimeout(() => {
+  //       setSmoothScrollEnabled(true);
+  //       // Initialize Lenis smooth scroll (when available)
+  //       if (typeof window !== "undefined") {
+  //         document.documentElement.style.scrollBehavior = "smooth";
+  //       }
+  //     }, 500);
+
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [isPreloaderComplete]);
 
   const handlePreloaderComplete = () => {
     setIsPreloaderComplete(true);
