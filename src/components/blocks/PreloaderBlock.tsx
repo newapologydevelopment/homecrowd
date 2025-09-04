@@ -122,16 +122,16 @@ export function PreloaderBlock({ block, onComplete }: PreloaderBlockProps) {
           </svg>
         </div>
 
-        <div className="absolute inset-0 z-20 max-w-[1126px] mx-auto flex flex-col items-center justify-center pointer-events-none">
+        <div className="absolute inset-0 z-20 max-w-[1126px] mx-auto flex flex-col items-center justify-center pointer-events-none px-[30px] md:px-0">
           <p
             ref={titleRef}
-            className="text-text-light text-center text-[140px] font-baikal-extracondensed-bold leading-[87%] tracking-[0] mb-[28px] opacity-0 transform translate-y-8"
+            className="text-text-light text-center md:text-[140px] text-[64px] font-baikal-extracondensed-bold leading-[87%] tracking-[0] mb-[28px] opacity-0 transform translate-y-8"
           >
             {block.preloader_title}
           </p>
           <p
             ref={subtitleRef}
-            className="text-text-light text-[20px] font-baikal-light opacity-0 transform translate-y-8 max-w-[743px] text-center"
+            className="text-text-light md:text-[20px] text-[14px] font-baikal-light opacity-0 transform translate-y-8 max-w-[743px] text-center"
           >
             {block.preloader_subtitle}
           </p>
