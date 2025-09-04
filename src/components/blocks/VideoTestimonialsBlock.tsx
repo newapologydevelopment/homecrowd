@@ -111,7 +111,7 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
                       )}
                     </div>
                     <div className="flex h-[121px] bg-gray-main w-full min-w-fit px-[31px] pb-[24px]">
-                      <div className="flex flex-col min-w-[291px] mt-[27px]">
+                      <div className="flex flex-col min-w-[260px] mt-[27px]">
                         <span className="font-baikal-extracondensed-bold text-blackMain text-[1.25rem]">
                           {video.authorName}
                         </span>
