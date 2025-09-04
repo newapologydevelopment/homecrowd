@@ -117,10 +117,9 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
     };
   }, [otherBlocks.length, !!preloaderBlock]);
 
-  console.log("isPreloaderComplete", isPreloaderComplete);
 
   return (
-    <main className="min-h-screen">
+    <main className="h-[100dvh] md:min-h-screen">
       {/* Preloader */}
       {preloaderBlock && (
         <div data-logo-variant="light">
@@ -147,7 +146,7 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
         </div>
         
         {shouldShowSchedule && (
-          <div className="w-full flex justify-center fixed bottom-[115px] z-[9999]">
+          <div className="w-full flex justify-center fixed bottom-[20px] md:bottom-[115px] z-[9999]">
             <ScheduleButton
               canRender={canRender}
               title={pageData.scheduleButton?.title || ""}
