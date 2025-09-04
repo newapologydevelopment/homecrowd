@@ -199,7 +199,7 @@ export const mockBlocks: PageBlock[] = [
 
   // CTA
   {
-    _type: 'cta',
+    _type: 'ctaBlock',
     _key: 'cta-1',
     title: 'Ready to Transform Your Space?',
     description: 'Schedule a consultation with our experts and see how HomeCrowd can bring your vision to life.',
@@ -210,7 +210,7 @@ export const mockBlocks: PageBlock[] = [
 
   // Email Signup
   {
-    _type: 'emailSignup',
+    _type: 'emailSignupBlock',
     _key: 'email-1',
     title: 'Stay Updated',
     description: 'Get the latest design trends and project updates delivered to your inbox.',

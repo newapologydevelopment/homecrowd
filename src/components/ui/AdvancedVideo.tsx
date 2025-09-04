@@ -29,8 +29,11 @@ export default function AdvancedVideo({
   if (video.asset?._ref) {
     const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "";
     const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "";
-    const videoUrl = getSanityFileUrl(video.asset._ref, projectId, dataset);
 
+    const videoUrl = getSanityFileUrl(video.asset._ref, projectId, dataset);
+    console.log('video.asset._ref', video.asset._ref)
+
+    console.log('videoUrl', videoUrl)
     return (
       <video
         className={className}

@@ -1,4 +1,4 @@
-import { PageBlock } from '@/types'
+import { PageBlock, PageData } from '@/types'
 import { PreloaderBlock } from './blocks/PreloaderBlock'
 import { HeroBlock } from './blocks/HeroBlock'
 import { VideoTestimonialsBlock } from './blocks/VideoTestimonialsBlock'
@@ -13,6 +13,7 @@ import { ValuePropositionBlock } from './blocks/ValuePropositionBlock'
 
 interface BlockRendererProps {
   block: PageBlock
+  pageData: PageData
   isPreloaderComplete?: boolean
   onPreloaderComplete?: () => void
 }
@@ -20,7 +21,8 @@ interface BlockRendererProps {
 export function BlockRenderer({ 
   block, 
   isPreloaderComplete = true,
-  onPreloaderComplete 
+  onPreloaderComplete,
+  pageData
 }: BlockRendererProps) {
   console.log("block -->", block);
   switch (block._type) {
@@ -55,10 +57,10 @@ export function BlockRenderer({
     case 'slotMachineTextBlock':
       return <SlotMachineTextBlock block={block} />
     
-    case 'cta':
-      return <CTABlock block={block} />
+    case 'ctaBlock':
+      return <CTABlock pageData={pageData} block={block} />
     
-    case 'emailSignup':
+    case 'emailSignupBlock':
       return <EmailSignupBlock block={block} />
     
     case 'footerBlock':

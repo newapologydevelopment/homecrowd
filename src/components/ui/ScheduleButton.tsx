@@ -3,14 +3,17 @@ import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import Link from 'next/link';
+import clsx from 'clsx';
 
 interface ScheduleButtonProps {
     title: string;
     canRender: boolean;
     link?: string;
+    className?: string;
+    classNameButton?: string;
 }
 
-export const ScheduleButton: React.FC<ScheduleButtonProps> = ({ title, canRender = false, link='#' }) => {
+export const ScheduleButton: React.FC<ScheduleButtonProps> = ({ className, classNameButton, title, canRender = false, link='#' }) => {
     const buttonRef = useRef<HTMLButtonElement>(null);
 
     useGSAP(() => {
@@ -25,11 +28,13 @@ export const ScheduleButton: React.FC<ScheduleButtonProps> = ({ title, canRender
     }, [canRender]);
 
     return (
-        <Link href={link} target='_blank'>
+        <Link href={link} target='_blank' className={className}>
             <button
                 ref={buttonRef}
-                className=
-                'w-[139px] h-[46px] bg-accent uppercase text-text-light rounded-[4px] font-baikal-condensed text-[12px] border border-solid border-1 border-accent hover:bg-white hover:text-accent translate-y-[80px] transition-color duration-300 opacity-0'
+                className={clsx(
+                    'w-[139px] h-[46px] bg-accent uppercase text-text-light rounded-[4px] font-baikal-condensed text-[12px] border border-solid border-1 border-accent hover:bg-white hover:text-accent translate-y-[80px] transition-color duration-300 opacity-0',
+                    classNameButton
+                )}
             >
                 {title}
             </button>

@@ -66,6 +66,7 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
       {/* Preloader */}
       {preloaderBlock && (
         <BlockRenderer
+          pageData={pageData}
           block={preloaderBlock}
           onPreloaderComplete={handlePreloaderComplete}
         />
@@ -98,6 +99,7 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
         <div className={smoothScrollEnabled ? "smooth-scroll-enabled" : ""}>
           {otherBlocks.map((block) => (
             <BlockRenderer
+              pageData={pageData}
               key={block._key}
               block={block}
               isPreloaderComplete={isPreloaderComplete}

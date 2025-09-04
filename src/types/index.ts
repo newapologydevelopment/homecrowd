@@ -142,7 +142,7 @@ export interface SlotMachineTextBlock {
 }
 
 export interface CTABlock {
-  _type: 'cta';
+  _type: 'ctaBlock';
   _key: string;
   title: string;
   description?: string;
@@ -152,7 +152,7 @@ export interface CTABlock {
 }
 
 export interface EmailSignupBlock {
-  _type: 'emailSignup';
+  _type: 'emailSignupBlock';
   _key: string;
   title: string;
   description?: string;

@@ -110,8 +110,8 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
                         </div>
                       )}
                     </div>
-                    <div className="flex h-[121px] bg-gray-main w-full min-w-fit px-[31px] py-[26px]">
-                      <div className="flex flex-col min-w-[291px]">
+                    <div className="flex h-[121px] bg-gray-main w-full min-w-fit px-[31px] pb-[24px]">
+                      <div className="flex flex-col min-w-[291px] mt-[27px]">
                         <span className="font-baikal-extracondensed-bold text-blackMain text-[1.25rem]">
                           {video.authorName}
                         </span>
@@ -119,7 +119,7 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
                           {video.authorRole?.toLocaleUpperCase()}
                         </span>
                       </div>
-                      <div className="max-h-[121px]">
+                      <div className="max-h-[121px] mt-[26px]">
                         <span className="font-baikal-book text-[1rem] leading-[1.2]">
                           {video.testimonialText}
                         </span>
