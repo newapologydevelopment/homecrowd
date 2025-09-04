@@ -46,7 +46,7 @@ export const StackedCards = ({ cards }: { cards: Card[] }) => {
   )
 
   return (
-    <section ref={containerRef} className="w-full flex flex-col gap-[38px] items-center mt-[92px] mb-[122px]">
+    <section ref={containerRef} className="w-full flex flex-col gap-[38px] items-center mt-[92px] mb-[122px] px-[30px] md:px-0">
       {cards.map((card, i) => {
         const key = card._key ?? String(i) 
         const isActive = activeId === key
@@ -55,14 +55,14 @@ export const StackedCards = ({ cards }: { cards: Card[] }) => {
             key={key}
             data-key={key}
             className={cn(
-              'stacked-card sticky w-[74vw] h-[685px] rounded-[8px] bg-gray-main px-[54px] py-[50px]',
+              'stacked-card sticky md:w-[74vw] md:h-[685px] h-auto rounded-[8px] bg-gray-main md:px-[54px] px-[20px] md:py-[50px] py-[20px]',
               `z-[${cards.length - i}]`,
               { ['bg-dark-card']: card.variant === 'dark' }
             )}
             style={{ top: `${i + 1}0vh` }}
           >
-            <div className={cn('flex h-full gap-[78px]', { ['opacity-60']: !isActive })}>
-              <div className="w-1/2">
+            <div className={cn('flex flex-col md:flex-row h-full gap-[78px] gap-y-[25px]', { ['opacity-60']: !isActive })}>
+              <div className="md:w-1/2 w-full">
                 <p
                   className={cn(
                     'text-[14px] font-baikal-condensed text-textDark uppercase mb-[12px]',
@@ -73,7 +73,7 @@ export const StackedCards = ({ cards }: { cards: Card[] }) => {
                 </p>
                 <h3
                   className={cn(
-                    'font-baikal-extracondensed-bold text-[70px] capitalize mb-[30px] leading-[94%]',
+                    'font-baikal-extracondensed-bold md:text-[70px] text-[40px] capitalize md:mb-[30px] mb-[18px] leading-[94%]',
                     { ['text-white-main']: card.variant === 'dark' }
                   )}
                 >
@@ -84,7 +84,7 @@ export const StackedCards = ({ cards }: { cards: Card[] }) => {
                 </p>
               </div>
 
-              <div className="relative w-1/2 h-[585px]">
+              <div className="relative md:w-1/2 w-full md:h-[585px] h-[300px]">
                 <Image
                   src={urlFor(card.image).width(1200).height(800).fit('crop').url()}
                   alt={card.title}
