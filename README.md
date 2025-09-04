@@ -21,7 +21,7 @@ Studio will be available at `http://localhost:3333/studio`
 
 The project uses three Baikal font variants:
 
-- **`font-baikal-book`** - Main body text, descriptions, paragraphs
+- **`font-baikal-light`** - Main body text, descriptions, paragraphs
 - **`font-baikal-condensed`** - Headings, accents, top text
 - **`font-baikal-extracondensed-bold`** - Logos, large headings, footer
 

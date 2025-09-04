@@ -15,7 +15,7 @@ const baikalBook = localFont({
       style: 'normal',
     }
   ],
-  variable: '--font-baikal-book',
+  variable: '--font-baikal-light',
   display: 'swap',
 })
 

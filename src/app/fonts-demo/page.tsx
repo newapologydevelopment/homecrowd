@@ -10,19 +10,19 @@ export default function FontsDemoPage() {
           <div className="space-y-4">
             <p 
               className="text-6xl text-blue-600"
-              style={{ fontFamily: 'var(--font-baikal-book)' }}
+              style={{ fontFamily: 'var(--font-baikal-light)' }}
             >
               HOMECROWD
             </p>
             <p 
               className="text-2xl text-gray-700"
-              style={{ fontFamily: 'var(--font-baikal-book)' }}
+              style={{ fontFamily: 'var(--font-baikal-light)' }}
             >
               Premium Home Services
             </p>
             <p 
               className="text-lg text-gray-600"
-              style={{ fontFamily: 'var(--font-baikal-book)' }}
+              style={{ fontFamily: 'var(--font-baikal-light)' }}
             >
               Transform your living spaces with our expert design team
             </p>
@@ -84,7 +84,7 @@ export default function FontsDemoPage() {
           <h2 className="text-2xl font-semibold mb-4 text-gray-800">Tailwind CSS Usage</h2>
           <div className="space-y-4 text-sm">
             <div className="bg-gray-50 p-4 rounded">
-              <code className="text-blue-600">font-baikal-book</code> - для основного тексту
+              <code className="text-blue-600">font-baikal-light</code> - для основного тексту
             </div>
             <div className="bg-gray-50 p-4 rounded">
               <code className="text-green-600">font-baikal-condensed</code> - для заголовків та акценту
@@ -99,7 +99,7 @@ export default function FontsDemoPage() {
         <section className="bg-white p-8 rounded-lg shadow-md">
           <h2 className="text-2xl font-semibold mb-4 text-gray-800">CSS Variables</h2>
           <div className="space-y-2 text-sm font-mono bg-gray-50 p-4 rounded">
-            <div>--font-baikal-book</div>
+            <div>--font-baikal-light</div>
             <div>--font-baikal-condensed</div>
             <div>--font-baikal-extracondensed-bold</div>
           </div>

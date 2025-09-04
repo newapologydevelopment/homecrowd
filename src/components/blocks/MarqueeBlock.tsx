@@ -17,7 +17,7 @@ export function MarqueeBlock({ block }: MarqueeBlockProps) {
   const duration = (100 / speed) * 20;
 
   return (
-    <section className=" text-accent  overflow-hidden h-[152px] relative my-[24px]">
+    <section className=" text-accent  overflow-hidden h-[152px] relative">
       {/* Marquee Container */}
       <div className="flex whitespace-nowrap">
         {/* Repeated text elements for seamless loop */}

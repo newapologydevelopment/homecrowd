@@ -9,7 +9,7 @@ export default function TestFontsPage() {
           <h2 className="text-xl font-semibold mb-4">Baikal Book</h2>
           <p 
             className="text-3xl text-blue-600"
-            style={{ fontFamily: 'var(--font-baikal-book)' }}
+            style={{ fontFamily: 'var(--font-baikal-light)' }}
           >
             This is Baikal Book font
           </p>
@@ -39,7 +39,7 @@ export default function TestFontsPage() {
         <div className="bg-white p-6 rounded-lg shadow">
           <h2 className="text-xl font-semibold mb-4">CSS Variables</h2>
           <div className="text-sm font-mono bg-gray-50 p-4 rounded">
-            <div>--font-baikal-book: {typeof window !== 'undefined' ? getComputedStyle(document.documentElement).getPropertyValue('--font-baikal-book') : 'Loading...'}</div>
+            <div>--font-baikal-light: {typeof window !== 'undefined' ? getComputedStyle(document.documentElement).getPropertyValue('--font-baikal-light') : 'Loading...'}</div>
             <div>--font-baikal-condensed: {typeof window !== 'undefined' ? getComputedStyle(document.documentElement).getPropertyValue('--font-baikal-condensed') : 'Loading...'}</div>
             <div>--font-baikal-extracondensed-bold: {typeof window !== 'undefined' ? getComputedStyle(document.documentElement).getPropertyValue('--font-baikal-extracondensed-bold') : 'Loading...'}</div>
           </div>

@@ -40,7 +40,7 @@ export function AnimatedCardsBlock({ block }: AnimatedCardsBlockProps) {
   }, []);
 
   return (
-    <section className='mb-[255px]'>
+    <section className='mt-[95px] mb-[95px]'>
       <h2 className='font-baikal-light text-black-main text-[40px] mb-[58px] text-center'>{title}</h2>
 
       <div className='flex gap-[40px] justify-center'>

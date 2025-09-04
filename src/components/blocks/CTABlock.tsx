@@ -37,7 +37,7 @@ function BackgroundMedia({ media }: BackgroundMediaProps) {
       />
     );
   }
-  
+
   //@ts-ignore
 
   if (media.mediaType === "video") {
@@ -76,13 +76,13 @@ export function CTABlock({ pageData, block }: CTABlockProps) {
         <div className="relative">
           <input
             style={{ width: "520px" }}
-            className="placeholder:text-[##838383] text-black-main h-[54px] max-w-[520px] pl-[22px] pr-[150px] rounded-s"
+            className="placeholder:text-[##838383] placeholder:font-baikal-condensed text-[0.8rem] text-black-main h-[54px] max-w-[520px] pl-[22px] pr-[150px] rounded-[4px]"
             type="text"
             placeholder={"What’s your work email?"}
           />
           <ScheduleButton
-            className="absolute right-[7px] top-[4px]"
-            classNameButton="!text-black-main"
+            className="absolute right-[6.5px] top-[6.5px]"
+            classNameButton="!text-black-main !h-[41px]"
             title={pageData.scheduleButton?.title || ""}
             link={pageData.scheduleButton?.link || ""}
             canRender={true}

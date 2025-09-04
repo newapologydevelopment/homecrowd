@@ -17,7 +17,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        'baikal-book': ['var(--font-baikal-book)', 'sans-serif'],
+        // 'baikal-book': ['var(--font-baikal-light)', 'sans-serif'],
         'baikal-condensed': ['var(--font-baikal-condensed)', 'sans-serif'],
         'baikal-extracondensed-bold': ['var(--font-baikal-extracondensed-bold)', 'sans-serif'],
         'baikal-light': ['var(--font-baikal-light)', 'sans-serif'],

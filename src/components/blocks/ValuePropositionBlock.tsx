@@ -10,7 +10,7 @@ export function ValuePropositionBlock({ block }: ValuePropositionBlockProps) {
   const { title_before_accent, title_accent_part, title_after_accent, description } = block
 
   return (
-    <section className='mb-[268px]'>
+    <section className='mt-[165px] mb-[268px]'>
       <h2 className='font-baikal-light text-[40px] text-center mb-[24px]'>
         {title_before_accent}{title_before_accent ? ' ' : ''}
         {title_accent_part && (

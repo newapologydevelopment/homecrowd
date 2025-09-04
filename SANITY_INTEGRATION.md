@@ -17,14 +17,14 @@
 Проект використовує три основні шрифти Baikal:
 
 #### Доступні шрифти
-- **`font-baikal-book`** - основний текст, описи, параграфи
+- **`font-baikal-light`** - основний текст, описи, параграфи
 - **`font-baikal-condensed`** - заголовки, акценти, верхні написи
 - **`font-baikal-extracondensed-bold`** - логотипи, великі заголовки, футер
 
 #### Використання в Tailwind CSS
 ```tsx
 // Основний текст
-<p className="font-baikal-book text-lg">
+<p className="font-baikal-light text-lg">
   Transform your living spaces with our expert design team
 </p>
 
@@ -41,7 +41,7 @@
 
 #### CSS Variables
 ```css
-font-family: var(--font-baikal-book);
+font-family: var(--font-baikal-light);
 font-family: var(--font-baikal-condensed);
 font-family: var(--font-baikal-extracondensed-bold);
 ```

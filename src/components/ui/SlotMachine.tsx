@@ -47,7 +47,7 @@ export const SlotMachine = ({ items }: { items: SlotItem[] }) => {
   );
 
   return (
-    <div ref={containerRef} className="flex flex-col items-center justify-center gap-[18px] mb-[122px]">
+    <div ref={containerRef} className="flex flex-col items-center justify-center gap-[18px] mb-[90px]">
       {items.map((item, index) => (
         <div key={index} className="flex flex-col items-center justify-center slot-text">
           <h3 className="text-[286px] tracking-[-0.02em] leading-[100%] font-baikal-extracondensed-bold">

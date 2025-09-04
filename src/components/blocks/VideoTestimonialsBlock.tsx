@@ -47,12 +47,12 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
   };
 
   return (
-    <section className="py-[80px]">
+    <section className="pt-[80px] pb-[95px]">
       <div className="mx-auto p">
         {/* Title */}
         {block.title && (
-          <div className="text-center font-baikal-book mb-[48px]">
-            <h2 className="text-[2.5rem]">{block.title}</h2>
+          <div className="text-center mb-[48px]">
+            <h2 className="text-[2.5rem] text-black-main font-baikal-light">{block.title}</h2>
           </div>
         )}
 
@@ -120,7 +120,7 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
                         </span>
                       </div>
                       <div className="max-h-[121px] mt-[26px]">
-                        <span className="font-baikal-book text-[1rem] leading-[1.2]">
+                        <span className="font-baikal-light text-[1rem] leading-[1.2]">
                           {video.testimonialText}
                         </span>
                       </div>

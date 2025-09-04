@@ -32,8 +32,8 @@ export const ScheduleButton: React.FC<ScheduleButtonProps> = ({ className, class
             <button
                 ref={buttonRef}
                 className={clsx(
-                    'w-[139px] h-[46px] bg-accent uppercase text-text-light rounded-[4px] font-baikal-condensed text-[12px] border border-solid border-1 border-accent hover:bg-white hover:text-accent translate-y-[80px] transition-color duration-300 opacity-0',
-                    classNameButton
+                    classNameButton,
+                    'w-[139px] h-[43px] bg-accent uppercase text-text-light rounded-[4px] font-baikal-condensed text-[12px] border border-solid border-1 border-accent hover:bg-white hover:text-accent translate-y-[80px] transition-color duration-300 opacity-0'                   
                 )}
             >
                 {title}

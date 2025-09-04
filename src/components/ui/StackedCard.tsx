@@ -46,7 +46,7 @@ export const StackedCards = ({ cards }: { cards: Card[] }) => {
   )
 
   return (
-    <section ref={containerRef} className="w-full flex flex-col gap-[38px] items-center mb-[122px]">
+    <section ref={containerRef} className="w-full flex flex-col gap-[38px] items-center mt-[92px] mb-[122px]">
       {cards.map((card, i) => {
         const key = card._key ?? String(i) 
         const isActive = activeId === key
