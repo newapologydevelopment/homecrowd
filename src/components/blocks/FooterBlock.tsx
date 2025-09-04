@@ -48,31 +48,33 @@ export function FooterBlock({ block }: FooterBlockProps) {
       }
     };
   }, []);
-
   return (
-    <footer className="relative bg-accent h-[471px] overflow-hidden flex flex-col justify-end items-center">
-      {/* Main HOMECROWD text */}
-      <span className="absolute bottom-[-110px] flex justify-center items-center">
-        {"HOMECROWD".split("").map((letter, index) => (
-          <Letter
-            key={index}
-            letter={letter}
-            index={index}
-            registerControls={registerControls}
-            scheduleGlobalReset={scheduleGlobalReset}
-          />
-        ))}
-      </span>
+    <div>
+      <footer className="relative bg-accent md:h-[471px] h-[174px] overflow-hidden flex flex-col justify-end items-center">
+        {/* Main HOMECROWD text */}
+        <span className="absolute md:bottom-[-110px] bottom-[12.5px] flex justify-center items-center">
+          {"HOMECROWD".split("").map((letter, index) => (
+            <Letter
+              key={index}
+              letter={letter}
+              index={index}
+              registerControls={registerControls}
+              scheduleGlobalReset={scheduleGlobalReset}
+            />
+          ))}
+        </span>
 
-      <div className="absolute top-[27px] left-[45px] right-[32px] flex justify-between items-end">
-        <div className="text-[0.8rem] text-black-main font-baikal-condensed">
-          {block.copyrightText}
+        <div className="absolute md:top-[27px] top-[15px] md:left-[45px] left-[15px] md:right-[32px] right-[15px] flex justify-between items-end">
+          <div className="text-[0.8rem] md:text-[0.9rem] text-black-main font-baikal-condensed md:max-w-full max-w-[130px]">
+            {block.copyrightText}
+          </div>
+          <div className="text-[0.8rem] md:text-[0.9rem] text-black-main font-baikal-condensed">
+            {block.contactEmail}
+          </div>
         </div>
-        <div className="text-[0.8rem] text-black-main font-baikal-condensed">
-          {block.contactEmail}
-        </div>
-      </div>
-    </footer>
+      </footer>
+      <div className="block md:hidden bg-white-main h-[220px]" />
+    </div>
   );
 }
 
@@ -121,7 +123,7 @@ function Letter({
         transformOrigin: "bottom center",
       }}
     >
-      <span className="text-[21.171875rem] text-[#222222] leading-[1] font-baikal-extracondensed-bold">
+      <span className="md:text-[21.171875rem] text-[3.375rem] text-[#222222] leading-[1] font-baikal-extracondensed-bold">
         {letter}
       </span>
     </motion.span>

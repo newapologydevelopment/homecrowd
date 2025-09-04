@@ -17,7 +17,7 @@ export function MarqueeBlock({ block }: MarqueeBlockProps) {
   const duration = (100 / speed) * 20;
 
   return (
-    <section className=" text-accent  overflow-hidden h-[152px] relative">
+    <section className=" text-accent  overflow-hidden md:h-[152px] h-[56px] relative">
       {/* Marquee Container */}
       <div className="flex whitespace-nowrap">
         {/* Repeated text elements for seamless loop */}
@@ -35,11 +35,12 @@ export function MarqueeBlock({ block }: MarqueeBlockProps) {
             }}
           >
             {/* Text with separators */}
-            <div className="flex items-center text-white text-2xl md:text-4xl font-bold tracking-wider">
+            <div className="flex items-center text-white font-bold tracking-wider">
               {/* Logo separator */}
               {block.logo && (
-                <div className="mx-[63px]">
+                <div className="md:mx-[63px] mx-[23px]">
                   <SanityLogo
+                    className="md:h-[152px] h-[56px] md:max-w-full max-w-[83px]"
                     logo={block.logo}
                     // className="w-8 h-8 object-contain"
                     alt="Logo"
@@ -49,7 +50,7 @@ export function MarqueeBlock({ block }: MarqueeBlockProps) {
 
               <span
                 style={{ color: color }}
-                className="font-baikal-extracondensed-bold text-[143px]"
+                className="font-baikal-extracondensed-bold md:text-[8.9375rem] text-[53px] leading-[100%]"
               >
                 {block.text}
               </span>

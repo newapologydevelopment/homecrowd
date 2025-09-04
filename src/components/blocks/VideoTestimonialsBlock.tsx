@@ -76,7 +76,7 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
                 <CarouselItem
                   key={index}
                   className={clsx(
-                    "mr-[69px] bg-slate-300 w-[784px] h-[570px] max-w-[784px] max-h-[570px] flex-shrink-0 overflow-hidden relative transition-opacity duration-300 group",
+                    "mr-[20px] md:mr-[69px] bg-slate-300 w-[85vw] md:w-[784px] h-[570px] max-w-[85vw] md:max-w-[784px] max-h-[570px] flex-shrink-0 overflow-hidden relative transition-opacity duration-300 group",
                     index === currentSlide
                       ? "opacity-100"
                       : "opacity-50 cursor-pointer"
@@ -110,23 +110,23 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
                         </div>
                       )}
                     </div>
-                    <div className="flex h-[121px] bg-gray-main w-full min-w-fit px-[31px] pb-[24px]">
-                      <div className="flex flex-col min-w-[260px] mt-[27px]">
-                        <span className="font-baikal-extracondensed-bold text-blackMain text-[1.25rem]">
+                    <div className="flex-col md:flex-row flex md:h-[121px] h-[165px] bg-gray-main w-full min-w-fit px-[23px] md:px-[31px] pb-[24px]">
+                      <div className="flex flex-col min-w-[260px] md:mt-[27px] mt-[14px]">
+                        <span className="text-center md:text-left font-baikal-extracondensed-bold text-blackMain text-[1.25rem]">
                           {video.authorName}
                         </span>
-                        <span className="font-baikal-condensed text-blackMain text-[0.8rem]">
+                        <span className="text-center md:text-left font-baikal-condensed text-blackMain text-[0.8rem]">
                           {video.authorRole?.toLocaleUpperCase()}
                         </span>
                       </div>
-                      <div className="max-h-[121px] mt-[26px]">
-                        <span className="font-baikal-light text-[1rem] leading-[1.2]">
+                      <div className=" md:max-w-[400px] max-w-full max-h-[121px] md:max-h-full mt-[26px] flex md:block leading-[1.2]">
+                        <span className="text-center md:text-left font-baikal-light md:text-[1rem] text-[0.8rem] leading-[1.2]">
                           {video.testimonialText}
                         </span>
                       </div>
                     </div>
 
-                    <span className="absolute top-[30px] left-[33px] font-baikal-extracondensed-bold text-white-main text-[1.25rem]">
+                    <span className="absolute md:max-w-full max-w-[105px] md:top-[30px] top-[18px] md:left-[33px] left-[13.5px] font-baikal-extracondensed-bold text-white-main text-[1.25rem]">
                       {video?.institution?.toUpperCase()}
                     </span>
                   </div>
