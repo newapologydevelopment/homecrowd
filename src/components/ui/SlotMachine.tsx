@@ -47,13 +47,13 @@ export const SlotMachine = ({ items }: { items: SlotItem[] }) => {
   );
 
   return (
-    <div ref={containerRef} className="flex flex-col items-center justify-center gap-[18px] mb-[90px]">
+    <div ref={containerRef} className="flex flex-col items-center justify-center gap-[18px] mb-[90px] px-[30px] md:px-0">
       {items.map((item, index) => (
         <div key={index} className="flex flex-col items-center justify-center slot-text">
-          <h3 className="text-[286px] tracking-[-0.02em] leading-[100%] font-baikal-extracondensed-bold">
+          <h3 className="md:text-[286px] text-[195px] tracking-[-0.02em] leading-[100%] font-baikal-extracondensed-bold">
             {item.number}
           </h3>
-          <p className="text-[20px] font-baikal-condensed">{item.text}</p>
+          <p className="md:text-[20px] text-[14px] font-baikal-condensed">{item.text}</p>
         </div>
       ))}
     </div>
