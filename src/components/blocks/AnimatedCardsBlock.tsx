@@ -27,7 +27,7 @@ export function AnimatedCardsBlock({ block }: AnimatedCardsBlockProps) {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: '.card',
-        start: 'top 30%',
+        start: 'top 70%',
         end: 'bottom top',
       },
     });

@@ -59,7 +59,10 @@ function BackgroundMedia({ media }: BackgroundMediaProps) {
 
 export function CTABlock({ pageData, block }: CTABlockProps) {
   return (
-    <section className="h-[100vh] w-[100vw] relative overflow-hidden flex flex-col items-center justify-center">
+    <section
+      className="h-[100vh] w-[100vw] relative overflow-hidden flex flex-col items-center justify-center"
+      data-logo-hide="true"
+    >
       {/* Background Media */}
       {block.backgroundMedia && (
         <div className="absolute inset-0 z-0 w-[105vw] -left-[2.5vw]">
