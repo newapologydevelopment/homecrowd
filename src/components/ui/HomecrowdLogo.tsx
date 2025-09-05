@@ -29,9 +29,8 @@ export const HomecrowdLogo: React.FC<HomecrowdLogoProps> = ({ canRender, variant
         >
             <Image
                 fill
-                src="/images/homecrowd-logo.svg"
+                src={variant === 'light' ? '/images/homecrowd-logo-white.svg' : '/images/homecrowd-logo.svg'}
                 alt="Homecrowd Logo"
-                style={{ filter: variant === 'light' ? 'invert(1)' : 'invert(0)' }}
                 sizes="135px"
                 priority
             />

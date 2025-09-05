@@ -15,19 +15,19 @@ interface LetterProps {
 
 export function FooterBlock({ block }: FooterBlockProps) {
   return (
-    <footer className="relative bg-accent h-[471px] overflow-hidden flex flex-col justify-end items-center">
+    <footer className="relative bg-accent md:h-[471px] h-[174px] overflow-hidden flex flex-col justify-end items-center">
       {/* Main HOMECROWD text */}
-      <span className="absolute bottom-[-110px] flex justify-center items-center">
+      <div className="absolute md:bottom-[-110px] bottom-0 left-0 right-0 px-[35px] flex justify-center items-center">
         {"HOMECROWD".split("").map((letter, index) => (
           <Letter key={index} letter={letter} index={index} />
         ))}
-      </span>
+      </div>
 
-      <div className="absolute top-0 left-0 right-0 flex justify-between items-end px-[35px] md:px-0">
-        <div className="text-[0.8rem] text-black-main font-baikal-condensed">
+      <div className="absolute top-0 left-0 right-0 flex justify-between md:items-end items-start md:px-[35px] px-[15px] md:pt-[27px] pt-[15px]">
+        <div className="md:text-[0.8rem] text-[12px] max-w-[118px] md:max-w-full text-black-main font-baikal-condensed">
           {block.copyrightText}
         </div>
-        <div className="text-[0.8rem] text-black-main font-baikal-condensed">
+        <div className="md:text-[0.8rem] text-[12px] text-black-main font-baikal-condensed">
           {block.contactEmail}
         </div>
       </div>
@@ -83,7 +83,7 @@ function Letter({ letter, index }: LetterProps) {
         transformOrigin: "bottom center",
       }}
     >
-      <span className="text-[21.171875rem] text-[#222222] leading-[1] font-baikal-extracondensed-bold">
+      <span className="md:text-[21.171875rem] text-[70px] text-[#222222] leading-[1] font-baikal-extracondensed-bold">
         {letter}
       </span>
     </motion.span>

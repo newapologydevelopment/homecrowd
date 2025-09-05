@@ -11,7 +11,7 @@ export function ValuePropositionBlock({ block }: ValuePropositionBlockProps) {
   const { title_before_accent, title_accent_part, title_after_accent, description } = block
 
   return (
-    <section className="mt-[165px] mb-[268px] px-[30px] md:px-0">
+    <section className="mt-[165px] md:mb-[268px] mb-[130px] px-[30px] md:px-0">
       <motion.h2
         className="font-baikal-light md:text-[40px] text-[20px] text-center max-w-[250px] md:max-w-none mx-auto md:mx-0 mb-[24px] leading-[22px] md:leading-[100%]"
         initial={{ opacity: 0, y: 80 }}

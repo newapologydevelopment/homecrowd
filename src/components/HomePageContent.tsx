@@ -15,7 +15,7 @@ interface HomePageContentProps {
 
 export function HomePageContent({ pageData }: HomePageContentProps) {
   const [isPreloaderComplete, setIsPreloaderComplete] = useState(false);
-  const [smoothScrollEnabled, setSmoothScrollEnabled] = useState(false);
+  const [smoothScrollEnabled] = useState(false);
   const [canRender, setCanRender] = useState(false);
   const [shouldShowSchedule, setShouldShowSchedule] = useState(true);
   const [logoVariant, setLogoVariant] = useState<'light' | 'dark'>('light');
@@ -26,21 +26,6 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
       window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     }
   }, []);
-
-  // // Enable smooth scroll after preloader
-  // useEffect(() => {
-  //   if (isPreloaderComplete) {
-  //     const timer = setTimeout(() => {
-  //       setSmoothScrollEnabled(true);
-  //       // Initialize Lenis smooth scroll (when available)
-  //       if (typeof window !== "undefined") {
-  //         document.documentElement.style.scrollBehavior = "smooth";
-  //       }
-  //     }, 500);
-
-  //     return () => clearTimeout(timer);
-  //   }
-  // }, [isPreloaderComplete]);
 
   const handlePreloaderComplete = () => {
     setIsPreloaderComplete(true);
@@ -95,7 +80,7 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
         const isLightVisible = entries.some((e) => e.isIntersecting);
         setLogoVariant(isLightVisible ? 'light' : 'dark');
       },
-      { root: null, threshold: 0, rootMargin: '0px 0px 35% 0px' }
+      { root: null, threshold: 0.05, rootMargin: '0px 0px -200px 0px' }
     );
 
     const hideObserver = new IntersectionObserver(
@@ -146,7 +131,7 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
         </div>
         
         {shouldShowSchedule && (
-          <div className="w-full flex justify-center fixed bottom-[20px] md:bottom-[115px] z-[9999]">
+          <div className="w-full flex justify-center fixed bottom-[20px] md:bottom-[35px] z-[9999]">
             <ScheduleButton
               canRender={canRender}
               title={pageData.scheduleButton?.title || ""}

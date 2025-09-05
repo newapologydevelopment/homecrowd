@@ -51,8 +51,8 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
       <div className="mx-auto p">
         {/* Title */}
         {block.title && (
-          <div className="text-center mb-[48px]">
-            <h2 className="text-[2.5rem] text-black-main font-baikal-light">{block.title}</h2>
+          <div className="text-center md:mb-[48px] mb-[26px]">
+            <h2 className="md:text-[2.5rem] text-[1.5rem] text-black-main font-baikal-light">{block.title}</h2>
           </div>
         )}
 
