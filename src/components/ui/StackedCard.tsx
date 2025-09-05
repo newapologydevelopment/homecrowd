@@ -96,7 +96,7 @@ export const StackedCards = ({ cards }: { cards: Card[] }) => {
                 >
                   {card.title}
                 </h3>
-                <p className="font-baikal-light text-[14px] text-textDark capitalize max-w-[80%]">
+                <p className="font-baikal-light text-[14px] text-textDark capitalize md:max-w-[80%]">
                   {card.description}
                 </p>
               </div>
