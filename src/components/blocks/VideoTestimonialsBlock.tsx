@@ -47,7 +47,7 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
   };
 
   return (
-    <section className="pt-[80px] pb-[95px]">
+    <section className="pt-[80px] pb-[0px] md:pb-[95px]">
       <div className="mx-auto p">
         {/* Title */}
         {block.title && (
@@ -110,7 +110,7 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
                         </div>
                       )}
                     </div>
-                    <div className="flex-col md:flex-row flex h-full max-h-[165px] md:h-[165px] bg-gray-main w-full min-w-fit px-[23px] md:px-[31px] pb-[24px] md:rounded-[4px] ">
+                    <div className="flex-col md:flex-row flex h-full max-h-full md:h-[165px] bg-gray-main w-full min-w-fit px-[23px] md:px-[31px] pb-[24px] md:rounded-[4px] ">
                       <div className="flex flex-col min-w-[260px] md:mt-[19px] mt-[14px]">
                         <span className="text-center md:text-left font-baikal-extracondensed-bold text-blackMain md:text-[2rem] text-[1.5rem]">
                           {video.authorName}
