@@ -16,64 +16,96 @@ export function AnimatedCardsBlock({ block }: AnimatedCardsBlockProps) {
   const { title, cards } = block
   const containerRef = useRef<HTMLElement>(null)
 
-  useGSAP(() => {
-    const mm = gsap.matchMedia()
+  //old version
+  // useGSAP(() => {
+  //   const mm = gsap.matchMedia()
 
+  //   // Прив’язуємо всі селектори до containerRef
+  //   const ctx = gsap.context(() => {
+  //     const cardEls = gsap.utils.toArray<HTMLElement>('.card')
+
+  //     // ДЕСКТОП (>=768px): “стек” карт, що роз’їжджаються в нуль
+  //     mm.add('(min-width: 768px)', () => {
+  //       // Початкові позиції
+  //       gsap.set(cardEls, {
+  //         xPercent: (i: number) => -95 * i,
+  //         ease: 'power2.inOut',
+  //       })
+
+  //       // Одна спільна тайм-лінія
+  //       const tl = gsap.timeline({
+  //         scrollTrigger: {
+  //           trigger: containerRef.current,
+  //           start: 'top 70%',
+  //           end: 'bottom top',
+  //           invalidateOnRefresh: true,
+  //         },
+  //       })
+
+  //       tl.to(cardEls, {
+  //         xPercent: 0,
+  //         duration: 1,
+  //         ease: 'power2.inOut',
+  //         stagger: 0.08,
+  //       })
+  //     })
+
+  //     // МОБІЛЬНІ (<=767px): простий fade-up по одній картці
+  //     mm.add('(max-width: 767px)', () => {
+  //       gsap.set(cardEls, { opacity: 0, y: 24 })
+
+  //       cardEls.forEach((el, i) => {
+  //         gsap.to(el, {
+  //           opacity: 1,
+  //           y: 0,
+  //           duration: 0.6,
+  //           ease: 'power2.out',
+  //           delay: i * 0.08,
+  //           scrollTrigger: {
+  //             trigger: el,
+  //             start: 'top 85%',
+  //             toggleActions: 'play none none reverse',
+  //             invalidateOnRefresh: true,
+  //           },
+  //         })
+  //       })
+  //     })
+  //   }, containerRef)
+
+  //   // Cleanup: знімає всі матчі та тригери
+  //   return () => {
+  //     mm.revert()
+  //     ctx.revert()
+  //   }
+  // }, [])
+
+  useGSAP(() => {
     // Прив’язуємо всі селектори до containerRef
     const ctx = gsap.context(() => {
       const cardEls = gsap.utils.toArray<HTMLElement>('.card')
 
-      // ДЕСКТОП (>=768px): “стек” карт, що роз’їжджаються в нуль
-      mm.add('(min-width: 768px)', () => {
-        // Початкові позиції
-        gsap.set(cardEls, {
-          xPercent: (i: number) => -95 * i,
-          ease: 'power2.inOut',
-        })
+      // ОДНАКОВА анімація для мобільних і десктопа: fade-up з мікро-стаггером
+      gsap.set(cardEls, { opacity: 0, y: 24 })
 
-        // Одна спільна тайм-лінія
-        const tl = gsap.timeline({
+      cardEls.forEach((el, i) => {
+        gsap.to(el, {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: 'power2.out',
+          delay: i * 0.08,
           scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top 70%',
-            end: 'bottom top',
+            trigger: el,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
             invalidateOnRefresh: true,
           },
-        })
-
-        tl.to(cardEls, {
-          xPercent: 0,
-          duration: 1,
-          ease: 'power2.inOut',
-          stagger: 0.08,
-        })
-      })
-
-      // МОБІЛЬНІ (<=767px): простий fade-up по одній картці
-      mm.add('(max-width: 767px)', () => {
-        gsap.set(cardEls, { opacity: 0, y: 24 })
-
-        cardEls.forEach((el, i) => {
-          gsap.to(el, {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            ease: 'power2.out',
-            delay: i * 0.08,
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 85%',
-              toggleActions: 'play none none reverse',
-              invalidateOnRefresh: true,
-            },
-          })
         })
       })
     }, containerRef)
 
-    // Cleanup: знімає всі матчі та тригери
+    // Cleanup: знімає всі тригери
     return () => {
-      mm.revert()
       ctx.revert()
     }
   }, [])

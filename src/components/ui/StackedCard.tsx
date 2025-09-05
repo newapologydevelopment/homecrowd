@@ -51,9 +51,7 @@ export const StackedCards = ({ cards }: { cards: Card[] }) => {
       ref={containerRef}
       className="relative w-full flex flex-col gap-[38px] items-center mt-[92px] mb-[122px] px-[30px] md:px-0"
       style={{
-        // даємо контейнеру висоту з запасом,
-        // щоб усі картки встигли “приклеїтись”
-        minHeight: `${cards.length * 80}vh`,
+        minHeight: `${cards.length * 88}vh`,
       }}
     >
       {cards.map((card, i) => {
@@ -64,7 +62,7 @@ export const StackedCards = ({ cards }: { cards: Card[] }) => {
             key={key}
             data-key={key}
             className={cn(
-              'stacked-card sticky md:w-[74vw] md:h-[685px] h-auto rounded-[8px] bg-gray-main md:px-[54px] px-[20px] md:py-[50px] py-[20px] border border-[#222]/[0.08]',
+              'stacked-card sticky md:w-[74vw] md:h-[685px] lg:max-w-[1176px] h-auto rounded-[8px] bg-gray-main md:px-[54px] px-[20px] md:py-[50px] py-[20px] border border-[#222]/[0.08]',
               `z-[${cards.length - i}]`,
               {
                 ['bg-dark-card border-[#FDFDFD]/[0.24]']: card.variant === 'dark',
@@ -98,7 +96,7 @@ export const StackedCards = ({ cards }: { cards: Card[] }) => {
                 >
                   {card.title}
                 </h3>
-                <p className="font-baikal-light text-[14px] text-textDark capitalize">
+                <p className="font-baikal-light text-[14px] text-textDark capitalize max-w-[80%]">
                   {card.description}
                 </p>
               </div>
