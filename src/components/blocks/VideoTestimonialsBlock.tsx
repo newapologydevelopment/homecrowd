@@ -70,13 +70,13 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
           className="w-full"
           setApi={setApi}
         >
-          <CarouselContent className="max-h-[570px] w-[100vw]">
+          <CarouselContent className="md:max-h-[570px] max w-[100vw]">
             {[...block.videos, ...block.videos, ...block.videos].map(
               (video, index) => (
                 <CarouselItem
                   key={index}
                   className={clsx(
-                    "rounded-[8px] border-[#2222221] box-border border mr-[20px] md:mr-[69px] w-[85vw] md:w-[784px] h-[570px] max-w-[85vw] md:max-w-[784px] max-h-[570px] flex-shrink-0 overflow-hidden relative transition-opacity duration-300 group",
+                    "rounded-[4px] md:rounded-[8px] border border-[#222222]/[0.08] mr-[20px] md:mr-[69px] w-[85vw] md:w-[784px] max-w-[85vw] md:max-w-[784px] max flex-shrink-0 overflow-hidden relative transition-opacity duration-300 group",
                     index === currentSlide
                       ? "opacity-100"
                       : "opacity-50 cursor-pointer"
@@ -87,7 +87,6 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
                     }
                   }}
                 >
-                  <div className="w-full h-full flex flex-col items-start justify-between ">
                     <div className="relative w-full h-[449px] ">
                       <AdvancedVideo
                         video={video.video}
@@ -110,9 +109,9 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
                         </div>
                       )}
                     </div>
-                    <div className="flex-col md:flex-row flex h-fit md:h-[165px] bg-gray-main w-full min-w-fit px-[23px] md:px-[31px] pb-[24px] md:rounded-[4px] ">
+                    <div className="flex-col md:flex-row flex md:h-[165px] bg-gray-main w-full min-w-fit px-[23px] md:px-[31px] pb-[24px] md:rounded-b-[8px] rounded-b-[4px] overflow-hidden border-b border-[#222222]/[0.08]">
                       <div className="flex flex-col min-w-[260px] md:mt-[19px] mt-[14px]">
-                        <span className="text-center md:text-left font-baikal-extracondensed-bold text-blackMain md:text-[2rem] text-[1.5rem]">
+                        <span className="text-center md:text-left font-baikal-extracondensed-bold text-blackMain md:text-[2rem] text-[1.5rem] ">
                           {video.authorName}
                         </span>
                         <span className="text-center md:text-left font-baikal-condensed text-blackMain text-[0.8rem]">
@@ -129,7 +128,6 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
                     <span className="absolute md:max-w-full max-w-[105px] md:top-[30px] top-[18px] md:left-[33px] left-[13.5px] font-baikal-extracondensed-bold text-white-main text-[1.25rem]">
                       {video?.institution?.toUpperCase()}
                     </span>
-                  </div>
                 </CarouselItem>
               )
             )}
