@@ -87,7 +87,7 @@ export function AnimatedCardsBlock({ block }: AnimatedCardsBlockProps) {
       <div className="flex flex-col md:flex-row md:gap-[40px] gap-[30px] justify-center">
         {cards.map((card) => (
           <div
-            className="flex flex-col bg-HC_grey text-black-main px-[20px] py-[24px] rounded-[8px] max-w-[380px] card"
+            className="flex flex-col bg-HC_grey text-black-main px-[20px] py-[24px] rounded-[8px] max-w-[380px] card border border-[#222222]/[0.08]"
             key={card.title}
           >
             <h3 className="md:text-[78px] text-[64px] font-baikal-extracondensed-bold leading-[100%] tracking-[-1%] mb-[40px]">

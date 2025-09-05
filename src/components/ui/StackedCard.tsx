@@ -6,6 +6,7 @@ import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
 import { urlFor } from '@/lib/sanity'
+
 gsap.registerPlugin(ScrollTrigger)
 
 type Card = {
@@ -42,26 +43,44 @@ export const StackedCards = ({ cards }: { cards: Card[] }) => {
         triggers.forEach((t) => t.kill())
       }
     },
-    { scope: containerRef, dependencies: [cards] } 
+    { scope: containerRef, dependencies: [cards] }
   )
 
   return (
-    <section ref={containerRef} className="w-full flex flex-col gap-[38px] items-center mt-[92px] mb-[122px] px-[30px] md:px-0">
+    <section
+      ref={containerRef}
+      className="relative w-full flex flex-col gap-[38px] items-center mt-[92px] mb-[122px] px-[30px] md:px-0"
+      style={{
+        // даємо контейнеру висоту з запасом,
+        // щоб усі картки встигли “приклеїтись”
+        minHeight: `${cards.length * 80}vh`,
+      }}
+    >
       {cards.map((card, i) => {
-        const key = card._key ?? String(i) 
+        const key = card._key ?? String(i)
         const isActive = activeId === key
         return (
           <div
             key={key}
             data-key={key}
             className={cn(
-              'stacked-card sticky md:w-[74vw] md:h-[685px] h-auto rounded-[8px] bg-gray-main md:px-[54px] px-[20px] md:py-[50px] py-[20px]',
+              'stacked-card sticky md:w-[74vw] md:h-[685px] h-auto rounded-[8px] bg-gray-main md:px-[54px] px-[20px] md:py-[50px] py-[20px] border border-[#222]/[0.08]',
               `z-[${cards.length - i}]`,
-              { ['bg-dark-card']: card.variant === 'dark' }
+              {
+                ['bg-dark-card border-[#FDFDFD]/[0.24]']: card.variant === 'dark',
+              }
             )}
-            style={{ top: `${i + 1}0vh` }}
+            style={{
+              // ефект колоди: кожна наступна трохи нижче
+              top: `${(i + 1) * 10}vh`,
+            }}
           >
-            <div className={cn('flex flex-col md:flex-row h-full gap-[78px] gap-y-[25px]', { ['opacity-60']: !isActive })}>
+            <div
+              className={cn(
+                'flex flex-col md:flex-row h-full gap-[78px] gap-y-[25px]',
+                { ['opacity-60']: !isActive }
+              )}
+            >
               <div className="md:w-1/2 w-full">
                 <p
                   className={cn(
