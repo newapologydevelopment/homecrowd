@@ -76,7 +76,7 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
                 <CarouselItem
                   key={index}
                   className={clsx(
-                    "mr-[20px] md:mr-[69px] bg-slate-300 w-[85vw] md:w-[784px] h-[570px] max-w-[85vw] md:max-w-[784px] max-h-[570px] flex-shrink-0 overflow-hidden relative transition-opacity duration-300 group",
+                    "rounded-[8px] border-[#2222221] box-border border mr-[20px] md:mr-[69px] w-[85vw] md:w-[784px] h-[570px] max-w-[85vw] md:max-w-[784px] max-h-[570px] flex-shrink-0 overflow-hidden relative transition-opacity duration-300 group",
                     index === currentSlide
                       ? "opacity-100"
                       : "opacity-50 cursor-pointer"
@@ -87,8 +87,8 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
                     }
                   }}
                 >
-                  <div className="w-full h-full flex flex-col items-start justify-between">
-                    <div className="relative w-full h-[449px]">
+                  <div className="w-full h-full flex flex-col items-start justify-between ">
+                    <div className="relative w-full h-[449px] ">
                       <AdvancedVideo
                         video={video.video}
                         autoPlay
@@ -110,9 +110,9 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
                         </div>
                       )}
                     </div>
-                    <div className="flex-col md:flex-row flex md:h-[121px] h-[165px] bg-gray-main w-full min-w-fit px-[23px] md:px-[31px] pb-[24px]">
-                      <div className="flex flex-col min-w-[260px] md:mt-[27px] mt-[14px]">
-                        <span className="text-center md:text-left font-baikal-extracondensed-bold text-blackMain text-[1.25rem]">
+                    <div className="flex-col md:flex-row flex md:h-[121px] h-[165px] bg-gray-main w-full min-w-fit px-[23px] md:px-[31px] pb-[24px] md:rounded-[4px] ">
+                      <div className="flex flex-col min-w-[260px] md:mt-[19px] mt-[14px]">
+                        <span className="text-center md:text-left font-baikal-extracondensed-bold text-blackMain md:text-[2rem] text-[1.5rem]">
                           {video.authorName}
                         </span>
                         <span className="text-center md:text-left font-baikal-condensed text-blackMain text-[0.8rem]">
