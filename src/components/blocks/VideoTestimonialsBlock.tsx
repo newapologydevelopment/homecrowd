@@ -97,7 +97,7 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
                       {/* Play button overlay - only visible on active slide hover */}
                       {index === currentSlide && (
                         <div
-                          className="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer"
+                          className="absolute inset-0 bg-transparent bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer"
                           onClick={(e) => {
                             e.stopPropagation();
                             handleVideoClick(video);
@@ -137,30 +137,28 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
 
       {/* Full-screen video dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-[90vw] max-h-[100vh] p-0 bg-black [&>button]:hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-105 data-[state=closed]:slide-out-to-center-4 data-[state=open]:slide-in-from-center-4 duration-500 ease-out">
+        <DialogContent className="w-fit h-fit p-0 bg-transparent flex items-center justify-center [&>button]:hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-105 data-[state=closed]:slide-out-to-center-4 data-[state=open]:slide-in-from-center-4 duration-500 ease-out">
           <DialogTitle className="sr-only">Video Player</DialogTitle>
           {selectedVideo && (
-            <div className="relative w-full h-full animate-in fade-in-0 zoom-in-105 duration-500 ease-out">
+            <div className="relative animate-in fade-in-0 zoom-in-105 duration-500 ease-out flex items-center justify-center">
               <AdvancedVideo
                 video={selectedVideo.video}
                 autoPlay
                 muted={false}
-                className="w-full h-full object-contain"
+                className="object-contain md:max-w-[70vw] max-w-[100vw] max-h-[82vh]"
                 controls={true}
               />
             </div>
           )}
 
-          <DialogFooter className="sm:justify-start">
-            <DialogClose asChild>
-              <button
-                onClick={() => setIsDialogOpen(false)}
-                className="absolute top-4 right-4 w-8 h-8 bg-white bg-opacity-20 hover:bg-opacity-40 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 animate-in fade-in-0 slide-in-from-top-2 duration-500 delay-200"
-              >
-                ✕
-              </button>
-            </DialogClose>
-          </DialogFooter>
+          <DialogClose asChild>
+            <button
+              onClick={() => setIsDialogOpen(false)}
+              className="absolute top-4 right-4 w-8 h-8 bg-black bg-opacity-50 hover:bg-opacity-70 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 animate-in fade-in-0 slide-in-from-top-2 duration-500 delay-200 z-10"
+            >
+              ✕
+            </button>
+          </DialogClose>
         </DialogContent>
       </Dialog>
     </section>

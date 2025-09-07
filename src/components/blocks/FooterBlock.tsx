@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useAnimation } from "framer-motion";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import { FooterBlock as FooterBlockType } from "@/types";
 
 interface FooterBlockProps {
@@ -11,15 +11,50 @@ interface FooterBlockProps {
 interface LetterProps {
   letter: string;
   index: number;
+  mousePosition: { x: number; y: number };
+  letterRefs: React.RefObject<HTMLSpanElement>[];
 }
 
 export function FooterBlock({ block }: FooterBlockProps) {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const footerRef = useRef<HTMLElement>(null);
+  const letterRefs = useRef<(HTMLSpanElement | null)[]>([]);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (footerRef.current) {
+      const rect = footerRef.current.getBoundingClientRect();
+      setMousePosition({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      });
+    }
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setMousePosition({ x: 0, y: 0 });
+  }, []);
+
   return (
-    <footer className="relative bg-accent md:h-[471px] h-[174px] overflow-hidden flex flex-col justify-end items-center">
+    <footer 
+      ref={footerRef}
+      className="relative bg-accent md:h-[471px] h-[174px] overflow-hidden flex flex-col justify-end items-center"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* Invisible hover area above footer letters */}
+      <div className="absolute bottom-0 left-0 right-0 h-[40vh] bg-transparent" />
+      
       {/* Main HOMECROWD text */}
       <div className="absolute md:bottom-[-110px] bottom-0 left-0 right-0 px-[35px] flex justify-center items-center">
         {"HOMECROWD".split("").map((letter, index) => (
-          <Letter key={index} letter={letter} index={index} />
+          <Letter 
+            key={index} 
+            letter={letter} 
+            index={index} 
+            mousePosition={mousePosition}
+            // @ts-ignore
+            letterRefs={letterRefs}
+          />
         ))}
       </div>
 
@@ -35,49 +70,81 @@ export function FooterBlock({ block }: FooterBlockProps) {
   );
 }
 
-function Letter({ letter, index }: LetterProps) {
+function Letter({ letter, index, mousePosition, letterRefs }: LetterProps) {
   const controls = useAnimation();
-  const isAnimating = useRef(false);
-  const resetTimer = useRef<NodeJS.Timeout | null>(null);
+  const letterRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    controls.set({ y: 0 }); // початковий стан
-    return () => {
-      if (resetTimer.current) clearTimeout(resetTimer.current);
-    };
-  }, [controls]);
+    // @ts-ignore
+    letterRefs.current[index] = letterRef.current;
+  }, [index, letterRefs]);
 
-  const handleHover = async () => {
-    if (isAnimating.current) return;
-    isAnimating.current = true;
-
-    try {
-      // Піднімаємо літеру (енергійно)
-      await controls.start({
-        y: -110,
-        transition: { duration: 0.2, ease: "easeOut", type: "spring", stiffness: 300, damping: 20 },
-      });
-
-      // Таймер для опускання назад через 1.5 секунди (плавно)
-      if (resetTimer.current) clearTimeout(resetTimer.current);
-      resetTimer.current = setTimeout(() => {
-        controls.start({
-          y: 0,
-          transition: { duration: 0.5, ease: "easeInOut" },
-        });
-      }, 1000);
-    } finally {
-      isAnimating.current = false;
+  useEffect(() => {
+    if (!letterRef.current || mousePosition.x === 0) {
+      controls.start({ y: 0 });
+      return;
     }
-  };
+
+    const letterRect = letterRef.current.getBoundingClientRect();
+    const letterCenterX = letterRect.left + letterRect.width / 2;
+    const letterCenterY = letterRect.top + letterRect.height / 2;
+    
+    // Get footer container to calculate relative position
+    const footerElement = letterRef.current.closest('footer');
+    if (!footerElement) return;
+    
+    const footerRect = footerElement.getBoundingClientRect();
+    const relativeMouseX = mousePosition.x;
+    const relativeMouseY = mousePosition.y;
+    
+    // Calculate distance from mouse to letter center
+    const distanceX = Math.abs(relativeMouseX - (letterCenterX - footerRect.left));
+    const distanceY = Math.abs(relativeMouseY - (letterCenterY - footerRect.top));
+    const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    
+    // Maximum distance for effect (adjust this to control the "wave radius")
+    const maxDistance = 500;
+    
+    // Calculate lift amount based on distance (closer = higher lift)
+    let liftAmount = 0;
+    if (distance < maxDistance) {
+      // Inverse relationship: closer mouse = higher lift
+      const proximity = 1 - (distance / maxDistance);
+      // Apply easing for smoother effect
+      const easedProximity = proximity * proximity;
+      liftAmount = easedProximity * -100; 
+    }
+    
+    // Add wave effect based on letter position relative to mouse
+    const letterIndex = index;
+    const totalLetters = 9; // "HOMECROWD" has 9 letters
+    const letterPosition = letterIndex / (totalLetters - 1); // 0 to 1
+    
+    // Calculate wave offset based on mouse Y position and letter position
+    const mouseYNormalized = relativeMouseY / footerRect.height;
+    const waveOffset = Math.sin((letterPosition * Math.PI * 2) + (mouseYNormalized * Math.PI)) * 10;
+    
+    const finalLift = liftAmount + waveOffset;
+    
+    controls.start({
+      y: finalLift,
+      transition: { 
+        duration: 0.3, 
+        ease: "easeOut",
+        type: "spring",
+        stiffness: 150,
+        damping: 15
+      },
+    });
+
+  }, [mousePosition, index, controls]);
 
   return (
     <motion.span
-      className="relative inline-block align-bottom cursor-pointer transition-colors duration-200"
+      ref={letterRef}
+      className="relative inline-block align-bottom"
       initial={{ y: 0 }}
       animate={controls}
-      onMouseEnter={handleHover}
-      onTouchStart={handleHover}
       style={{
         willChange: "transform",
         transformOrigin: "bottom center",
