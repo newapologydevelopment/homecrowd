@@ -1,13 +1,9 @@
 'use client'
-import React, { useRef, useState } from 'react'
+
+import React, { useEffect, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
-import gsap from 'gsap'
-import { useGSAP } from '@gsap/react'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
 import { urlFor } from '@/lib/sanity'
-
-gsap.registerPlugin(ScrollTrigger)
 
 type Card = {
   _key?: string
@@ -19,84 +15,90 @@ type Card = {
 }
 
 export const StackedCards = ({ cards }: { cards: Card[] }) => {
-  const containerRef = useRef<HTMLDivElement | null>(null)
+  const containerRef = useRef<HTMLElement>(null)
   const [activeId, setActiveId] = useState<string | null>(cards?.[0]?._key ?? null)
 
-  useGSAP(
-    () => {
-      const triggers: ScrollTrigger[] = []
-      const els = gsap.utils.toArray<HTMLElement>('.stacked-card')
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+    const items = Array.from(container.querySelectorAll<HTMLElement>('.stacked-card'))
+    if (!items.length) return
 
-      els.forEach((el) => {
-        const key = el.dataset.key || null
-        const t = ScrollTrigger.create({
-          trigger: el,
-          start: 'top center',
-          end: 'bottom center',
-          onEnter: () => key && setActiveId(key),
-          onEnterBack: () => key && setActiveId(key),
-        })
-        triggers.push(t)
-      })
+    const io = new IntersectionObserver(
+      (entries) => {
+        const centered = [...entries]
+          .filter(e => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
+        const id = centered?.target.getAttribute('data-key')
+        if (id) setActiveId(id)
+      },
+      { root: null, rootMargin: '-30% 0px -30% 0px', threshold: [0.2, 0.4, 0.6, 0.8, 1] }
+    )
 
-      return () => {
-        triggers.forEach((t) => t.kill())
-      }
-    },
-    { scope: containerRef, dependencies: [cards] }
-  )
+    items.forEach(el => io.observe(el))
+    return () => io.disconnect()
+  }, [cards])
 
   return (
     <section
       ref={containerRef}
-      className="relative w-full flex flex-col gap-[38px] items-center mt-[92px] mb-[122px] px-[30px] md:px-0"
-      style={{
-        minHeight: `${cards.length * 88}vh`,
-      }}
+      className={cn(
+        'relative w-full flex flex-col gap-[38px] items-center mt-[92px] mb-[122px] px-[30px] md:px-0 pb-[160px] md:pb-[200px]',
+        '[--stack-step:70px] md:[--stack-step:100px]'
+      )}
     >
       {cards.map((card, i) => {
         const key = card._key ?? String(i)
         const isActive = activeId === key
+
         return (
           <div
             key={key}
             data-key={key}
             className={cn(
-              'stacked-card sticky md:w-[74vw] md:h-[685px] lg:max-w-[1176px] h-auto rounded-[8px] bg-gray-main md:px-[54px] px-[20px] md:py-[50px] py-[20px] border border-[#222]/[0.08]',
-              `z-[${cards.length - i}]`,
-              {
-                ['bg-dark-card border-[#FDFDFD]/[0.24]']: card.variant === 'dark',
-              }
+              'stacked-card sticky w-full top-[70px] md:top-[100px] md:w-[74vw] lg:max-w-[1176px] rounded-[8px] md:px-[54px] px-[20px] md:py-[50px] py-[20px] border transition-colors',
+              card.variant === 'dark'
+                ? 'bg-dark-card border-[#FDFDFD]/[0.24]'
+                : 'bg-gray-main border-[#222]/[0.08]'
             )}
-            style={{
-              // ефект колоди: кожна наступна трохи нижче
-              top: `${(i + 1) * 10}vh`,
-            }}
+            // Замість 100px: використовуємо var(--stack-step)
+            style={{ transform: `translateY(calc(var(--stack-step) * ${i}))` }}
           >
             <div
               className={cn(
-                'flex flex-col md:flex-row h-full gap-[78px] gap-y-[25px]',
-                { ['opacity-60']: !isActive }
+                'flex flex-col md:flex-row h-full gap-[78px] gap-y-[25px] transition-opacity',
+                !isActive && 'opacity-60'
               )}
             >
               <div className="md:w-1/2 w-full">
-                <p
-                  className={cn(
-                    'text-[14px] font-baikal-condensed text-textDark uppercase mb-[12px]',
-                    { ['text-accent']: isActive }
-                  )}
-                >
-                  {card.eyebrowText}
-                </p>
+                {card.eyebrowText && (
+                  <p
+                    className={cn(
+                      'text-[14px] font-baikal-condensed uppercase mb-[12px] transition-colors',
+                      isActive
+                        ? 'text-accent'
+                        : (card.variant === 'dark' ? 'text-white-main' : 'text-textDark')
+                    )}
+                  >
+                    {card.eyebrowText}
+                  </p>
+                )}
+
                 <h3
                   className={cn(
                     'font-baikal-extracondensed-bold md:text-[70px] text-[40px] capitalize md:mb-[30px] mb-[18px] leading-[94%]',
-                    { ['text-white-main']: card.variant === 'dark' }
+                    card.variant === 'dark' ? 'text-white-main' : ''
                   )}
                 >
                   {card.title}
                 </h3>
-                <p className="font-baikal-light text-[14px] text-textDark capitalize md:max-w-[80%]">
+
+                <p
+                  className={cn(
+                    'font-baikal-light text-[14px] capitalize md:max-w-[80%]',
+                    card.variant === 'dark' ? 'text-white-main/80' : 'text-textDark'
+                  )}
+                >
                   {card.description}
                 </p>
               </div>
@@ -109,6 +111,7 @@ export const StackedCards = ({ cards }: { cards: Card[] }) => {
                   sizes="(min-width: 1024px) 37vw, 90vw"
                   className="object-cover rounded-[8px]"
                   priority={i === 0}
+                  decoding="async"
                 />
               </div>
             </div>
