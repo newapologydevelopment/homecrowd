@@ -60,7 +60,7 @@ export function FooterBlock({ block }: FooterBlockProps) {
       <div className="absolute bottom-0 left-0 right-0 h-[70vh] bg-transparent" />
       
       {/* Main HOMECROWD text */}
-      <div className="absolute md:translate-y-[105px] translate-y-[40px] left-0 right-0 md:px-[35px] px-[15px] flex justify-center items-center">
+      <div className="absolute md:translate-y-[105px] translate-y-[0px] left-0 right-0 md:px-[35px] px-[15px] flex justify-between items-center w-full">
         {"HOMECROWD".split("").map((letter, index) => (
           <Letter 
             key={index} 
@@ -157,7 +157,7 @@ function Letter({ letter, index, mousePosition, letterRefs }: LetterProps) {
   return (
     <motion.span
       ref={letterRef}
-      className="relative inline-block align-bottom"
+      className="relative flex-1 flex justify-center align-bottom"
       initial={{ y: 0 }}
       animate={controls}
       style={{
@@ -165,7 +165,6 @@ function Letter({ letter, index, mousePosition, letterRefs }: LetterProps) {
         transformOrigin: "bottom center",
       }}
     >
-      {/* <span className="md:text-[21.171875rem] text-[70px] text-[#222222] leading-[1] font-baikal-extracondensed-bold"> */}
       <span className="md:text-[19vw] text-[70px] text-[#222222] leading-[1] font-baikal-extracondensed-bold">
         {letter}
       </span>
