@@ -20,32 +20,47 @@ export function FooterBlock({ block }: FooterBlockProps) {
   const footerRef = useRef<HTMLElement>(null);
   const letterRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (footerRef.current) {
-      const rect = footerRef.current.getBoundingClientRect();
-      setMousePosition({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      });
-    }
-  }, []);
+  useEffect(() => {
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      if (footerRef.current) {
+        const rect = footerRef.current.getBoundingClientRect();
+        // Calculate mouse position relative to footer, even when mouse is outside
+        const relativeX = e.clientX - rect.left;
+        const relativeY = e.clientY - rect.top;
+        
+        // Only trigger animation if mouse is within a reasonable distance of the footer
+        const distanceFromFooter = Math.abs(e.clientY - (rect.top + rect.height));
+        const maxTriggerDistance = window.innerHeight * 0.7; // 70vh trigger distance
+        
+        if (distanceFromFooter <= maxTriggerDistance) {
+          setMousePosition({
+            x: relativeX,
+            y: relativeY,
+          });
+        } else {
+          setMousePosition({ x: 0, y: 0 });
+        }
+      }
+    };
 
-  const handleMouseLeave = useCallback(() => {
-    setMousePosition({ x: 0, y: 0 });
+    // Add global mouse move listener
+    document.addEventListener('mousemove', handleGlobalMouseMove);
+    
+    return () => {
+      document.removeEventListener('mousemove', handleGlobalMouseMove);
+    };
   }, []);
 
   return (
     <footer 
       ref={footerRef}
       className="relative bg-accent md:h-[471px] h-[174px] overflow-hidden flex flex-col justify-end items-center"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
     >
       {/* Invisible hover area above footer letters */}
-      <div className="absolute bottom-0 left-0 right-0 h-[65vh] bg-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-[70vh] bg-transparent" />
       
       {/* Main HOMECROWD text */}
-      <div className="absolute md:bottom-[-110px] bottom-0 left-0 right-0 md:px-[35px] px-[15px] flex justify-center items-center">
+      <div className="absolute md:translate-y-[105px] translate-y-[40px] left-0 right-0 md:px-[35px] px-[15px] flex justify-center items-center">
         {"HOMECROWD".split("").map((letter, index) => (
           <Letter 
             key={index} 
@@ -150,7 +165,8 @@ function Letter({ letter, index, mousePosition, letterRefs }: LetterProps) {
         transformOrigin: "bottom center",
       }}
     >
-      <span className="md:text-[21.171875rem] text-[70px] text-[#222222] leading-[1] font-baikal-extracondensed-bold">
+      {/* <span className="md:text-[21.171875rem] text-[70px] text-[#222222] leading-[1] font-baikal-extracondensed-bold"> */}
+      <span className="md:text-[19vw] text-[70px] text-[#222222] leading-[1] font-baikal-extracondensed-bold">
         {letter}
       </span>
     </motion.span>
