@@ -42,7 +42,7 @@ export function FooterBlock({ block }: FooterBlockProps) {
       onMouseLeave={handleMouseLeave}
     >
       {/* Invisible hover area above footer letters */}
-      <div className="absolute bottom-0 left-0 right-0 h-[40vh] bg-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-[65vh] bg-transparent" />
       
       {/* Main HOMECROWD text */}
       <div className="absolute md:bottom-[-110px] bottom-0 left-0 right-0 px-[35px] flex justify-center items-center">
