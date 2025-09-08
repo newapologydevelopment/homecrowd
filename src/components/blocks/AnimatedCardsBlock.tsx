@@ -111,7 +111,7 @@ export function AnimatedCardsBlock({ block }: AnimatedCardsBlockProps) {
   }, [])
 
   return (
-    <section ref={containerRef} className="mt-[95px] mb-[95px] px-[30px] md:px-0">
+    <section ref={containerRef} className="mt-[90px] md:mt-[95px] mb-[95px] px-[30px] md:px-0">
       <h2 className="font-baikal-light text-black-main md:text-[40px] text-[20px] mb-[30px] md:mb-[58px] text-center">
         {title}
       </h2>

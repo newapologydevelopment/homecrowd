@@ -47,12 +47,12 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
   };
 
   return (
-    <section className="pt-[80px] pb-[0px] md:pb-[95px]">
+    <section className="pt-[57px] md:pt-[80px] pb-[0px] md:pb-[95px]">
       <div className="mx-auto p">
         {/* Title */}
         {block.title && (
           <div className="text-center md:mb-[48px] mb-[26px]">
-            <h2 className="md:text-[2.5rem] text-[1.5rem] text-black-main font-baikal-light">{block.title}</h2>
+            <h2 className="md:text-[2.5rem] text-[1.25rem] text-black-main font-baikal-light">{block.title}</h2>
           </div>
         )}
 

@@ -48,7 +48,7 @@ function BackgroundMedia({ media }: BackgroundMediaProps) {
         autoPlay={true}
         controls={false}
         muted={true}
-        className="w-full h-[760px] md:h-full object-cover overflow-hidden md:overflow-visible"
+        className="w-full md:h-full h-[105%] object-cover overflow-hidden md:overflow-visible"
         preload="auto"
       />
     );

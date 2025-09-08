@@ -141,7 +141,7 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
         )}
 
           
-        <div className="h-[40px]"/>
+        <div className="md:h-[40px] h-[0px]"/>
 
         {/* Page Blocks */}
         <div className={smoothScrollEnabled ? "smooth-scroll-enabled" : ""}>

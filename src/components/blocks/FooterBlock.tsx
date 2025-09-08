@@ -45,7 +45,7 @@ export function FooterBlock({ block }: FooterBlockProps) {
       <div className="absolute bottom-0 left-0 right-0 h-[65vh] bg-transparent" />
       
       {/* Main HOMECROWD text */}
-      <div className="absolute md:bottom-[-110px] bottom-0 left-0 right-0 px-[35px] flex justify-center items-center">
+      <div className="absolute md:bottom-[-110px] bottom-0 left-0 right-0 md:px-[35px] px-[15px] flex justify-center items-center">
         {"HOMECROWD".split("").map((letter, index) => (
           <Letter 
             key={index} 
