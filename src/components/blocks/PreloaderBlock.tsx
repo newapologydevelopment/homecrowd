@@ -46,7 +46,7 @@ export function PreloaderBlock({ block, onComplete }: PreloaderBlockProps) {
       document.body.style.height = 'auto'
       document.body.style.overflow = 'unset'
     }
-
+    // Окремі сценарії, як раніше
     const chromeDesktop = () => {
       const tl = gsap.timeline({
         onComplete: () => {
@@ -75,12 +75,29 @@ export function PreloaderBlock({ block, onComplete }: PreloaderBlockProps) {
           cleanupBody()
         }
       })
+      const updateUseScale = (scale: number) => {
+        const useEl = document.getElementById('logoUse') as SVGUseElement | null
+        if (!useEl) return
+        const w = 143 * scale
+        const h = 96 * scale
+        const cx = 71.5 * scale
+        const cy = 48 * scale
+        useEl.setAttribute('width', String(w))
+        useEl.setAttribute('height', String(h))
+        useEl.setAttribute('transform', `translate(${-cx} ${-cy})`)
+      }
+
+      const scaler = { s: 1 }
       tl.to({}, { duration: 0.5 })
-        .to(maskRef.current, { scale: 100, duration: 1.1, ease: 'expo.inOut' })
+        .to(scaler, { s: targetScale, duration: 1.2, ease: 'expo.inOut', onUpdate: () => updateUseScale(scaler.s) })
+        .to({}, { duration: 0.5 })
+        .to(maskRef.current, { scale: 100, duration: 1.2, ease: 'expo.inOut' })
         .to(maskRef.current, { opacity: 0, duration: 0.5, ease: 'power2.inOut' }, '-=0.5')
         .set(maskRef.current, { display: 'none' })
         .to([titleRef.current, subtitleRef.current], { opacity: 1, y: 0, duration: 1, stagger: 0.5, ease: 'power2.out' }, '-=0.3')
-      return () => {}
+      const onResize = () => updateUseScale(targetScale())
+      window.addEventListener('resize', onResize, { passive: true })
+      return () => window.removeEventListener('resize', onResize)
     }
 
     const mobileSimple = () => {
@@ -153,15 +170,17 @@ export function PreloaderBlock({ block, onComplete }: PreloaderBlockProps) {
 
               <mask id="hole-mask">
                 <rect width="100%" height="100%" fill="white" />
-                <use
-                  id="logoUse"
-                  href="#hc-logo"
-                  x="50%" y="50%"
-                  width="143" height="96"
-                  transform="translate(-71.5 -48)"
-                  fill="black"
-                  style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
-                />
+                <g id="logoWrap" style={{ transformBox: 'fill-box', transformOrigin: 'center' }}>
+                  <use
+                    id="logoUse"
+                    href="#hc-logo"
+                    x="50%" y="50%"
+                    width="143" height="96"
+                    transform="translate(-71.5 -48)"
+                    fill="black"
+                    style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
+                  />
+                </g>
               </mask>
             </defs>
 
