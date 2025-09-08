@@ -28,9 +28,17 @@ export function PreloaderBlock({ block, onComplete }: PreloaderBlockProps) {
     const mm = gsap.matchMedia()
     const SAFARI = isSafari()
     const logo = '#logoUse'
+    const baseLogoW = 143
     const baseLogoH = 98
     const getVH = () => (window.visualViewport?.height ?? window.innerHeight) || 0
-    const targetScale = () => Math.max(0, getVH() - 20) / baseLogoH
+    const getVW = () => (window.visualViewport?.width ?? window.innerWidth) || 0
+    const targetScale = () => {
+      const heightBased = Math.max(0, getVH() - 20) / baseLogoH
+      const isMobile = getVW() <= 767
+      const desiredWidth = isMobile ? Math.max(0, getVW() - 20) : Infinity
+      const widthBased = desiredWidth === Infinity ? Number.POSITIVE_INFINITY : desiredWidth / baseLogoW
+      return Math.min(heightBased, widthBased)
+    }
 
     if (!shouldRenderMask) {
       document.body.style.height = 'auto'
@@ -45,6 +53,19 @@ export function PreloaderBlock({ block, onComplete }: PreloaderBlockProps) {
     const cleanupBody = () => {
       document.body.style.height = 'auto'
       document.body.style.overflow = 'unset'
+    }
+
+    // Уніфікований спосіб масштабувати логотип через width/height+translate (стабільно в Safari/мобільних)
+    const updateUseScale = (scale: number) => {
+      const useEl = document.getElementById('logoUse') as SVGUseElement | null
+      if (!useEl) return
+      const w = 143 * scale
+      const h = 96 * scale
+      const cx = 71.5 * scale
+      const cy = 48 * scale
+      useEl.setAttribute('width', String(w))
+      useEl.setAttribute('height', String(h))
+      useEl.setAttribute('transform', `translate(${-cx} ${-cy})`)
     }
     // Окремі сценарії, як раніше
     const chromeDesktop = () => {
@@ -75,18 +96,6 @@ export function PreloaderBlock({ block, onComplete }: PreloaderBlockProps) {
           cleanupBody()
         }
       })
-      const updateUseScale = (scale: number) => {
-        const useEl = document.getElementById('logoUse') as SVGUseElement | null
-        if (!useEl) return
-        const w = 143 * scale
-        const h = 96 * scale
-        const cx = 71.5 * scale
-        const cy = 48 * scale
-        useEl.setAttribute('width', String(w))
-        useEl.setAttribute('height', String(h))
-        useEl.setAttribute('transform', `translate(${-cx} ${-cy})`)
-      }
-
       const scaler = { s: 1 }
       tl.to({}, { duration: 0.5 })
         .to(scaler, { s: targetScale, duration: 1.2, ease: 'expo.inOut', onUpdate: () => updateUseScale(scaler.s) })
@@ -100,7 +109,7 @@ export function PreloaderBlock({ block, onComplete }: PreloaderBlockProps) {
       return () => window.removeEventListener('resize', onResize)
     }
 
-    const mobileSimple = () => {
+    const mobileUnified = () => {
       gsap.set(maskRef.current, { transformOrigin: '50% 50%', force3D: true, willChange: 'transform' })
       const tl = gsap.timeline({
         onComplete: () => {
@@ -108,14 +117,17 @@ export function PreloaderBlock({ block, onComplete }: PreloaderBlockProps) {
           cleanupBody()
         }
       })
+      const scaler = { s: 1 }
       tl.to({}, { duration: 0.5 })
-        .to(maskRef.current, { scale: 2.5, duration: 1.2, ease: 'expo.inOut' })
+        .to(scaler, { s: targetScale, duration: 1.2, ease: 'expo.inOut', onUpdate: () => updateUseScale(scaler.s) })
         .to({}, { duration: 0.5 })
         .to(maskRef.current, { scale: 100, duration: 1.2, ease: 'expo.inOut' })
         .to(maskRef.current, { opacity: 0, duration: 0.5, ease: 'power2.inOut' }, '-=0.5')
         .set(maskRef.current, { display: 'none' })
         .to([titleRef.current, subtitleRef.current], { opacity: 1, y: 0, duration: 1, stagger: 0.5, ease: 'power2.out' }, '-=0.3')
-      return () => {}
+      const onResize = () => updateUseScale(targetScale())
+      window.addEventListener('resize', onResize, { passive: true })
+      return () => window.removeEventListener('resize', onResize)
     }
 
     const disposeFns: Array<() => void> = []
@@ -130,7 +142,7 @@ export function PreloaderBlock({ block, onComplete }: PreloaderBlockProps) {
     })
 
     mm.add('(max-width: 767px)', () => {
-      disposeFns.push(mobileSimple())
+      disposeFns.push(mobileUnified())
       return () => disposeFns.forEach(fn => fn?.())
     })
 
