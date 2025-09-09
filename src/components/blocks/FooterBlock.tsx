@@ -56,9 +56,6 @@ export function FooterBlock({ block }: FooterBlockProps) {
   }, []);
 
   useEffect(() => {
-    const hover = hoverRef.current;
-    if (!hover) return;
-
     // налаштування впливу
     const influenceRadius = 520; // px — наскільки далеко сусідні "ловлять" ефект
     const falloffPower = 1.6; // >1 — швидше згасає до країв
@@ -93,12 +90,12 @@ export function FooterBlock({ block }: FooterBlockProps) {
       }
     };
 
-    hover.addEventListener("mousemove", onMove);
-    hover.addEventListener("mouseleave", onLeave);
+    window.addEventListener("mousemove", onMove, { passive: true });
+    window.addEventListener("mouseleave", onLeave);
 
     return () => {
-      hover.removeEventListener("mousemove", onMove);
-      hover.removeEventListener("mouseleave", onLeave);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseleave", onLeave);
     };
   }, []);
 
