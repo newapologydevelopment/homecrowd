@@ -43,7 +43,7 @@ export const StackedCards = ({ cards }: { cards: Card[] }) => {
     <section
       ref={containerRef}
       className={cn(
-        'relative w-full flex flex-col gap-[38px] items-center mt-[92px] mb-[122px] px-[30px] md:px-0 md:pb-[200px]',
+        'relative w-full flex flex-col gap-[38px] items-center mt-[40px] md:mt-[92px] mb-[122px] px-[30px] md:px-0 md:pb-[200px]',
         '[--stack-step:0px] md:[--stack-step:100px]'
       )}
     >
