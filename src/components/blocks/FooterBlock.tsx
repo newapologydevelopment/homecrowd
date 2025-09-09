@@ -117,7 +117,7 @@ export function FooterBlock({ block }: FooterBlockProps) {
           viewBox="0 0 5595.5 873.4"
           fill="currentColor"
           aria-labelledby="title"
-          className="w-full h-auto overflow-visible"
+          className="w-full h-auto overflow-visible text-[#222222]"
         >
           <title id="title">HOMECROWD wordmark</title>
           <g id="word-homecrowd">

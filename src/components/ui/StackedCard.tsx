@@ -43,8 +43,8 @@ export const StackedCards = ({ cards }: { cards: Card[] }) => {
     <section
       ref={containerRef}
       className={cn(
-        'relative w-full flex flex-col gap-[38px] items-center mt-[92px] mb-[122px] px-[30px] md:px-0 pb-[160px] md:pb-[200px]',
-        '[--stack-step:70px] md:[--stack-step:100px]'
+        'relative w-full flex flex-col gap-[38px] items-center mt-[92px] mb-[122px] px-[30px] md:px-0 md:pb-[200px]',
+        '[--stack-step:0px] md:[--stack-step:100px]'
       )}
     >
       {cards.map((card, i) => {
@@ -56,12 +56,12 @@ export const StackedCards = ({ cards }: { cards: Card[] }) => {
             key={key}
             data-key={key}
             className={cn(
-              'stacked-card sticky w-full top-[70px] md:top-[100px] md:w-[74vw] lg:max-w-[1176px] rounded-[8px] md:px-[54px] px-[20px] md:py-[50px] py-[20px] border transition-colors',
+              'stacked-card md:sticky w-full md:top-[100px] md:w-[74vw] lg:max-w-[1176px] rounded-[8px] md:px-[54px] px-[20px] md:py-[50px] py-[20px] border transition-colors',
               card.variant === 'dark'
                 ? 'bg-dark-card border-[#FDFDFD]/[0.24]'
                 : 'bg-gray-main border-[#222]/[0.08]'
             )}
-            // Instead of 100px: use var(--stack-step)
+            // Замість 100px: використовуємо var(--stack-step)
             style={{ transform: `translateY(calc(var(--stack-step) * ${i}))` }}
           >
             <div
