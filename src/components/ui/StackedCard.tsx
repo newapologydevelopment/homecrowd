@@ -105,7 +105,7 @@ export const StackedCards = ({ cards }: { cards: Card[] }) => {
 
               <div className="relative md:w-1/2 w-full md:h-[585px] h-[300px]">
                 <Image
-                  src={urlFor(card.image).width(1200).height(800).fit('crop').url()}
+                  src={urlFor(card.image).width(1200).fit('max').url()}
                   alt={card.title}
                   fill
                   sizes="(min-width: 1024px) 37vw, 90vw"

@@ -20,6 +20,8 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
   const [shouldShowSchedule, setShouldShowSchedule] = useState(true);
   const [logoVariant, setLogoVariant] = useState<'light' | 'dark'>('light');
   const [isLogoHidden, setIsLogoHidden] = useState(false);
+  const [isLightZoneVisible, setIsLightZoneVisible] = useState(false);
+  const [isCtaVisible, setIsCtaVisible] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -68,7 +70,7 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
     return () => io.disconnect();
   }, [otherBlocks.length]);
 
-  // Control logo variant (white over preloader a bit longer; black otherwise) and hide over CTA
+  // Control logo variant: white over preloader and CTA; dark otherwise
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const lightEl = document.querySelector('[data-logo-variant="light"]') as HTMLElement | null;
@@ -78,29 +80,34 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
     const lightObserver = new IntersectionObserver(
       (entries) => {
         const isLightVisible = entries.some((e) => e.isIntersecting);
-        setLogoVariant(isLightVisible ? 'light' : 'dark');
+        setIsLightZoneVisible(isLightVisible);
       },
       { root: null, threshold: 0.05, rootMargin: '0px 0px -200px 0px' }
     );
 
-    const hideObserver = new IntersectionObserver(
+    const ctaObserver = new IntersectionObserver(
       (entries) => {
-        // Ховаємо лого, якщо будь-яка ціль видима хоча б на 1px
-        const anyHide = entries.some((e) => e.isIntersecting);
-        setIsLogoHidden(anyHide);
+        // Вмикаємо білий варіант логотипа, якщо CTA у вʼюпорті
+        const anyVisible = entries.some((e) => e.isIntersecting);
+        setIsCtaVisible(anyVisible);
       },
-      // Ховати лого, як тільки CTA входить у вʼюпорт (без затримки)
+      // Реагувати миттєво, як тільки CTA входить у вʼюпорт
       { root: null, threshold: 0, rootMargin: '0px' }
     );
 
     if (lightEl) lightObserver.observe(lightEl);
-    hideLogoTargets.forEach((el) => hideObserver.observe(el));
+    hideLogoTargets.forEach((el) => ctaObserver.observe(el));
 
     return () => {
       lightObserver.disconnect();
-      hideObserver.disconnect();
+      ctaObserver.disconnect();
     };
   }, [otherBlocks.length, !!preloaderBlock]);
+
+  // Derive actual logo variant from visibility flags
+  useEffect(() => {
+    setLogoVariant(isLightZoneVisible || isCtaVisible ? 'light' : 'dark');
+  }, [isLightZoneVisible, isCtaVisible]);
 
 
   return (
