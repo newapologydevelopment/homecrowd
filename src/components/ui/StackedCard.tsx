@@ -61,7 +61,7 @@ export const StackedCards = ({ cards }: { cards: Card[] }) => {
                 ? 'bg-dark-card border-[#FDFDFD]/[0.24]'
                 : 'bg-gray-main border-[#222]/[0.08]'
             )}
-            // Замість 100px: використовуємо var(--stack-step)
+            // Instead of 100px: use var(--stack-step)
             style={{ transform: `translateY(calc(var(--stack-step) * ${i}))` }}
           >
             <div

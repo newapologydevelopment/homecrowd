@@ -12,9 +12,9 @@ export const SlotMachine = ({ items }: { items: SlotItem[] }) => {
 
   useGSAP(
     () => {
-      const els = gsap.utils.toArray<HTMLElement>('.slot-text'); // усі блоки
+      const els = gsap.utils.toArray<HTMLElement>('.slot-text'); // all blocks
 
-      // фарбуємо активний, інші – сірі
+      // color active one, others – gray
       const setActive = (idx: number) => {
         els.forEach((el, i) => {
           gsap.to(el, {
@@ -25,7 +25,7 @@ export const SlotMachine = ({ items }: { items: SlotItem[] }) => {
         });
       };
 
-      // тригери для кожного елемента
+      // triggers for each element
       const triggers = els.map((el, i) =>
         ScrollTrigger.create({
           trigger: el,
@@ -36,7 +36,7 @@ export const SlotMachine = ({ items }: { items: SlotItem[] }) => {
         })
       );
 
-      // початковий стан
+      // initial state
       setActive(0);
 
       return () => {

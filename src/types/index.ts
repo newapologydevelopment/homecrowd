@@ -25,7 +25,7 @@ export interface SanityVideo {
   asset: {
     _ref: string;
     _type: 'reference';
-    url?: string; // витягуй через asset->url у GROQ, тоді буде string
+    url?: string; // extract via asset->url in GROQ, then it will be string
   };
   title?: string;
 }
@@ -49,7 +49,7 @@ export type BackgroundMediaVideo = {
 
 export type BackgroundMedia = BackgroundMediaImage | BackgroundMediaVideo;
 
-// Optional: type guards (зручно у JSX)
+// Optional: type guards (convenient in JSX)
 export const isBGImage = (bm: BackgroundMedia | null | undefined): bm is BackgroundMediaImage =>
   !!bm && bm.mediaType === 'image';
 
@@ -65,20 +65,20 @@ export interface PreloaderBlock {
   logo: SanityImage;
   preloader_title: string;
   preloader_subtitle?: string;
-  backgroundMedia: BackgroundMedia | null; // дозволяємо null, якщо інколи немає
+  backgroundMedia: BackgroundMedia | null; // allow null if sometimes missing
   duration?: number;
 }
 
 export interface HeroBlock {
   _type: 'hero';
   _key: string;
-  backgroundMedia: MediaUnion; // герою достатньо будь-якого медіа
+  backgroundMedia: MediaUnion; // hero is fine with any media
   title?: string;
   subtitle?: string;
 }
 
 export interface VideoTestimonialsBlock {
-  _type: 'videoTestimonialsBlock'; // переконайся, що це збігається з CMS
+  _type: 'videoTestimonialsBlock'; // make sure this matches CMS
   _key: string;
   title?: string;
   videos: Array<{

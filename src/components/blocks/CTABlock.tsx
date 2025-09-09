@@ -70,7 +70,7 @@ export function CTABlock({ pageData, block }: CTABlockProps) {
         </div>
       )}
       <div className="z-10 flex flex-col items-center justify-center">
-        <span className="mt-[120px] md:mb-[17px] mb-[15px] text-white md:text-[5rem] text-[2.5rem] font-baikal-extracondensed-bold md:max-w-[810px] max-w-[333px] text-center leading-[0.95] ">
+        <span className="md:mt-[120px] mt-[0px]  md:mb-[17px] mb-[15px] text-white md:text-[5rem] text-[2.5rem] font-baikal-extracondensed-bold md:max-w-[810px] max-w-[333px] text-center leading-[0.95] ">
           {block.title}
         </span>
         <span className="text-white md:text-[1rem] text-[0.8rem] font-baikal-light md:w-[520px] w-[333px] md:min-w-[520px] min-w-[333px] text-center md:mb-[51px] mb-[31px]">

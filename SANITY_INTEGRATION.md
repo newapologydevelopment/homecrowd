@@ -23,17 +23,17 @@
 
 #### Використання в Tailwind CSS
 ```tsx
-// Основний текст
+// Main text
 <p className="font-baikal-light text-lg">
   Transform your living spaces with our expert design team
 </p>
 
-// Заголовки
+// Headings
 <h2 className="font-baikal-condensed text-2xl">
   Premium Home Services
 </h2>
 
-// Логотипи та великі заголовки
+// Logos and large headings
 <h1 className="font-baikal-extracondensed-bold text-6xl">
   HOMECROWD
 </h1>

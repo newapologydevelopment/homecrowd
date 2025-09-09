@@ -20,19 +20,19 @@ export function AnimatedCardsBlock({ block }: AnimatedCardsBlockProps) {
   // useGSAP(() => {
   //   const mm = gsap.matchMedia()
 
-  //   // Прив’язуємо всі селектори до containerRef
+  //   // Bind all selectors to containerRef
   //   const ctx = gsap.context(() => {
   //     const cardEls = gsap.utils.toArray<HTMLElement>('.card')
 
-  //     // ДЕСКТОП (>=768px): “стек” карт, що роз’їжджаються в нуль
+  //     // DESKTOP (>=768px): "stack" of cards that spread out to zero
   //     mm.add('(min-width: 768px)', () => {
-  //       // Початкові позиції
+  //       // Initial positions
   //       gsap.set(cardEls, {
   //         xPercent: (i: number) => -95 * i,
   //         ease: 'power2.inOut',
   //       })
 
-  //       // Одна спільна тайм-лінія
+  //       // One shared timeline
   //       const tl = gsap.timeline({
   //         scrollTrigger: {
   //           trigger: containerRef.current,
@@ -50,7 +50,7 @@ export function AnimatedCardsBlock({ block }: AnimatedCardsBlockProps) {
   //       })
   //     })
 
-  //     // МОБІЛЬНІ (<=767px): простий fade-up по одній картці
+  //     // MOBILE (<=767px): simple fade-up one card at a time
   //     mm.add('(max-width: 767px)', () => {
   //       gsap.set(cardEls, { opacity: 0, y: 24 })
 
@@ -72,7 +72,7 @@ export function AnimatedCardsBlock({ block }: AnimatedCardsBlockProps) {
   //     })
   //   }, containerRef)
 
-  //   // Cleanup: знімає всі матчі та тригери
+  //   // Cleanup: removes all matches and triggers
   //   return () => {
   //     mm.revert()
   //     ctx.revert()
@@ -80,11 +80,11 @@ export function AnimatedCardsBlock({ block }: AnimatedCardsBlockProps) {
   // }, [])
 
   useGSAP(() => {
-    // Прив’язуємо всі селектори до containerRef
+    // Bind all selectors to containerRef
     const ctx = gsap.context(() => {
       const cardEls = gsap.utils.toArray<HTMLElement>('.card')
 
-      // ОДНАКОВА анімація для мобільних і десктопа: fade-up з мікро-стаггером
+      // SAME animation for mobile and desktop: fade-up with micro-stagger
       gsap.set(cardEls, { opacity: 0, y: 24 })
 
       cardEls.forEach((el, i) => {
@@ -104,7 +104,7 @@ export function AnimatedCardsBlock({ block }: AnimatedCardsBlockProps) {
       })
     }, containerRef)
 
-    // Cleanup: знімає всі тригери
+    // Cleanup: removes all triggers
     return () => {
       ctx.revert()
     }

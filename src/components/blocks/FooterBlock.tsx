@@ -19,7 +19,7 @@ export function FooterBlock({ block }: FooterBlockProps) {
     maxLift: number;
   }>>([]);
 
-  // вимірюємо літери (позиції/висоти) — і при ресайзі також
+  // measure letters (positions/heights) — and also on resize
   useEffect(() => {
     const footer = footerRef.current;
     if (!footer) return;
@@ -35,8 +35,8 @@ export function FooterBlock({ block }: FooterBlockProps) {
         const cx = r.left + r.width / 2;
         const cy = r.top + r.height / 2;
         const h = r.height || 1; // guard
-        const maxLift = 1.2 * h; // максимум ~120% від висоти літери
-        // ставимо origin внизу, щоб "підскакувало" природніше
+        const maxLift = 1.2 * h; // maximum ~120% of letter height
+        // set origin at bottom so it "bounces" more naturally
         gsap.set(el, { transformOrigin: "50% 100%" });
         return { el, cx, cy, h, maxLift };
       });
@@ -44,10 +44,10 @@ export function FooterBlock({ block }: FooterBlockProps) {
 
     measure();
 
-    // спостерігач за розмірами
+    // resize observer
     const ro = new ResizeObserver(() => measure());
     ro.observe(footer);
-    window.addEventListener("scroll", measure, { passive: true }); // на випадок сдвигів лейауту
+    window.addEventListener("scroll", measure, { passive: true }); // in case of layout shifts
 
     return () => {
       ro.disconnect();
@@ -56,9 +56,13 @@ export function FooterBlock({ block }: FooterBlockProps) {
   }, []);
 
   useEffect(() => {
-    // налаштування впливу
-    const influenceRadius = 520; // px — наскільки далеко сусідні "ловлять" ефект
-    const falloffPower = 1.6; // >1 — швидше згасає до країв
+    // Only enable animation on desktop devices (768px and above)
+    const isDesktop = window.innerWidth >= 768;
+    if (!isDesktop) return;
+
+    // influence settings
+    const influenceRadius = 220; // px — how far neighbors "catch" the effect
+    const falloffPower = 1; // >1 — faster falloff to edges
     const ease = "power2.out";
 
     const onMove = (e: MouseEvent) => {
@@ -66,25 +70,25 @@ export function FooterBlock({ block }: FooterBlockProps) {
       const y = e.clientY;
 
       for (const L of lettersRef.current) {
-        // горизонтальна близькість до центру літери
+        // horizontal proximity to letter center
         const dx = Math.abs(x - L.cx);
 
-        // можна трохи врахувати вертикаль: хто ближче по Y, той сильніше (опціонально)
+        // can slightly account for vertical: closer on Y, stronger effect (optional)
         const dy = Math.abs(y - L.cy);
-        const d = Math.hypot(dx * 0.9, dy * 0.3); // легкий пріоритет по X
+        const d = Math.hypot(dx * 0.9, dy * 0.3); // slight priority on X
 
         // 0..1
         const t = Math.max(0, 1 - d / influenceRadius);
-        // кривизна згасання
+        // falloff curve
         const weight = Math.pow(t, falloffPower);
 
-        const lift = -weight * L.maxLift; // вгору = від’ємний y
+        const lift = -weight * L.maxLift; // up = negative y
         gsap.to(L.el, { y: lift, duration: 0.18, ease, overwrite: true });
       }
     };
 
     const onLeave = () => {
-      // повернути всі букви на місце
+      // return all letters to place
       for (const L of lettersRef.current) {
         gsap.to(L.el, { y: 0, duration: 0.35, ease: "power3.out" });
       }
@@ -104,10 +108,10 @@ export function FooterBlock({ block }: FooterBlockProps) {
       ref={footerRef}
       className="relative bg-accent md:h-[471px] h-[174px] overflow-hidden flex flex-col justify-end items-center"
     >
-      {/* Невидима зона ховера над літерами (ловить курсор) */}
-      <div ref={hoverRef} className="absolute bottom-0 left-0 right-0 h-[70vh]" />
+      {/* Invisible hover zone over letters (catches cursor) */}
+      <div ref={hoverRef} className="absolute bottom-0 left-0 right-0 h-[40vh]" />
 
-      <div className="w-full h-full translate-y-[60%]">
+      <div className="w-full h-full  md:translate-y-[58%] translate-y-[55%] p-[15px] md:p-[32px]">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 5595.5 873.4"

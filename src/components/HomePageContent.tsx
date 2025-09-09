@@ -87,11 +87,11 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
 
     const ctaObserver = new IntersectionObserver(
       (entries) => {
-        // Вмикаємо білий варіант логотипа, якщо CTA у вʼюпорті
+        // Enable white logo variant if CTA is in viewport
         const anyVisible = entries.some((e) => e.isIntersecting);
         setIsCtaVisible(anyVisible);
       },
-      // Реагувати миттєво, як тільки CTA входить у вʼюпорт
+      // React immediately as soon as CTA enters viewport
       { root: null, threshold: 0, rootMargin: '0px' }
     );
 
