@@ -1,76 +1,162 @@
 "use client";
 
-import { motion, useAnimation } from "framer-motion";
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useEffect, useRef } from "react";
 import { FooterBlock as FooterBlockType } from "@/types";
+import gsap from "gsap";
 
 interface FooterBlockProps {
   block: FooterBlockType;
 }
 
-interface LetterProps {
-  letter: string;
-  index: number;
-  mousePosition: { x: number; y: number };
-  letterRefs: React.RefObject<HTMLSpanElement>[];
-}
-
 export function FooterBlock({ block }: FooterBlockProps) {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const footerRef = useRef<HTMLElement>(null);
-  const letterRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const hoverRef = useRef<HTMLDivElement>(null);
+  const lettersRef = useRef<Array<{
+    el: SVGPathElement;
+    cx: number;
+    cy: number;
+    h: number;
+    maxLift: number;
+  }>>([]);
+
+  // вимірюємо літери (позиції/висоти) — і при ресайзі також
+  useEffect(() => {
+    const footer = footerRef.current;
+    if (!footer) return;
+
+    const svg = footer.querySelector("#word-homecrowd") as SVGGElement | null;
+    if (!svg) return;
+
+    const paths = Array.from(svg.querySelectorAll<SVGPathElement>('path[id^="letter-"]'));
+
+    const measure = () => {
+      lettersRef.current = paths.map((el) => {
+        const r = el.getBoundingClientRect();
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+        const h = r.height || 1; // guard
+        const maxLift = 1.2 * h; // максимум ~120% від висоти літери
+        // ставимо origin внизу, щоб "підскакувало" природніше
+        gsap.set(el, { transformOrigin: "50% 100%" });
+        return { el, cx, cy, h, maxLift };
+      });
+    };
+
+    measure();
+
+    // спостерігач за розмірами
+    const ro = new ResizeObserver(() => measure());
+    ro.observe(footer);
+    window.addEventListener("scroll", measure, { passive: true }); // на випадок сдвигів лейауту
+
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("scroll", measure);
+    };
+  }, []);
 
   useEffect(() => {
-    const handleGlobalMouseMove = (e: MouseEvent) => {
-      if (footerRef.current) {
-        const rect = footerRef.current.getBoundingClientRect();
-        // Calculate mouse position relative to footer, even when mouse is outside
-        const relativeX = e.clientX - rect.left;
-        const relativeY = e.clientY - rect.top;
-        
-        // Only trigger animation if mouse is within a reasonable distance of the footer
-        const distanceFromFooter = Math.abs(e.clientY - (rect.top + rect.height));
-        const maxTriggerDistance = window.innerHeight * 0.7; // 70vh trigger distance
-        
-        if (distanceFromFooter <= maxTriggerDistance) {
-          setMousePosition({
-            x: relativeX,
-            y: relativeY,
-          });
-        } else {
-          setMousePosition({ x: 0, y: 0 });
-        }
+    const hover = hoverRef.current;
+    if (!hover) return;
+
+    // налаштування впливу
+    const influenceRadius = 520; // px — наскільки далеко сусідні "ловлять" ефект
+    const falloffPower = 1.6; // >1 — швидше згасає до країв
+    const ease = "power2.out";
+
+    const onMove = (e: MouseEvent) => {
+      const x = e.clientX;
+      const y = e.clientY;
+
+      for (const L of lettersRef.current) {
+        // горизонтальна близькість до центру літери
+        const dx = Math.abs(x - L.cx);
+
+        // можна трохи врахувати вертикаль: хто ближче по Y, той сильніше (опціонально)
+        const dy = Math.abs(y - L.cy);
+        const d = Math.hypot(dx * 0.9, dy * 0.3); // легкий пріоритет по X
+
+        // 0..1
+        const t = Math.max(0, 1 - d / influenceRadius);
+        // кривизна згасання
+        const weight = Math.pow(t, falloffPower);
+
+        const lift = -weight * L.maxLift; // вгору = від’ємний y
+        gsap.to(L.el, { y: lift, duration: 0.18, ease, overwrite: true });
       }
     };
 
-    // Add global mouse move listener
-    document.addEventListener('mousemove', handleGlobalMouseMove);
-    
+    const onLeave = () => {
+      // повернути всі букви на місце
+      for (const L of lettersRef.current) {
+        gsap.to(L.el, { y: 0, duration: 0.35, ease: "power3.out" });
+      }
+    };
+
+    hover.addEventListener("mousemove", onMove);
+    hover.addEventListener("mouseleave", onLeave);
+
     return () => {
-      document.removeEventListener('mousemove', handleGlobalMouseMove);
+      hover.removeEventListener("mousemove", onMove);
+      hover.removeEventListener("mouseleave", onLeave);
     };
   }, []);
 
   return (
-    <footer 
+    <footer
       ref={footerRef}
       className="relative bg-accent md:h-[471px] h-[174px] overflow-hidden flex flex-col justify-end items-center"
     >
-      {/* Invisible hover area above footer letters */}
-      <div className="absolute bottom-0 left-0 right-0 h-[70vh] bg-transparent" />
-      
-      {/* Main HOMECROWD text */}
-      <div className="absolute md:translate-y-[105px] translate-y-[0px] left-0 right-0 md:px-[35px] px-[15px] flex justify-between items-center w-full">
-        {"HOMECROWD".split("").map((letter, index) => (
-          <Letter 
-            key={index} 
-            letter={letter} 
-            index={index} 
-            mousePosition={mousePosition}
-            // @ts-ignore
-            letterRefs={letterRefs}
-          />
-        ))}
+      {/* Невидима зона ховера над літерами (ловить курсор) */}
+      <div ref={hoverRef} className="absolute bottom-0 left-0 right-0 h-[70vh]" />
+
+      <div className="w-full h-full translate-y-[60%]">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 5595.5 873.4"
+          fill="currentColor"
+          aria-labelledby="title"
+          className="w-full h-auto overflow-visible"
+        >
+          <title id="title">HOMECROWD wordmark</title>
+          <g id="word-homecrowd">
+            <path id="letter-H" d="M70.2,837.7h181v-325h133v325h181V36.7h-181v320h-133V36.7H70.2v801Z" />
+            <path
+              id="letter-O1"
+              fillRule="evenodd"
+              d="M882.2,848.7c179,0,265-69,265-253v-318c0-184-86-253-265-253s-265,69-265,253v318c0,184,86,253,265,253Z
+                 M882.2,716.7c-59,0-73-39-73-94V250.7c0-55,14-94,73-94s73,39,73,94v372c0,55-14,94-73,94Z"
+            />
+            <path
+              id="letter-M"
+              d="M1199.2,837.7h165V283.7h2l125,554h154l126-554h4l-4,554h181V36.7h-273l-100,479h-2l-99-479h-279в801Z"
+            />
+            <path id="letter-E" d="M2004.2,837.7h413v-155h-231v-173h217v-156h-217v-162h231V36.7h-413v801Z" />
+            <path
+              id="letter-C"
+              d="M2720.2,848.7c179,0,265-69,265-253v-81h-192v108c0,55-14,94-73,94s-73-39-73-94V250.7c0-55,14-94,73-94s73,39,73,94v84h192v-57c0-184-86-253-265-253s-265,69-265,253v318c0,184,86,253,265,253Z"
+            />
+            <path
+              id="letter-R"
+              fillRule="evenodd"
+              d="M3328.2,837.7h179v-260c0-70-16-140-87-154v-2c72-28,99-88,99-166v-33c0-134-74-186-265-186h-219v800h182v-337h44c54,0,66,25,66,79l1,259Z
+                 M3215.2,369.7v-201h40c53,0,80,15,80,68v65c0,52-22,68-80,68h-40Z"
+            />
+            <path
+              id="letter-O2"
+              fillRule="evenodd"
+              d="M3822.2,848.7c179,0,265-69,265-253v-318c0-184-86-253-265-253s-265,69-265,253v318c0,184,86,253,265,253Z
+                 M3822.2,716.7c-59,0-73-39-73-94V250.7c0-55,14-94,73-94s73,39,73,94v372c0,55-14,94-73,94Z"
+            />
+            <path id="letter-W" d="M4222.2,837.7h224l87-485h2l88,485h233l128-801h-165l-81,485h-2l-93-485h-195l-92,483h-2l-81-483h-181l130,801Z" />
+            <path
+              id="letter-D"
+              fillRule="evenodd"
+              d="M5021.2,839.7h227c167,0,277-50,277-220V254.7c0-173-116-218-277-218h-227v803Z
+                 M5204.2,700.7V175.7h35c58,0,96,19,96,107v309c0,87-39,109-96,109h-35Z"
+            />
+          </g>
+        </svg>
       </div>
 
       <div className="absolute top-0 left-0 right-0 flex justify-between md:items-end items-start md:px-[35px] px-[15px] md:pt-[27px] pt-[15px]">
@@ -82,92 +168,5 @@ export function FooterBlock({ block }: FooterBlockProps) {
         </div>
       </div>
     </footer>
-  );
-}
-
-function Letter({ letter, index, mousePosition, letterRefs }: LetterProps) {
-  const controls = useAnimation();
-  const letterRef = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    // @ts-ignore
-    letterRefs.current[index] = letterRef.current;
-  }, [index, letterRefs]);
-
-  useEffect(() => {
-    if (!letterRef.current || mousePosition.x === 0) {
-      controls.start({ y: 0 });
-      return;
-    }
-
-    const letterRect = letterRef.current.getBoundingClientRect();
-    const letterCenterX = letterRect.left + letterRect.width / 2;
-    const letterCenterY = letterRect.top + letterRect.height / 2;
-    
-    // Get footer container to calculate relative position
-    const footerElement = letterRef.current.closest('footer');
-    if (!footerElement) return;
-    
-    const footerRect = footerElement.getBoundingClientRect();
-    const relativeMouseX = mousePosition.x;
-    const relativeMouseY = mousePosition.y;
-    
-    // Calculate distance from mouse to letter center
-    const distanceX = Math.abs(relativeMouseX - (letterCenterX - footerRect.left));
-    const distanceY = Math.abs(relativeMouseY - (letterCenterY - footerRect.top));
-    const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-    
-    // Maximum distance for effect (adjust this to control the "wave radius")
-    const maxDistance = 500;
-    
-    // Calculate lift amount based on distance (closer = higher lift)
-    let liftAmount = 0;
-    if (distance < maxDistance) {
-      // Inverse relationship: closer mouse = higher lift
-      const proximity = 1 - (distance / maxDistance);
-      // Apply easing for smoother effect
-      const easedProximity = proximity * proximity;
-      liftAmount = easedProximity * -100; 
-    }
-    
-    // Add wave effect based on letter position relative to mouse
-    const letterIndex = index;
-    const totalLetters = 9; // "HOMECROWD" has 9 letters
-    const letterPosition = letterIndex / (totalLetters - 1); // 0 to 1
-    
-    // Calculate wave offset based on mouse Y position and letter position
-    const mouseYNormalized = relativeMouseY / footerRect.height;
-    const waveOffset = Math.sin((letterPosition * Math.PI * 2) + (mouseYNormalized * Math.PI)) * 10;
-    
-    const finalLift = liftAmount + waveOffset;
-    
-    controls.start({
-      y: finalLift,
-      transition: { 
-        duration: 0.3, 
-        ease: "easeOut",
-        type: "spring",
-        stiffness: 150,
-        damping: 15
-      },
-    });
-
-  }, [mousePosition, index, controls]);
-
-  return (
-    <motion.span
-      ref={letterRef}
-      className="relative flex-1 flex justify-center align-bottom"
-      initial={{ y: 0 }}
-      animate={controls}
-      style={{
-        willChange: "transform",
-        transformOrigin: "bottom center",
-      }}
-    >
-      <span className="md:text-[19vw] text-[70px] text-[#222222] leading-[1] font-baikal-extracondensed-bold">
-        {letter}
-      </span>
-    </motion.span>
   );
 }
