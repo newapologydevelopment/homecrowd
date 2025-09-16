@@ -8,6 +8,7 @@ import { ScheduleButton } from "./ui/ScheduleButton";
 import { HomecrowdLogo } from "./ui/HomecrowdLogo";
 import { LenisProvider } from "./providers/LenisProvider";
 import { StackedCards } from "./ui/StackedCard";
+import { SEOHead } from "./SEOHead";
 
 interface HomePageContentProps {
   pageData: PageData;
@@ -112,6 +113,10 @@ export function HomePageContent({ pageData }: HomePageContentProps) {
 
   return (
     <main className="h-[100dvh] md:min-h-screen">
+      <SEOHead 
+        favicon={pageData.seo?.favicon}
+        appleTouchIcon={pageData.seo?.appleTouchIcon}
+      />
       {/* Preloader */}
       {preloaderBlock && (
         <div data-logo-variant="light">

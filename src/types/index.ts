@@ -207,6 +207,14 @@ export interface PageData {
     description?: string;
     keywords?: string[];
     ogImage?: SanityImage;
+    favicon?: {
+      asset: any
+      alt?: string
+    }
+    appleTouchIcon?: {
+      asset: any
+      alt?: string
+    }
   };
   logo?: SanityImage;
   scheduleButton?: ScheduleButton;

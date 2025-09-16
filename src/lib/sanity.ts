@@ -20,6 +20,22 @@ export function urlFor(source: SanityImageSource) {
   return builder.image(source)
 }
 
+export function getImageUrl(source: SanityImageSource, width?: number, height?: number) {
+  if (!source) return null
+  
+  let imageBuilder = builder.image(source)
+  
+  if (width) {
+    imageBuilder = imageBuilder.width(width)
+  }
+  
+  if (height) {
+    imageBuilder = imageBuilder.height(height)
+  }
+  
+  return imageBuilder.url()
+}
+
 // GROQ queries for fetching data
 export const pageQuery = `
   *[_type == "page" && slug.current == $slug][0] {
@@ -101,6 +117,14 @@ export const homepageQuery = `
       description,
       keywords,
       ogImage {
+        asset,
+        alt
+      },
+      favicon {
+        asset,
+        alt
+      },
+      appleTouchIcon {
         asset,
         alt
       }

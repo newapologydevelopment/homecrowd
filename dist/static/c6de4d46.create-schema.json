@@ -1019,6 +1019,38 @@
         "name": "ogImage",
         "type": "image",
         "title": "Open Graph Image"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Favicon for the website (32x32px or 16x16px recommended)",
+        "fields": [
+          {
+            "description": "Alt text for the favicon",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "name": "favicon",
+        "type": "image"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Apple Touch Icon (180x180px recommended)",
+        "fields": [
+          {
+            "description": "Alt text for the Apple Touch Icon",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "name": "appleTouchIcon",
+        "type": "image"
       }
     ],
     "name": "seoSettings",

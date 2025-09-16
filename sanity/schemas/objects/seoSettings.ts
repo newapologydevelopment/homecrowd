@@ -39,6 +39,40 @@ export const seoSettings = defineType({
         hotspot: true,
       },
     },
+    {
+      name: 'favicon',
+      title: 'Favicon',
+      type: 'image',
+      description: 'Favicon for the website (32x32px or 16x16px recommended)',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        {
+          name: 'alt',
+          title: 'Alt Text',
+          type: 'string',
+          description: 'Alt text for the favicon',
+        },
+      ],
+    },
+    {
+      name: 'appleTouchIcon',
+      title: 'Apple Touch Icon',
+      type: 'image',
+      description: 'Apple Touch Icon (180x180px recommended)',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        {
+          name: 'alt',
+          title: 'Alt Text',
+          type: 'string',
+          description: 'Alt text for the Apple Touch Icon',
+        },
+      ],
+    },
   ],
 })
 
