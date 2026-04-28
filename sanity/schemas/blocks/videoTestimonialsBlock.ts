@@ -21,12 +21,10 @@ export const videoTestimonialsBlock = defineType({
           title: 'Testimonial Video',
           fields: [
             {
-              name: 'video',
-              title: 'Video',
-              type: 'file',
-              options: {
-                accept: 'video/*',
-              },
+              name: 'muxPlaybackId',
+              title: 'Mux Playback ID',
+              type: 'string',
+              description: 'Mux video playback ID (e.g. cLbG6RpaDcNDue2CiqvyD3K5sCgEL0079WVs3TkJ8gec)',
               validation: (Rule) => Rule.required(),
             },
             {
@@ -56,13 +54,11 @@ export const videoTestimonialsBlock = defineType({
             select: {
               institution: 'institution',
               authorName: 'authorName',
-              video: 'video',
             },
             prepare(selection) {
               return {
                 title: selection.institution,
                 subtitle: selection.authorName,
-                media: selection.video,
               }
             },
           },

@@ -78,12 +78,12 @@ export interface HeroBlock {
 }
 
 export interface VideoTestimonialsBlock {
-  _type: 'videoTestimonialsBlock'; // make sure this matches CMS
+  _type: 'videoTestimonialsBlock';
   _key: string;
   title?: string;
   videos: Array<{
     _key: string;
-    video: SanityVideo;
+    muxPlaybackId: string;
     institution: string;
     testimonialText?: string;
     authorName?: string;

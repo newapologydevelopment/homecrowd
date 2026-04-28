@@ -75,9 +75,7 @@ export const pageQuery = `
       // Handle video testimonials
       videos[] {
         _key,
-        video {
-          asset
-        },
+        muxPlaybackId,
         institution,
         testimonialText,
         authorName,
@@ -163,9 +161,7 @@ export const homepageQuery = `
       },
       videos[] {
         _key,
-        video {
-          asset
-        },
+        muxPlaybackId,
         institution,
         testimonialText,
         authorName,

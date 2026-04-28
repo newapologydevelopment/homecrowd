@@ -1,61 +1,50 @@
-import { SanityVideo } from "@/types";
-import { getSanityFileUrl } from "@/lib/sanityUtils";
+"use client";
+
+import MuxPlayer from "@mux/mux-player-react";
 
 type AdvancedVideoProps = {
-  video: SanityVideo;
+  muxPlaybackId: string;
   autoPlay?: boolean;
   controls?: boolean;
   muted?: boolean;
   className?: string;
-  preload?: "none" | "metadata" | "auto";
   onPlay?: () => void;
   onEnded?: () => void;
-  onLoadStart?: () => void;
-  onCanPlay?: () => void;
 };
 
 export default function AdvancedVideo({
-  video,
+  muxPlaybackId,
   autoPlay = false,
   controls = true,
   muted = false,
-  preload = "metadata",
+  className,
   onPlay,
   onEnded,
-  onLoadStart,
-  onCanPlay,
-  className,
 }: AdvancedVideoProps) {
-  if (video.asset?._ref) {
-    const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "";
-    const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "";
-
-    const videoUrl = getSanityFileUrl(video.asset._ref, projectId, dataset);
-    console.log('video.asset._ref', video.asset._ref)
-
-    console.log('videoUrl', videoUrl)
+  if (!muxPlaybackId) {
     return (
-      <video
-        className={className}
-        controls={controls}
-        autoPlay={autoPlay}
-        muted={autoPlay ? true : muted}
-        playsInline
-        loop
-        preload={preload}
-        onPlay={onPlay}
-        onEnded={onEnded}
-        onLoadStart={onLoadStart}
-        onCanPlay={onCanPlay}
-      >
-        <source src={videoUrl} type="video/mp4" />
-      </video>
+      <div className="w-full h-full bg-gray-800 flex items-center justify-center text-white">
+        Video not available
+      </div>
     );
   }
 
   return (
-    <div className="w-full h-full bg-gray-800 flex items-center justify-center text-white">
-      Video not available
-    </div>
+    <MuxPlayer
+      playbackId={muxPlaybackId}
+      autoPlay={autoPlay ? "muted" : false}
+      muted={autoPlay || muted}
+      loop
+      playsInline
+      className={className}
+      onPlay={onPlay}
+      onEnded={onEnded}
+      style={{
+        aspectRatio: "unset",
+        width: "100%",
+        height: "100%",
+        ...(controls ? {} : { "--controls": "none" }),
+      }}
+    />
   );
 }

@@ -4,7 +4,7 @@ import { PageData, PageBlock } from '@/types'
 const createMockImage = (filename: string) => ({
   _type: 'image' as const,
   asset: {
-    _ref: `image-${filename}-1920x1080-jpg`,
+    _ref: 'image-placeholder0000000001-1920x1080-jpg',
     _type: 'reference' as const,
   },
   alt: `Mock image: ${filename}`,
@@ -44,7 +44,7 @@ export const mockBlocks: PageBlock[] = [
     videos: [
       {
         _key: 'testimonial-1',
-        video: createMockVideo('testimonial-harvard'),
+        muxPlaybackId: 'cLbG6RpaDcNDue2CiqvyD3K5sCgEL0079WVs3TkJ8gec',
         institution: 'Harvard University',
         testimonialText: 'HomeCrowd transformed our campus housing completely. The attention to detail was exceptional.',
         authorName: 'Dr. Sarah Johnson',
@@ -52,27 +52,11 @@ export const mockBlocks: PageBlock[] = [
       },
       {
         _key: 'testimonial-2',
-        video: createMockVideo('testimonial-mit'),
+        muxPlaybackId: 'JkiNPQT01KtYZl7xUU6E7qh2r0102u2jL028NEOqirHWNE8',
         institution: 'MIT',
         testimonialText: 'The innovative solutions and premium quality exceeded all our expectations.',
         authorName: 'Prof. Michael Chen',
         authorRole: 'Facilities Manager',
-      },
-      {
-        _key: 'testimonial-3',
-        video: createMockVideo('testimonial-stanford'),
-        institution: 'Stanford University',
-        testimonialText: 'Professional, efficient, and absolutely stunning results.',
-        authorName: 'Lisa Martinez',
-        authorRole: 'Student Life Coordinator',
-      },
-      {
-        _key: 'testimonial-4',
-        video: createMockVideo('testimonial-yale'),
-        institution: 'Yale University',
-        testimonialText: 'HomeCrowd made our renovation process seamless and stress-free.',
-        authorName: 'David Wilson',
-        authorRole: 'Campus Operations',
       },
     ],
   },

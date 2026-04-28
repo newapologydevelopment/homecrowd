@@ -91,7 +91,7 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
                 >
                   <div className="relative w-full md:h-[449px] h-[333px] ">
                     <AdvancedVideo
-                      video={video.video}
+                      muxPlaybackId={video.muxPlaybackId}
                       autoPlay
                       className="w-full h-full object-cover"
                       controls={false}
@@ -144,8 +144,8 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
           {selectedVideo && (
             <div className="relative animate-in fade-in-0 zoom-in-105 duration-500 ease-out flex items-center justify-center">
               <AdvancedVideo
-                video={selectedVideo.video}
-                autoPlay
+                muxPlaybackId={selectedVideo.muxPlaybackId}
+                autoPlay={false}
                 muted={false}
                 className="md:rounded-[8px] rounded-[4px] object-contain md:max-w-[70vw] max-w-[100vw] max-h-[82vh]"
                 controls={true}
