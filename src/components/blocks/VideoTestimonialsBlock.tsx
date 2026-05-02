@@ -25,7 +25,17 @@ interface VideoTestimonialsBlockProps {
   block: VideoTestimonialsBlockType;
 }
 
+const FALLBACK_IDS = [
+  'cLbG6RpaDcNDue2CiqvyD3K5sCgEL0079WVs3TkJ8gec',
+  'JkiNPQT01KtYZl7xUU6E7qh2r0102u2jL028NEOqirHWNE8',
+];
+
 export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
+  const videos = block.videos.map((v, i) => ({
+    ...v,
+    muxPlaybackId: v.muxPlaybackId || FALLBACK_IDS[i] || '',
+  }));
+
   const [api, setApi] = useState<CarouselApi>();
   const [currentSlide, setCurrentSlide] = useState(1);
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
@@ -73,7 +83,7 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
           setApi={setApi}
         >
           <CarouselContent className="md:max-h-[570px] max w-[100vw]">
-            {[...block.videos, ...block.videos, ...block.videos].map(
+            {[...videos, ...videos, ...videos].map(
               (video, index) => (
                 <CarouselItem
                   key={index}

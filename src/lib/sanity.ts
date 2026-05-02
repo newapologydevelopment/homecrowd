@@ -57,7 +57,7 @@ export const pageQuery = `
           crop
         },
         video {
-          asset
+          asset->{ url }
         }
       },
       media {
@@ -69,7 +69,7 @@ export const pageQuery = `
           crop
         },
         video {
-          asset
+          asset->{ url }
         }
       },
       // Handle video testimonials
@@ -144,7 +144,7 @@ export const homepageQuery = `
           crop
         },
         video {
-          asset
+          asset->{ url }
         }
       },
       media {
@@ -156,7 +156,7 @@ export const homepageQuery = `
           crop
         },
         video {
-          asset
+          asset->{ url }
         }
       },
       videos[] {

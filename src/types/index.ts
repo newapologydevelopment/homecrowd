@@ -148,7 +148,7 @@ export interface CTABlock {
   description?: string;
   buttonText: string;
   buttonLink: string;
-  backgroundMedia?: MediaUnion;
+  backgroundMedia?: BackgroundMedia;
 }
 
 export interface EmailSignupBlock {

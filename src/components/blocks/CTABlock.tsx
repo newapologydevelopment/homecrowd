@@ -1,16 +1,15 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import {
   CTABlock as CTABlockType,
-  MediaUnion,
+  BackgroundMedia,
   PageData,
-  SanityImage,
-  SanityVideo,
+  isBGImage,
+  isBGVideo,
 } from "@/types";
 import { urlFor } from "@/lib/sanity";
 import Image from "next/image";
-import AdvancedVideo from "../ui/AdvancedVideo";
+import { SanityVideo } from "../ui/SanityVideo";
 import { ScheduleButton } from "../ui/ScheduleButton";
 
 interface CTABlockProps {
@@ -19,16 +18,15 @@ interface CTABlockProps {
 }
 
 interface BackgroundMediaProps {
-  media: MediaUnion;
+  media: BackgroundMedia;
 }
 
-function BackgroundMedia({ media }: BackgroundMediaProps) {
-  //@ts-ignore
-  if (media.mediaType === "image") {
+function BackgroundMediaRenderer({ media }: BackgroundMediaProps) {
+  if (isBGImage(media)) {
     return (
       <Image
-        src={urlFor(media as SanityImage).url()}
-        alt={(media as SanityImage).alt || "Background"}
+        src={urlFor(media.image).url()}
+        alt={media.image.alt || "Background"}
         fill
         className="object-cover"
         priority
@@ -38,18 +36,16 @@ function BackgroundMedia({ media }: BackgroundMediaProps) {
     );
   }
 
-  //@ts-ignore
-
-  if (media.mediaType === "video") {
+  if (isBGVideo(media)) {
     return (
-      <AdvancedVideo
-        //@ts-ignore
-        video={media?.video}
+      <SanityVideo
+        video={media.video}
         autoPlay={true}
         controls={false}
         muted={true}
+        loop={true}
+        playsInline={true}
         className="w-full md:h-full h-[105%] object-cover overflow-hidden md:overflow-visible"
-        preload="auto"
       />
     );
   }
@@ -66,7 +62,7 @@ export function CTABlock({ pageData, block }: CTABlockProps) {
       {/* Background Media */}
       {block.backgroundMedia && (
         <div className="absolute inset-0 z-0 w-[105vw] -left-[2.5vw]">
-          <BackgroundMedia media={block.backgroundMedia} />
+          <BackgroundMediaRenderer media={block.backgroundMedia} />
         </div>
       )}
       <div className="z-10 flex flex-col items-center justify-center">
@@ -81,7 +77,7 @@ export function CTABlock({ pageData, block }: CTABlockProps) {
             style={{ width: "520px" }}
             className="placeholder:text-[#838383] placeholder:font-baikal-condensed text-[0.8rem] text-black-main h-[54px] md:max-w-[520px] max-w-[333px] pl-[22px] pr-[150px] rounded-[4px]"
             type="text"
-            placeholder={"What’s your work email?"}
+            placeholder={"What's your work email?"}
           />
           <ScheduleButton
             className="absolute right-[6.5px] top-[6.5px]"

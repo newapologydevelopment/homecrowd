@@ -189,7 +189,7 @@ export const mockBlocks: PageBlock[] = [
     description: 'Schedule a consultation with our experts and see how HomeCrowd can bring your vision to life.',
     buttonText: 'Schedule a Demo',
     buttonLink: 'https://calendly.com/homecrowd/consultation',
-    backgroundMedia: createMockImage('cta-background'),
+    backgroundMedia: { mediaType: 'image' as const, image: createMockImage('cta-background'), video: null },
   },
 
   // Email Signup
