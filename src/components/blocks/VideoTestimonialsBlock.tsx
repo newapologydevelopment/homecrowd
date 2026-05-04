@@ -5,8 +5,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
 import AdvancedVideo from "../ui/AdvancedVideo";
@@ -18,7 +16,6 @@ import {
   DialogContent,
   DialogFooter,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 
 interface VideoTestimonialsBlockProps {
@@ -102,7 +99,9 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
                   <div className="relative w-full md:h-[449px] h-[333px] ">
                     <AdvancedVideo
                       muxPlaybackId={video.muxPlaybackId}
-                      autoPlay
+                      autoPlay={index === currentSlide}
+                      muted={true}
+                      preload={index === currentSlide ? "auto" : "none"}
                       className="w-full h-full object-cover"
                       controls={false}
                     />
@@ -147,17 +146,17 @@ export function VideoTestimonialsBlock({ block }: VideoTestimonialsBlockProps) {
         </Carousel>
       </div>
 
-      {/* Full-screen video dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="w-fit h-fit p-0 bg-transparent flex items-center justify-center [&>button]:hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-105 data-[state=closed]:slide-out-to-center-4 data-[state=open]:slide-in-from-center-4 duration-500 ease-out focus:outline-none focus:ring-0 focus:border-0">
+        <DialogContent className="fixed inset-0 max-w-none w-screen h-screen p-0 bg-background/80 backdrop-blur-sm border-0 flex items-center justify-center [&>button]:hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-100 data-[state=closed]:zoom-out-100 data-[state=open]:slide-in-from-left-0 data-[state=open]:slide-in-from-top-0 data-[state=closed]:slide-out-to-left-0 data-[state=closed]:slide-out-to-top-0 duration-300 ease-out outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 translate-x-0 translate-y-0">
           <DialogTitle className="sr-only">Video Player</DialogTitle>
           {selectedVideo && (
-            <div className="relative animate-in fade-in-0 zoom-in-105 duration-500 ease-out flex items-center justify-center">
+            <div className="relative animate-in fade-in-0 zoom-in-105 duration-500 ease-out md:w-[70vw] w-[95vw] aspect-video rounded-[8px] overflow-hidden">
               <AdvancedVideo
                 muxPlaybackId={selectedVideo.muxPlaybackId}
-                autoPlay={false}
+                autoPlay={true}
                 muted={false}
-                className="md:rounded-[8px] rounded-[4px] object-contain md:max-w-[70vw] max-w-[100vw] max-h-[82vh]"
+                preload="auto"
+                objectFit="contain"
                 controls={true}
               />
               <DialogFooter style={{ height: 0, width: "100%" }}>

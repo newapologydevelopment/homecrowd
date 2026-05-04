@@ -282,9 +282,6 @@
           {
             "fields": [
               {
-                "options": {
-                  "accept": "video/*"
-                },
                 "validation": [
                   {
                     "rules": [
@@ -296,8 +293,10 @@
                     "level": "error"
                   }
                 ],
-                "name": "video",
-                "type": "file"
+                "description": "Mux video playback ID (e.g. cLbG6RpaDcNDue2CiqvyD3K5sCgEL0079WVs3TkJ8gec)",
+                "name": "muxPlaybackId",
+                "type": "string",
+                "title": "Mux Playback ID"
               },
               {
                 "validation": [
